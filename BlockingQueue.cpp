@@ -5,3 +5,12 @@ BloquingQueue::BloquingQueue(){
 
 BloquingQueue::~BloquingQueue(){
 }
+
+BloquingQueue::pop(){
+}
+
+BloquingQueue::push(){
+}
+
+BloquingQueue::close(){
+}
