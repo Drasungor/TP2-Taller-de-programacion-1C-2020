@@ -9,18 +9,21 @@ class BloquingQueue {
 private:
   bool is_closed;
   std::mutex m;
-  std::queue<Resource>;
+  std::queue<Resource> q;
   std::condition_variable cv;
+private:
+  void is_empty();
+
 public:
   BloquingQueue();
 
 	~BloquingQueue();
 
-  pop();
+  Resource pop();
 
-  push();
+  void push();
 
-  close();
+  void close();
 
 
 };
