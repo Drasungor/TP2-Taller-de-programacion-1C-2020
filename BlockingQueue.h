@@ -1,11 +1,11 @@
-#ifndef _BLOQUING_QUEUE_H_
-#define _BLOQUING_QUEUE_H_
+#ifndef _BLOCKING_QUEUE_H_
+#define _BLOCKING_QUEUE_H_
 
-#include <condition_variable.h>
-#include <mutex.h>
+#include <condition_variable>
+#include <mutex>
 #include <queue>
 
-class BloquingQueue {
+class BlockingQueue {
 private:
   bool is_closed;
   std::mutex m;
@@ -15,17 +15,15 @@ private:
   void is_empty();
 
 public:
-  BloquingQueue();
+  BlockingQueue();
 
-	~BloquingQueue();
+	~BlockingQueue();
 
   Resource pop();
 
   void push();
 
   void close();
-
-
 };
 
 #endif

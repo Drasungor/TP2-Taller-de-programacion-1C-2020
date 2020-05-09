@@ -1,25 +1,37 @@
-#include "BloquingQueue.h"
+#include "BlockingQueue.h"
 
-BloquingQueue::BloquingQueue(){
+#include <condition_variable>
+#include <mutex>
+
+BlockingQueue::BlockingQueue(){
   is_closed = false;
 }
 
-BloquingQueue::~BloquingQueue(){
+BlockingQueue::~BlockingQueue(){
 }
 
-Resource BloquingQueue::pop(){
-  while (!is_closed) {
+Resource BlockingQueue::pop(){
+  unique_lock<std::mutex> lk(m);
+  Resource resource;
+  while (q.empty()) {
+    if (is_closed) {
+      //TIRAR EXCEPCION O CAMBIAR LA FUNCION
+      //POR GUARDAR PUNTEROS Y DEVOLVER NULL
+    }
+    cv.wait(lk);
   }
-  
+  resource = q.front();
+  q.pop();
+  return resource;
 }
 
-void BloquingQueue::push(Resource resource){
+void BlockingQueue::push(Resource resource){
   std::lock_guard<std::mutex> lk(m);
   q.push(resource);
   cv.notify_all();
 }
 
-void BloquingQueue::close(){
+void BlockingQueue::close(){
   //VER SI NO HACE FALTA ESTE LOCK, ANALIZAR BIEN SI ES
   //UNA CRITICAL SECTION
   std::lock_guard<std::mutex> lk(m);
