@@ -29,10 +29,11 @@ int execute(const char** arguments, int number_of_arguments){
 
   //ACA SE TIRAN LOS THREADS DE RECOLECTORES
 
-  
+  String buffer;
 
-
-
+  std::getline(materials, buffer);
+  //esto se hace despues de cargar los chars en las colas
+  buffer.clear();
   return SUCCESS;
 }
 
