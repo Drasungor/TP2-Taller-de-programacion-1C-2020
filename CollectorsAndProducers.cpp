@@ -27,6 +27,10 @@ int execute(const char** arguments, int number_of_arguments){
     return INVALID_FILE;
   }
 
+  //ACA SE TIRAN LOS THREADS DE RECOLECTORES
+
+  
+
 
 
   return SUCCESS;
