@@ -27,6 +27,8 @@ public:
   void push(Resource resource);
 
   void close();
+
+  BlockingQueue(const BlockingQueue&) = delete;
 };
 
 #endif
