@@ -3,13 +3,14 @@
 //#include <iostream>
 #include <fstream>
 #include <string>
-#include <map>
+//#include <map>
 #include "Resource.h"
 #include "BlockingQueue.h"
 
 #define NUMBER_OF_ARGUMENTS 3
 #define MATERIALS_FILE_INDEX 1
 #define WORKERS_FILE_INDEX 2
+#define NUMBER_OF_GATHERER_TYPES 3
 
 #define SUCCESS 0
 #define INVALID_ARGUMENTS 1
@@ -38,7 +39,10 @@ int execute(const char** arguments, int number_of_arguments){
   }
 
   //ACA SE TIRAN LOS THREADS DE RECOLECTORES
-  std::map<Resource, BlockingQueue> gatherers_queues;
+
+  //VER SI CONVIENE O NO HACER UN MAP DE REFERENCIAS
+  //std::map<Resource, BlockingQueue&> gatherers_queues;
+
   //esto se hace despues de cargar los chars en las colas
   load_resources(materials);
 
