@@ -2,6 +2,8 @@
 
 #include <condition_variable>
 #include <mutex>
+//#include <thread>
+#include "Resource.h"
 
 BlockingQueue::BlockingQueue(){
   is_closed = false;
@@ -11,7 +13,7 @@ BlockingQueue::~BlockingQueue(){
 }
 
 Resource BlockingQueue::pop(){
-  unique_lock<std::mutex> lk(m);
+  std::unique_lock<std::mutex> lk(m);
   Resource resource;
   while (q.empty()) {
     if (is_closed) {

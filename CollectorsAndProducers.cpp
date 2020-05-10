@@ -2,6 +2,7 @@
 
 //#include <iostream>
 #include <fstream>
+#include <string>
 
 #define NUMBER_OF_ARGUMENTS 3
 #define MATERIALS_FILE_INDEX 1
@@ -12,7 +13,11 @@
 #define INVALID_FILE 1
 
 
-
+void load_resources(std::ifstream& materials){
+  std::string buffer;
+  std::getline(materials, buffer);
+  buffer.clear();
+}
 
 
 
@@ -29,11 +34,9 @@ int execute(const char** arguments, int number_of_arguments){
 
   //ACA SE TIRAN LOS THREADS DE RECOLECTORES
 
-  String buffer;
-
-  std::getline(materials, buffer);
   //esto se hace despues de cargar los chars en las colas
-  buffer.clear();
+  load_resources(materials);
+
   return SUCCESS;
 }
 

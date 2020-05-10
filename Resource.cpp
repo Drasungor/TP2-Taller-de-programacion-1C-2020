@@ -1,4 +1,5 @@
-#include "CollectorsAndProducers.h"
+/*
+#include "Resource.h"
 
 Resource::Resource(){
 }
@@ -13,3 +14,4 @@ Resource::~Resource(){
 char Resource::get_resource_indicator(){
   return indicator;
 }
+*/

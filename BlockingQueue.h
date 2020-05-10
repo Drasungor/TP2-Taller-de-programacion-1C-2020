@@ -4,6 +4,8 @@
 #include <condition_variable>
 #include <mutex>
 #include <queue>
+#include "Resource.h"
+
 
 class BlockingQueue {
 private:
@@ -21,7 +23,7 @@ public:
 
   Resource pop();
 
-  void push();
+  void push(Resource resource);
 
   void close();
 };
