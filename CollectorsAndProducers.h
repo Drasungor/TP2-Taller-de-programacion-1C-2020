@@ -19,7 +19,7 @@ private:
   void destroy_gatherers_queues(std::vector<BlockingQueue>& queues);
   */
   void _load_workers_ammounts(std::ifstream& workers,
-                              std::map<string, int>& workers_ammounts);
+                              std::map<std::string, int>& workers_ammounts);
 public:
   CollectorsAndProducers();
 

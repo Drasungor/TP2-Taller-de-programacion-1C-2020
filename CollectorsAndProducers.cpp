@@ -122,10 +122,9 @@ void CollectorsAndProducers::load_workers_ammounts(std::ifstream& workers,
 
 //Loads the ammount of each worker
 void CollectorsAndProducers::_load_workers_ammounts(std::ifstream& workers,
-                                  std::map<string, int>& workers_ammounts){
+                                std::map<std::string, int>& workers_ammounts){
   std::string worker_type;
   std::string number_of_workers;
-  int index;
   //VER SI GETLINE TIRA EOF DESPUES DE INTENTAR LEER
   //LEER AL FINAL DEL WHILE O USAR PEEK
   while (!workers.eof()) {
@@ -154,8 +153,8 @@ int CollectorsAndProducers::execute(const char** arguments, int number_of_argume
     return INVALID_FILE;
   }
 
-  std::map<string, int> workers_ammounts;
-  load_workers_ammounts(workers, workers_ammounts);
+  std::map<std::string, int> workers_ammounts;
+  _load_workers_ammounts(workers, workers_ammounts);
 
   //ACA SE EJECUTAN LAS FUNCIONES DE ResourcesProcessor
 
