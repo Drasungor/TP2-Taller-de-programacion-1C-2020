@@ -103,7 +103,10 @@ std::map<std::string, int> ResourcesProcessor::
 
   destroy_blocking_queues(queues);
 
+  //BORRAR: ESTA SOLO PARA QUE COMPILE
+  std::map<std::string, int> compila;
   //PONER RETURN
+  return compila;
 }
 
 
