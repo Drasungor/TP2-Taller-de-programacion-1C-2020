@@ -3,11 +3,9 @@
 //VER SI HAY QUE BORRARLO POR EL COSNTRUCTOR
 #include <vector>
 
-
 #define RESOURCES_INITIAL_QUANTITY 0
 
 /////////////////////PUBLIC//////////////////////////////
-
 
 void Inventory::add_resource(Resource resource){
   std::lock_guard<std::mutex> lk(m);

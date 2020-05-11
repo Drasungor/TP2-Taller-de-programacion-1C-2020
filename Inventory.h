@@ -17,6 +17,8 @@ public:
 	~Inventory();
 
   void add_resource(Resource resource);
+
+  
 };
 
 #endif

@@ -77,17 +77,21 @@ void ResourcesProcessor::_store_resources(std::fstream& resources, std::vector<B
 }
 
 
-
-void ResourcesProcessor::create_blocking_queues(std::vector<BlockingQueue*>& queues){
+//Ver si puedo cambiar estas funciones por una sola que itere por la lista de
+void ResourcesProcessor::_create_blocking_queues(std::vector<BlockingQueue*>& queues){
   for (size_t i = 0; i < NUMBER_OF_GATHERER_TYPES; i++) {
     queues.push_back(new BlockingQueue());
   }
 }
 
-void ResourcesProcessor::destroy_blocking_queues(std::vector<BlockingQueue*>& queues){
+void ResourcesProcessor::_destroy_blocking_queues(std::vector<BlockingQueue*>& queues){
   for (size_t i = 0; i < NUMBER_OF_GATHERER_TYPES; i++) {
     delete(queues[i]);
   }
+}
+
+void ResourcesProcessor::_close_blocking_queues(std::vector<BlockingQueue*>& queues){
+
 }
 
 
@@ -97,11 +101,15 @@ std::map<std::string, int> ResourcesProcessor::
         process_resources(std::fstream& resources,
                           const std::map<std::string, int>& number_of_workers){
   std::vector<BlockingQueue*> queues;
-  create_blocking_queues(queues);
+  _create_blocking_queues(queues);
+
+  for (size_t i = 0; i < queues.size(); i++) {
+    /* code */
+  }
 
 
 
-  destroy_blocking_queues(queues);
+  _destroy_blocking_queues(queues);
 
   //BORRAR: ESTA SOLO PARA QUE COMPILE
   std::map<std::string, int> compila;
