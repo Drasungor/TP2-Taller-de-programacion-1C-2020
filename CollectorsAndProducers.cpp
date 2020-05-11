@@ -3,27 +3,24 @@
 //#include <iostream>
 #include <fstream>
 #include <string>
-//#include <map>
+#include <map>
 #include "Resource.h"
 #include "BlockingQueue.h"
+#include "FilesConstants.h"
 
 #define NUMBER_OF_ARGUMENTS 3
 #define MATERIALS_FILE_INDEX 1
 #define WORKERS_FILE_INDEX 2
 #define NUMBER_OF_GATHERER_TYPES 3
+#define NUMBER_OF_WORKER_TYPES 6
 
 #define SUCCESS 0
 #define INVALID_ARGUMENTS 1
 #define INVALID_FILE 1
 
-/*
-const char FARMER_RESOURCES[] = {RESOURCE_WHEAT, '\0'};
-const char LUMBERJACK_RESOURCES[] = {RESOURCE_WOOD, '\0'};
-const char MINER_RESOURCES[] = {RESOURCE_IRON, RESOURCE_COAL, '\0'};
-const std::vector<std::string> gatherers_resources = {"buenas"};
-*/
-enum GathererIndex{
-  GATHERER_INDEX_FARMER, GATHERER_INDEX_LUMBERJACK, GATHERER_INDEX_MINER
+enum WorkerIndex{
+  WORKER_INDEX_FARMER, WORKER_INDEX_LUMBERJACK, WORKER_INDEX_MINER,
+  WORKER_INDEX_COOKER, WORKER_INDEX_CARPENTER, WORKER_INDEX_GUNSMITH
 };
 
 //Returns the index for the gatherer in the gatherers vector
@@ -70,7 +67,7 @@ void CollectorsAndProducers::load_resources(std::ifstream& materials,
 }
 
 //Stores blocking quques in the vector
-void build_gatherers_queues(std::vector<BlockingQueue>& queues){
+void CollectorsAndProducers::build_gatherers_queues(std::vector<BlockingQueue>& queues){
   BlockingQueue* q;
     for (size_t i = 0; i < NUMBER_OF_GATHERER_TYPES; i++) {
       q = new BlockingQueue();
@@ -78,12 +75,47 @@ void build_gatherers_queues(std::vector<BlockingQueue>& queues){
     }
 }
 //Stores blocking quques in the vector
-void destroy_gatherers_queues(std::vector<BlockingQueue>& queues){
+void CollectorsAndProducers::destroy_gatherers_queues
+                              (std::vector<BlockingQueue>& queues){
     for (size_t i = 0; i < NUMBER_OF_GATHERER_TYPES; i++) {
       queues.push_back(q);
     }
 }
 
+
+WorkerIndex CollectorsAndProducers::get_worker_index(string worker){
+  if (worker == FARMER_TEXT) {
+    return WORKER_INDEX_FARMER;
+  } else if (worker == LUMBERJACK_TEXT) {
+    return WORKER_INDEX_LUMBERJACK;
+  } else if (worker == MINER_TEXT) {
+    return WORKER_INDEX_MINER;
+  } else if (worker == COOKER_TEXT) {
+    return WORKER_INDEX_COOKER;
+  } else if (worker == CARPENTER_TEXT) {
+    return WORKER_INDEX_CARPENTER;
+  } else {
+    return WORKER_INDEX_GUNSMITH;
+  }
+}
+
+void CollectorsAndProducers::load_workers_ammounts(std::ifstream& workers,
+                                  std::vector<int>& workers_ammounts){
+  std::string buffer;
+  int index;
+  while (!workers.eof()) {
+    std::getline(workers, buffer, WORKER_NUMBER_SEPARATOR);
+    index = get_worker_index(buffer);
+    buffer.clear();
+    std::getline(workers, buffer);
+    workers_ammounts[index] = std::stoi(buffer);
+    buffer.clear();
+  }
+}
+
+
+
+/////////////////PUBLIC////////////////////
 
 int CollectorsAndProducers::execute(const char** arguments, int number_of_arguments){
   if (number_of_arguments != NUMBER_OF_ARGUMENTS) {
@@ -97,17 +129,20 @@ int CollectorsAndProducers::execute(const char** arguments, int number_of_argume
     return INVALID_FILE;
   }
 
-  //ACA SE TIRAN LOS THREADS DE RECOLECTORES
 
-  //VER SI CONVIENE O NO HACER UN MAP DE REFERENCIAS
-  build_gatherers_queues(queues);
-  /*
-  std::map<Resource, BlockingQueue&> gatherers_queues;
-  BlockingQueue q;
-  gatherers_queues.insert(std::pair<Resource, BlockingQueue&>());
-  */
-  //esto se hace despues de cargar los chars en las colas
-  load_resources(materials, queues);
+
+  //ACA SE TIRAN LOS THREADS DE RECOLECTORES
+  //VER SI SE PUEDE CAMBIAR EL VECTOR POR UN MAP
+  std::vector<BlockingQueue> resources_queues;
+  build_gatherers_queues(resources_queues);
+  std::vector<std::thread> threads;
+
+  //Stores the ammount of each type of worker
+  std::vector<int> workers_ammounts(NUMBER_OF_WORKER_TYPES, 0);
+  //std::map<string, int> workers_ammounts;
+
+  load_resources(materials, resources_queues);
+  destroy_gatherers_queues(resources_queues);
 
   return SUCCESS;
 }
