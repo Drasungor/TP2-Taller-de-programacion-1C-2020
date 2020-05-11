@@ -1,10 +1,11 @@
 #ifndef _COLLECTORS_AND_PRODUCERS_H_
 #define _COLLECTORS_AND_PRODUCERS_H_
 
-#include "Resource.h"
-#include "BlockingQueue.h"
 #include <string>
 #include <vector>
+#include <map>
+#include <fstream>
+#include "BlockingQueue.h"
 
 class CollectorsAndProducers {
 private:
@@ -17,6 +18,8 @@ private:
                       std::vector<BlockingQueue&> &queues);
   void destroy_gatherers_queues(std::vector<BlockingQueue>& queues);
   */
+  void _load_workers_ammounts(std::ifstream& workers,
+                              std::map<string, int>& workers_ammounts);
 public:
   CollectorsAndProducers();
 
