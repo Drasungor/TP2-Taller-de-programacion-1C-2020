@@ -15,11 +15,11 @@ enum GathererQueueIndex{
   GATHERER_QUEUE_INDEX_MINER
 };
 
-
+/*
 //Loads the resources from the materials file into the
 //different gatherers' blocking queues
 void ResourcesProcessor::_load_resources(std::ifstream& materials,
-                                        std::vector<BlockingQueue> &queues){
+                                         std::vector<BlockingQueue>& queues){
   std::string buffer;
   Resource aux;
   while (!materials.eof()) {
@@ -32,6 +32,7 @@ void ResourcesProcessor::_load_resources(std::ifstream& materials,
   }
   //CERRAR TODAS LAS COLAS BLOQUEANTES
 }
+*/
 
 int _get_gatherer_queue_index(Resource resource){
   switch (resource) {
@@ -46,7 +47,7 @@ int _get_gatherer_queue_index(Resource resource){
 }
 
 
-Resource ResourcesProcessor::_convert_to_resource(Resource resource){
+Resource ResourcesProcessor::_convert_to_resource(char resource){
   switch (resource) {
     case RESOURCE_WOOD:
     return RESOURCE_WOOD;
@@ -75,19 +76,34 @@ void ResourcesProcessor::_store_resources(std::fstream& resources, std::vector<B
   }
 }
 
+
+
+void ResourcesProcessor::create_blocking_queues(std::vector<BlockingQueue*>& queues){
+  for (size_t i = 0; i < NUMBER_OF_GATHERER_TYPES; i++) {
+    queues.push_back(new BlockingQueue());
+  }
+}
+
+void ResourcesProcessor::destroy_blocking_queues(std::vector<BlockingQueue*>& queues){
+  for (size_t i = 0; i < NUMBER_OF_GATHERER_TYPES; i++) {
+    delete(queues[i]);
+  }
+}
+
+
 /////////////////////PUBLIC//////////////////////////////
 
 std::map<std::string, int> ResourcesProcessor::
         process_resources(std::fstream& resources,
                           const std::map<std::string, int>& number_of_workers){
-  //VER SI HAY QUE BORRAR EL NUMBER_OF_GATHERERS DEL CONSTRUCTOR
-  std::vector<BlockingQueue> queues(NUMBER_OF_GATHERERS);
-  for (size_t i = 0; i < NUMBER_OF_GATHERERS; i++) {
-    queues.emplace_back();
-  }
+  std::vector<BlockingQueue*> queues;
+  create_blocking_queues(queues);
 
 
 
+  destroy_blocking_queues(queues);
+
+  //PONER RETURN
 }
 
 

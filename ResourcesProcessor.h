@@ -12,8 +12,13 @@
 //and processes the resources to produce the benefit points
 class ResourcesProcessor {
 private:
-  void load_resources(std::ifstream& materials,
-                      std::vector<BlockingQueue> &queues);
+  void create_blocking_queues(std::vector<BlockingQueue*>& queues);
+  void destroy_blocking_queues(std::vector<BlockingQueue*>& queues);
+  void _store_resources(std::fstream& resources,
+                        std::vector<BlockingQueue>& queues);
+  Resource _convert_to_resource(char resource);
+  void _load_resources(std::ifstream& materials,
+                      std::vector<BlockingQueue>& queues);
 //asdasd
 public:
   //The keys provided must be in the workers file and must be defined
