@@ -9,7 +9,7 @@
 #include "FilesConstants.h"
 
 #define NUMBER_OF_ARGUMENTS 3
-#define MATERIALS_FILE_INDEX 1
+#define RESOURCES_FILE_INDEX 1
 #define WORKERS_FILE_INDEX 2
 #define NUMBER_OF_GATHERER_TYPES 3
 #define NUMBER_OF_WORKER_TYPES 6
@@ -123,7 +123,7 @@ int CollectorsAndProducers::execute(const char** arguments, int number_of_argume
   }
   //PASAR A FUNCION A PARTE DONDE SE INICIALICEN LOS GATHERERS
   //O PRODUCERS
-  std::ifstream materials(arguments[MATERIALS_FILE_INDEX]);
+  std::ifstream materials(arguments[RESOURCES_FILE_INDEX]);
   std::ifstream workers(arguments[WORKERS_FILE_INDEX]);
   if ((!materials.is_open()) || (!workers.is_open())) {
     return INVALID_FILE;
