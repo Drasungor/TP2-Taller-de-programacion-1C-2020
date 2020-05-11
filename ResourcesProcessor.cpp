@@ -46,6 +46,15 @@ int _get_gatherer_queue_index(Resource resource){
   }
 }
 
+int _get_gatherer_queue_index(std::string gatherer_type){
+  if (gatherer_type == FARMER_TEXT) {
+    return GATHERER_QUEUE_INDEX_FARMER;
+  } else if (gatherer_type == LUMBERJACK_TEXT) {
+    return LUMBERJACK_TEXT;
+  } else {
+    return MINER_TEXT;
+  }
+}
 
 Resource ResourcesProcessor::_convert_to_resource(char resource){
   switch (resource) {
@@ -91,7 +100,9 @@ void ResourcesProcessor::_destroy_blocking_queues(std::vector<BlockingQueue*>& q
 }
 
 void ResourcesProcessor::_close_blocking_queues(std::vector<BlockingQueue*>& queues){
-
+  for (size_t i = 0; i < NUMBER_OF_GATHERER_TYPES; i++) {
+    queues[i]->close();
+  }
 }
 
 
@@ -100,11 +111,15 @@ void ResourcesProcessor::_close_blocking_queues(std::vector<BlockingQueue*>& que
 std::map<std::string, int> ResourcesProcessor::
         process_resources(std::fstream& resources,
                           const std::map<std::string, int>& number_of_workers){
+//asdasdsad
+
   std::vector<BlockingQueue*> queues;
   _create_blocking_queues(queues);
 
+
+
   for (size_t i = 0; i < queues.size(); i++) {
-    /* code */
+    _get_gatherer_queue_index(std::string gatherer_type)
   }
 
 
