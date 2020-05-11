@@ -11,6 +11,24 @@
 
 
 
+//Loads the resources from the materials file into the
+//different gatherers' blocking queues
+void CollectorsAndProducers::load_resources(std::ifstream& materials,
+                    std::vector<BlockingQueue&> &queues){
+  std::string buffer;
+  Resource aux;
+  while (!materials.eof()) {
+    std::getline(materials, buffer);
+    for (size_t i = 0; i < buffer.length(); i++) {
+      aux = convert_to_resource(buffer[i]);
+      queues[get_gatherer_index(aux)].push(aux);
+    }
+    buffer.clear();
+  }
+}
+
+
+/////////////////////PUBLIC//////////////////////////////
 
 std::map<string, int> ResourcesProcessor::process_resources(std::fstream& resources){
   //VER SI HAY QUE BORRAR EL NUMBER_OF_GATHERERS DEL CONSTRUCTOR

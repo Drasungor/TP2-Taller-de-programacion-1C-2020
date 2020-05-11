@@ -4,20 +4,22 @@
 #include <fstream>
 #include <string>
 #include <map>
-#include "Resource.h"
+//#include "Resource.h"
 #include "BlockingQueue.h"
 #include "FilesConstants.h"
 
 #define NUMBER_OF_ARGUMENTS 3
 #define RESOURCES_FILE_INDEX 1
 #define WORKERS_FILE_INDEX 2
+/*
 #define NUMBER_OF_GATHERER_TYPES 3
 #define NUMBER_OF_WORKER_TYPES 6
-
+*/
 #define SUCCESS 0
 #define INVALID_ARGUMENTS 1
 #define INVALID_FILE 1
 
+/*
 enum WorkerIndex{
   WORKER_INDEX_FARMER, WORKER_INDEX_LUMBERJACK, WORKER_INDEX_MINER,
   WORKER_INDEX_COOKER, WORKER_INDEX_CARPENTER, WORKER_INDEX_GUNSMITH
@@ -34,9 +36,10 @@ int CollectorsAndProducers::get_gatherer_index(Resource resource){
       return GATHERER_INDEX_MINER;
   }
 }
-
+*/
 
 //VER SI HAY QUE SACAR ESTA FUNCION
+/*
 Resource CollectorsAndProducers::convert_to_resource(char r){
   switch (r) {
     case RESOURCE_WHEAT:
@@ -49,7 +52,8 @@ Resource CollectorsAndProducers::convert_to_resource(char r){
       return RESOURCE_IRON;
   }
 }
-
+*/
+/*
 //Loads the resources from the materials file into the
 //different gatherers' blocking queues
 void CollectorsAndProducers::load_resources(std::ifstream& materials,
@@ -81,8 +85,9 @@ void CollectorsAndProducers::destroy_gatherers_queues
       queues.push_back(q);
     }
 }
+*/
 
-
+/*
 WorkerIndex CollectorsAndProducers::get_worker_index(string worker){
   if (worker == FARMER_TEXT) {
     return WORKER_INDEX_FARMER;
@@ -98,7 +103,8 @@ WorkerIndex CollectorsAndProducers::get_worker_index(string worker){
     return WORKER_INDEX_GUNSMITH;
   }
 }
-
+*/
+/*
 void CollectorsAndProducers::load_workers_ammounts(std::ifstream& workers,
                                   std::vector<int>& workers_ammounts){
   std::string buffer;
@@ -112,8 +118,25 @@ void CollectorsAndProducers::load_workers_ammounts(std::ifstream& workers,
     buffer.clear();
   }
 }
+*/
 
-
+//Loads the ammount of each worker
+void CollectorsAndProducers::load_workers_ammounts(std::ifstream& workers,
+                                  std::map<string, int>& workers_ammounts){
+  std::string worker_type;
+  std::string number_of_workers;
+  int index;
+  while (!workers.eof()) {
+    std::getline(workers, worker_type, WORKER_NUMBER_SEPARATOR);
+    std::getline(workers, number_of_workers);
+    //The file comes without error so no conversion exception must
+    //be catched for stoi
+    workers_ammounts.insert(std::pair<std::string, int>(worker_type,
+                            std::stoi(number_of_workers)));
+    worker_type.clear();
+    worker_type.clear();
+  }
+}
 
 /////////////////PUBLIC////////////////////
 
@@ -129,21 +152,12 @@ int CollectorsAndProducers::execute(const char** arguments, int number_of_argume
     return INVALID_FILE;
   }
 
+  std::map<string, int> workers_ammounts;
+  load_workers_ammounts(workers, workers_ammounts);
 
+  //ACA SE EJECUTAN LAS FUNCIONES DE ResourcesProcessor
 
-  //ACA SE TIRAN LOS THREADS DE RECOLECTORES
-  //VER SI SE PUEDE CAMBIAR EL VECTOR POR UN MAP
-  std::vector<BlockingQueue> resources_queues;
-  build_gatherers_queues(resources_queues);
-  std::vector<std::thread> threads;
-
-  //Stores the ammount of each type of worker
-  std::vector<int> workers_ammounts(NUMBER_OF_WORKER_TYPES, 0);
-  //std::map<string, int> workers_ammounts;
-
-  load_resources(materials, resources_queues);
-  destroy_gatherers_queues(resources_queues);
-
+  //CAMBIAR EL SUCCESS POR EL RETORNO DE LA FUNCION DE ResourcesProcessor
   return SUCCESS;
 }
 
