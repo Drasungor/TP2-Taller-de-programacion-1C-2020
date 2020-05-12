@@ -26,15 +26,16 @@ void GatherersGroup::_gather_resources(BlockingQueue& q, Inventory& inventory){
 
 void GatherersGroup::join(){
   for (size_t i = 0; i < threads.size(); i++) {
-    threads[i].join();
+    threads[i]->join();
   }
 }
 
 
-GatherersGroup::GatherersGroup(Inventory& inventory, BlockingQueue& q, int number_of_gatherers){
-  ///IMPLEMENTAR EJECUCION DE LOS THREADS
+GatherersGroup::GatherersGroup(Inventory& inventory, BlockingQueue& q,
+                               int number_of_gatherers){
   for (int i = 0; i < number_of_gatherers; i++) {
-    threads.push_back(new std::thread(_gather_resources, q, inventory));
+    threads.push_back(new std::thread(&GatherersGroup::_gather_resources, this,
+                                      std::ref(q), std::ref(inventory)));
   }
 }
 
