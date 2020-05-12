@@ -56,6 +56,7 @@ int _get_gatherer_queue_index(std::string gatherer_type){
   }
 }
 
+
 Resource ResourcesProcessor::_convert_to_resource(char resource){
   switch (resource) {
     case RESOURCE_WOOD:
@@ -105,9 +106,24 @@ void ResourcesProcessor::_close_blocking_queues(std::vector<BlockingQueue*>& que
   }
 }
 
-void ResourcesProcessor::_create_gatherers(std::vector<GatherersGroup*>& gatherers_groups){
-  for (size_t i = 0; i < NUMBER_OF_GATHERER_TYPES; i++) {
-    gatherers_groups.push_back(new GatherersGroup(/*AGREGAR ARGUMENTOS PARA EL CONSTRUCTOR*/));
+
+//CAMBIAR LA IMPLEMENTACION DE ESTA FUNCION, VER SI HAY Q SACAR LOS MAPS DEL TP
+void ResourcesProcessor::_create_gatherers(
+                          std::vector<GatherersGroup*>& gatherers_groups,
+                          std::map<std::string, int>& number_of_workers,
+                          const std::vector<BlockingQueue*> queues){
+  const std::vector<std::string> gatherers_keys = {FARMER_TEXT,
+                                                   LUMBERJACK_TEXT,
+                                                   MINER_TEXT};
+//asdasd
+  std::string current_gatherer;
+  int current_number_of_workers;
+  for (size_t i = 0; i < gatherers_keys.size(); i++) {
+    current_gatherer = gatherers_keys[i];
+    current_number_of_workers = number_of_workers[current_gatherer];
+    gatherers_groups.push_back(new GatherersGroup(
+                        *queues[_get_gatherer_queue_index(current_gatherer)],
+                        current_number_of_workers));
   }
 }
 
@@ -119,14 +135,18 @@ void ResourcesProcessor::_destroy_gatherers(std::vector<GatherersGroup*>& gather
 
 /////////////////////PUBLIC//////////////////////////////
 
+/*
 std::map<std::string, int> ResourcesProcessor::
         process_resources(std::fstream& resources,
                           const std::map<std::string, int>& number_of_workers){
+*/
+std::map<std::string, int> ResourcesProcessor::
+        process_resources(std::fstream& resources,
+                          const std::vector<int>& number_of_workers){
 //asdasdsad
   std::vector<GatherersGroup*> gatherers_groups;
   std::vector<BlockingQueue*> queues;
-  std::vector<std::string> gatherers_keys = {FARMER_TEXT, LUMBERJACK_TEXT,
-                                             MINER_TEXT};
+
   _create_blocking_queues(queues);
   _create_gatherers(gatherers_groups);
   //CAMBIARLO POR UN new PORQUE EL THREAD NO PUEDE SER COPIADO

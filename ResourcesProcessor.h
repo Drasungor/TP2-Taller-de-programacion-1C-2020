@@ -13,7 +13,9 @@
 //and processes the resources to produce the benefit points
 class ResourcesProcessor {
 private:
-  void _create_gatherers(std::vector<GatherersGroup>& gatherers_groups);
+  void _create_gatherers(std::vector<GatherersGroup*>& gatherers_groups,
+                         std::map<std::string, int>& number_of_workers,
+                         const std::vector<BlockingQueue*> queues);
   void _destroy_gatherers(std::vector<GatherersGroup>& gatherers_groups);
   void _close_blocking_queues(std::vector<BlockingQueue*>& queues);
   void _create_blocking_queues(std::vector<BlockingQueue*>& queues);
@@ -38,10 +40,14 @@ public:
   void notify_resource_absence();
   */
 
+  /*
   //Processes the resources stored in the file passed, the file must be valid
   std::map<std::string, int> process_resources(std::fstream& resources,
                           const std::map<std::string, int>& number_of_workers);
-//asdasd
+  */
+  //Processes the resources stored in the file passed, the file must be valid
+  std::map<std::string, int> process_resources(std::fstream& resources,
+                                    const std::vector<int>& number_of_workers);
 };
 
 #endif
