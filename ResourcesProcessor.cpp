@@ -7,7 +7,7 @@
 #include "Resource.h"
 #include "BlockingQueue.h"
 #include "FilesConstants.h"
-
+#include "GatherersGroup.h"
 
 enum GathererQueueIndex{
   GATHERER_QUEUE_INDEX_FARMER,
@@ -112,17 +112,27 @@ std::map<std::string, int> ResourcesProcessor::
         process_resources(std::fstream& resources,
                           const std::map<std::string, int>& number_of_workers){
 //asdasdsad
-
+  std::vector<GatherersGroup> gatherers_groups;
   std::vector<BlockingQueue*> queues;
+  std::vector<std::string> gatherers_keys = {FARMER_TEXTW, LUMBERJACK_TEXT,
+                                             MINER_TEXT};
   _create_blocking_queues(queues);
 
-
-
-  for (size_t i = 0; i < queues.size(); i++) {
-    _get_gatherer_queue_index(std::string gatherer_type)
+  for (size_t i = 0; i < NUMBER_OF_GATHERER_TYPES; i++) {
+    gatherers_groups.emplace_back();
   }
+  /*
+  //VER SI SE PASA ESTO Y EL FOR DEL JOIN A FUNCIONES A PARTE
+  for (size_t i = 0; i < gatherers_groups.size(); i++) {
+    //LLAMAR A GATHERERS.GATHER
+    gatherers_groups[i].gather(*queues[_get_gatherer_queue_index(gatherer_type)], );
+  }
+  */
+  //ACA SE LLAMA A CARGAR LOS RECURSOS
 
-
+  for (size_t i = 0; i < gatherers_groups.size(); i++) {
+    gatherers_groups.join();
+  }
 
   _destroy_blocking_queues(queues);
 
