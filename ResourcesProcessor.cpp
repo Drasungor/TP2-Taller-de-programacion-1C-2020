@@ -72,8 +72,10 @@ Resource ResourcesProcessor::_convert_to_resource(char resource){
   }
 }
 
-
-void ResourcesProcessor::_store_resources(std::fstream& resources, std::vector<BlockingQueue>& queues){
+//Stores the resources in the respective queue and closes every queue one the
+//resources run out
+void ResourcesProcessor::_store_resources(std::fstream& resources,
+                                          std::vector<BlockingQueue>& queues){
   std::string buffer;
   Resource resource;
   //VER SI GETLINE TIRA EOF DESPUES DE INTENTAR LEER
@@ -86,6 +88,9 @@ void ResourcesProcessor::_store_resources(std::fstream& resources, std::vector<B
       queues[_get_gatherer_queue_index(resource)].push(resource);
     }
     buffer.clear();
+  }
+  for (size_t i = 0; i < queues.size(); i++) {
+    queues[i].close();
   }
 }
 
@@ -178,6 +183,7 @@ std::map<std::string, int> ResourcesProcessor::
     gatherers_groups[i].gather(*queues[_get_gatherer_queue_index(gatherer_type)], );
   }
   */
+  _store_resources(resources, queues);
 
 
   //ACA SE LLAMA A CARGAR LOS RECURSOS
