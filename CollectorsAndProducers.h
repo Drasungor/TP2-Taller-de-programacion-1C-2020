@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include <map>
+//#include <map>
 #include <fstream>
 #include "BlockingQueue.h"
 
@@ -18,8 +18,12 @@ private:
                       std::vector<BlockingQueue&> &queues);
   void destroy_gatherers_queues(std::vector<BlockingQueue>& queues);
   */
+  /*
   void _load_workers_ammounts(std::ifstream& workers,
                               std::map<std::string, int>& workers_ammounts);
+  */
+  void _load_workers_ammounts(std::ifstream& workers,
+                              std::vector<int>& workers_ammounts);
 public:
   CollectorsAndProducers();
 

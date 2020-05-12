@@ -8,11 +8,12 @@
 #include "BlockingQueue.h"
 #include "FilesConstants.h"
 #include "GatherersGroup.h"
+#include "WorkerIndex.h"
 
 enum GathererQueueIndex{
-  GATHERER_QUEUE_INDEX_FARMER,
-  GATHERER_QUEUE_INDEX_LUMBERJACK,
-  GATHERER_QUEUE_INDEX_MINER
+  GATHERER_QUEUE_INDEX_FARMER = WORKER_INDEX_FARMER,
+  GATHERER_QUEUE_INDEX_LUMBERJACK = WORKER_INDEX_LUMBERJACK,
+  GATHERER_QUEUE_INDEX_MINER = WORKER_INDEX_MINER
 };
 
 /*
@@ -34,7 +35,7 @@ void ResourcesProcessor::_load_resources(std::ifstream& materials,
 }
 */
 
-int _get_gatherer_queue_index(Resource resource){
+int ResourcesProcessor::_get_gatherer_queue_index(Resource resource){
   switch (resource) {
     case RESOURCE_WHEAT:
       return GATHERER_QUEUE_INDEX_FARMER;
@@ -46,7 +47,8 @@ int _get_gatherer_queue_index(Resource resource){
   }
 }
 
-int _get_gatherer_queue_index(std::string gatherer_type){
+/*
+int ResourcesProcessor::_get_gatherer_queue_index(std::string gatherer_type){
   if (gatherer_type == FARMER_TEXT) {
     return GATHERER_QUEUE_INDEX_FARMER;
   } else if (gatherer_type == LUMBERJACK_TEXT) {
@@ -55,7 +57,7 @@ int _get_gatherer_queue_index(std::string gatherer_type){
     return GATHERER_QUEUE_INDEX_MINER;
   }
 }
-
+*/
 
 Resource ResourcesProcessor::_convert_to_resource(char resource){
   switch (resource) {
@@ -80,6 +82,7 @@ void ResourcesProcessor::_store_resources(std::fstream& resources, std::vector<B
     std::getline(resources, buffer);
     for (size_t i = 0; i < buffer.length(); i++) {
       resource = _convert_to_resource(buffer[i]);
+      //CAMBIAR ESTO PARA QUE COINCIDA CON LOS INDICES DE LOS GATHERERS
       queues[_get_gatherer_queue_index(resource)].push(resource);
     }
     buffer.clear();
@@ -108,6 +111,7 @@ void ResourcesProcessor::_close_blocking_queues(std::vector<BlockingQueue*>& que
 
 
 //CAMBIAR LA IMPLEMENTACION DE ESTA FUNCION, VER SI HAY Q SACAR LOS MAPS DEL TP
+/*
 void ResourcesProcessor::_create_gatherers(
                           std::vector<GatherersGroup*>& gatherers_groups,
                           std::map<std::string, int>& number_of_workers,
@@ -115,6 +119,7 @@ void ResourcesProcessor::_create_gatherers(
   const std::vector<std::string> gatherers_keys = {FARMER_TEXT,
                                                    LUMBERJACK_TEXT,
                                                    MINER_TEXT};
+
 //asdasd
   std::string current_gatherer;
   int current_number_of_workers;
@@ -126,6 +131,20 @@ void ResourcesProcessor::_create_gatherers(
                         current_number_of_workers));
   }
 }
+*/
+
+
+void ResourcesProcessor::_create_gatherers(Inventory& inventory,
+                          std::vector<GatherersGroup*>& gatherers_groups,
+                          const std::vector<int>& number_of_workers,
+                          const std::vector<BlockingQueue*> queues){
+  std::string current_gatherer;
+  for (size_t i = 0; i < NUMBER_OF_GATHERER_TYPES; i++) {
+    gatherers_groups.push_back(new GatherersGroup(inventory, *queues[i],
+                                                  number_of_workers[i]));
+  }
+}
+
 
 void ResourcesProcessor::_destroy_gatherers(std::vector<GatherersGroup*>& gatherers_groups){
   for (size_t i = 0; i < gatherers_groups.size(); i++) {
@@ -144,11 +163,12 @@ std::map<std::string, int> ResourcesProcessor::
         process_resources(std::fstream& resources,
                           const std::vector<int>& number_of_workers){
 //asdasdsad
+  Inventory inventory;
   std::vector<GatherersGroup*> gatherers_groups;
   std::vector<BlockingQueue*> queues;
 
   _create_blocking_queues(queues);
-  _create_gatherers(gatherers_groups);
+  _create_gatherers(inventory, gatherers_groups, number_of_workers, queues);
   //CAMBIARLO POR UN new PORQUE EL THREAD NO PUEDE SER COPIADO
 
   /*

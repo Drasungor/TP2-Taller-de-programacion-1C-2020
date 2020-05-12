@@ -9,6 +9,8 @@
 class GatherersGroup {
 private:
   std::vector<std::thread> threads;
+private:
+  void gather_resources(BlockingQueue& q, Inventory& inventory);
 public:
   //Starts number_of_gatherers threads for them to start gathering the
   //resources stored in the received blocking queue

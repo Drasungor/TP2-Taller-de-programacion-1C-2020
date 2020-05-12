@@ -10,7 +10,7 @@ enum WorkerIndex{
   WORKER_INDEX_COOKER,
   WORKER_INDEX_CARPENTER,
   WORKER_INDEX_GUNSMITH
-}
+};
 
 
 #endif

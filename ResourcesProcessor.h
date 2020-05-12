@@ -8,15 +8,23 @@
 #include "Resource.h"
 #include "BlockingQueue.h"
 #include "GatherersGroup.h"
+#include "Inventory.h"
 
 //This class receives the resources and the number of each type of worker
 //and processes the resources to produce the benefit points
 class ResourcesProcessor {
 private:
+  int _get_gatherer_queue_index(Resource resource);
+  /*
   void _create_gatherers(std::vector<GatherersGroup*>& gatherers_groups,
                          std::map<std::string, int>& number_of_workers,
                          const std::vector<BlockingQueue*> queues);
-  void _destroy_gatherers(std::vector<GatherersGroup>& gatherers_groups);
+  */
+  void _create_gatherers(Inventory& inventory,
+                         std::vector<GatherersGroup*>& gatherers_groups,
+                         const std::vector<int>& number_of_workers,
+                         const std::vector<BlockingQueue*> queues);
+  void _destroy_gatherers(std::vector<GatherersGroup*>& gatherers_groups);
   void _close_blocking_queues(std::vector<BlockingQueue*>& queues);
   void _create_blocking_queues(std::vector<BlockingQueue*>& queues);
   void _destroy_blocking_queues(std::vector<BlockingQueue*>& queues);
