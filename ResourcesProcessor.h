@@ -7,11 +7,14 @@
 #include <vector>
 #include "Resource.h"
 #include "BlockingQueue.h"
+#include "GatherersGroup.h"
 
 //This class receives the resources and the number of each type of worker
 //and processes the resources to produce the benefit points
 class ResourcesProcessor {
 private:
+  void _create_gatherers(std::vector<GatherersGroup>& gatherers_groups);
+  void _destroy_gatherers(std::vector<GatherersGroup>& gatherers_groups);
   void _close_blocking_queues(std::vector<BlockingQueue*>& queues);
   void _create_blocking_queues(std::vector<BlockingQueue*>& queues);
   void _destroy_blocking_queues(std::vector<BlockingQueue*>& queues);

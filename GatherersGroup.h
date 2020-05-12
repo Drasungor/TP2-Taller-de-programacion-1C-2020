@@ -1,9 +1,10 @@
-#ifndef _RESOURCES_PROCESSOR_H_
-#define _RESOURCES_PROCESSOR_H_
+#ifndef _GATHERERS_GROUP_H_
+#define _GATHERERS_GROUP_H_
 
 #include <vector>
 #include <thread>
 #include "BlockingQueue.h"
+#include "Inventory.h"
 
 class GatherersGroup {
 private:

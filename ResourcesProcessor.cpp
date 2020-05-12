@@ -50,9 +50,9 @@ int _get_gatherer_queue_index(std::string gatherer_type){
   if (gatherer_type == FARMER_TEXT) {
     return GATHERER_QUEUE_INDEX_FARMER;
   } else if (gatherer_type == LUMBERJACK_TEXT) {
-    return LUMBERJACK_TEXT;
+    return GATHERER_QUEUE_INDEX_LUMBERJACK;
   } else {
-    return MINER_TEXT;
+    return GATHERER_QUEUE_INDEX_MINER;
   }
 }
 
@@ -105,6 +105,17 @@ void ResourcesProcessor::_close_blocking_queues(std::vector<BlockingQueue*>& que
   }
 }
 
+void ResourcesProcessor::_create_gatherers(std::vector<GatherersGroup*>& gatherers_groups){
+  for (size_t i = 0; i < NUMBER_OF_GATHERER_TYPES; i++) {
+    gatherers_groups.push_back(new GatherersGroup(/*AGREGAR ARGUMENTOS PARA EL CONSTRUCTOR*/));
+  }
+}
+
+void ResourcesProcessor::_destroy_gatherers(std::vector<GatherersGroup*>& gatherers_groups){
+  for (size_t i = 0; i < gatherers_groups.size(); i++) {
+    delete(gatherers_groups[i]);
+  }
+}
 
 /////////////////////PUBLIC//////////////////////////////
 
@@ -112,15 +123,14 @@ std::map<std::string, int> ResourcesProcessor::
         process_resources(std::fstream& resources,
                           const std::map<std::string, int>& number_of_workers){
 //asdasdsad
-  std::vector<GatherersGroup> gatherers_groups;
+  std::vector<GatherersGroup*> gatherers_groups;
   std::vector<BlockingQueue*> queues;
-  std::vector<std::string> gatherers_keys = {FARMER_TEXTW, LUMBERJACK_TEXT,
+  std::vector<std::string> gatherers_keys = {FARMER_TEXT, LUMBERJACK_TEXT,
                                              MINER_TEXT};
   _create_blocking_queues(queues);
+  _create_gatherers(gatherers_groups);
+  //CAMBIARLO POR UN new PORQUE EL THREAD NO PUEDE SER COPIADO
 
-  for (size_t i = 0; i < NUMBER_OF_GATHERER_TYPES; i++) {
-    gatherers_groups.emplace_back();
-  }
   /*
   //VER SI SE PASA ESTO Y EL FOR DEL JOIN A FUNCIONES A PARTE
   for (size_t i = 0; i < gatherers_groups.size(); i++) {
@@ -128,12 +138,16 @@ std::map<std::string, int> ResourcesProcessor::
     gatherers_groups[i].gather(*queues[_get_gatherer_queue_index(gatherer_type)], );
   }
   */
+
+
   //ACA SE LLAMA A CARGAR LOS RECURSOS
 
+  //VER SI SE PASA EL FOR A UNA FUNCION QUE HAGA JOIN
   for (size_t i = 0; i < gatherers_groups.size(); i++) {
-    gatherers_groups.join();
+    gatherers_groups[i]->join();
   }
 
+  _destroy_gatherers(gatherers_groups);
   _destroy_blocking_queues(queues);
 
   //BORRAR: ESTA SOLO PARA QUE COMPILE
