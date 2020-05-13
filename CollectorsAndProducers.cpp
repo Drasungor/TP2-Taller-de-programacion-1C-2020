@@ -62,14 +62,16 @@ void CollectorsAndProducers::_load_workers_ammounts(std::ifstream& workers,
   std::string number_of_workers;
   //VER SI GETLINE TIRA EOF DESPUES DE INTENTAR LEER
   //LEER AL FINAL DEL WHILE O USAR PEEK
+  std::getline(workers, worker_type, WORKER_NUMBER_SEPARATOR);
+  std::getline(workers, number_of_workers);
   while (!workers.eof()) {
-    std::getline(workers, worker_type, WORKER_NUMBER_SEPARATOR);
-    std::getline(workers, number_of_workers);
     //The file comes without error so no conversion exception must
     //be catched for stoi
     workers_ammounts[_get_workers_ammounts_index(worker_type)] = std::stoi(number_of_workers);
     worker_type.clear();
     worker_type.clear();
+    std::getline(workers, worker_type, WORKER_NUMBER_SEPARATOR);
+    std::getline(workers, number_of_workers);
   }
 }
 

@@ -78,16 +78,16 @@ void ResourcesProcessor::_store_resources(std::ifstream& resources,
                                           std::vector<BlockingQueue*>& queues){
   std::string buffer;
   Resource resource;
-  //VER SI GETLINE TIRA EOF DESPUES DE INTENTAR LEER
-  //LEER AL FINAL DEL WHILE O USAR PEEK
+  std::getline(resources, buffer);
   while (!resources.eof()) {
-    std::getline(resources, buffer);
+    //std::getline(resources, buffer);
     for (size_t i = 0; i < buffer.length(); i++) {
       resource = _convert_to_resource(buffer[i]);
       //CAMBIAR ESTO PARA QUE COINCIDA CON LOS INDICES DE LOS GATHERERS
       queues[_get_gatherer_queue_index(resource)]->push(resource);
     }
     buffer.clear();
+    std::getline(resources, buffer);
   }
   //VER SI HAY QUE BORRAR ESTE CLOSE DE ACA Y CERRARLAS DE AFUERA
   _close_blocking_queues(queues);
