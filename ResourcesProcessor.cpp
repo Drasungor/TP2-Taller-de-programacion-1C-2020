@@ -75,7 +75,7 @@ Resource ResourcesProcessor::_convert_to_resource(char resource){
 //Stores the resources in the respective queue and closes every queue one the
 //resources run out
 void ResourcesProcessor::_store_resources(std::fstream& resources,
-                                          std::vector<BlockingQueue>& queues){
+                                          std::vector<BlockingQueue*>& queues){
   std::string buffer;
   Resource resource;
   //VER SI GETLINE TIRA EOF DESPUES DE INTENTAR LEER
@@ -85,13 +85,12 @@ void ResourcesProcessor::_store_resources(std::fstream& resources,
     for (size_t i = 0; i < buffer.length(); i++) {
       resource = _convert_to_resource(buffer[i]);
       //CAMBIAR ESTO PARA QUE COINCIDA CON LOS INDICES DE LOS GATHERERS
-      queues[_get_gatherer_queue_index(resource)].push(resource);
+      queues[_get_gatherer_queue_index(resource)]->push(resource);
     }
     buffer.clear();
   }
-  for (size_t i = 0; i < queues.size(); i++) {
-    queues[i].close();
-  }
+  //VER SI HAY QUE BORRAR ESTE CLOSE DE ACA Y CERRARLAS DE AFUERA
+  _close_blocking_queues(queues);
 }
 
 
@@ -173,20 +172,20 @@ std::map<std::string, int> ResourcesProcessor::
   std::vector<BlockingQueue*> queues;
 
   _create_blocking_queues(queues);
+
+
+  //VER SI SE CAMBIAN LAS OPERACIONES DE GATHERERS POR UNA DE UNA SOLA CLASE
+  //QUE CONTENGA A TODOS LOS GATHERERS
   _create_gatherers(inventory, gatherers_groups, number_of_workers, queues);
-  //CAMBIARLO POR UN new PORQUE EL THREAD NO PUEDE SER COPIADO
 
-  /*
-  //VER SI SE PASA ESTO Y EL FOR DEL JOIN A FUNCIONES A PARTE
-  for (size_t i = 0; i < gatherers_groups.size(); i++) {
-    //LLAMAR A GATHERERS.GATHER
-    gatherers_groups[i].gather(*queues[_get_gatherer_queue_index(gatherer_type)], );
-  }
-  */
+
+  //ACA SE TIRAN LOS PRODUCERS
+
+
   _store_resources(resources, queues);
+  //VER SI HAY Q LLAMAR A UN CLOSE DE LAS QUEUES AFUERA DE STORE
+  inventory.close_entrance();
 
-
-  //ACA SE LLAMA A CARGAR LOS RECURSOS
 
   //VER SI SE PASA EL FOR A UNA FUNCION QUE HAGA JOIN
   for (size_t i = 0; i < gatherers_groups.size(); i++) {
@@ -195,6 +194,7 @@ std::map<std::string, int> ResourcesProcessor::
 
   _destroy_gatherers(gatherers_groups);
   _destroy_blocking_queues(queues);
+
 
   //BORRAR: ESTA SOLO PARA QUE COMPILE
   std::map<std::string, int> compila;

@@ -1,6 +1,10 @@
 #include "GatherersGroup.h"
 
+#include <vector>
 #include <unistd.h>
+#include <thread>
+#include "Inventory.h"
+#include "ClosedQueueException.h"
 
 #define GATHERER_WORKING_TIME_MICRO 50000
 
@@ -11,7 +15,7 @@ void GatherersGroup::_gather_resources(BlockingQueue& q, Inventory& inventory){
   while (keeps_iterating) {
     try {
       resource = q.pop();
-    } catch (/*AGREGAR EXCEPTION*/) {
+    } catch (ClosedQueueException e) {
       keeps_iterating = false;
     }
     if (keeps_iterating) {

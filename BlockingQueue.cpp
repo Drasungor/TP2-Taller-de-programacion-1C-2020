@@ -4,6 +4,8 @@
 #include <mutex>
 //#include <thread>
 #include "Resource.h"
+#include "ClosedQueueException.h"
+
 
 BlockingQueue::BlockingQueue(){
   is_closed = false;
@@ -17,8 +19,8 @@ Resource BlockingQueue::pop(){
   Resource resource;
   while (q.empty()) {
     if (is_closed) {
-      //TIRAR EXCEPCION O CAMBIAR LA FUNCION
-      //POR GUARDAR PUNTEROS Y DEVOLVER NULL
+      //CAMBIAR LA FUNCION POR GUARDAR PUNTEROS Y DEVOLVER NULL
+      throw ClosedQueueException();
     }
     cv.wait(lk);
   }

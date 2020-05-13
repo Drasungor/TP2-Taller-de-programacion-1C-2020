@@ -29,7 +29,7 @@ private:
   void _create_blocking_queues(std::vector<BlockingQueue*>& queues);
   void _destroy_blocking_queues(std::vector<BlockingQueue*>& queues);
   void _store_resources(std::fstream& resources,
-                        std::vector<BlockingQueue>& queues);
+                        std::vector<BlockingQueue*>& queues);
   Resource _convert_to_resource(char resource);
   void _load_resources(std::ifstream& materials,
                       std::vector<BlockingQueue>& queues);
