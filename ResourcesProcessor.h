@@ -8,6 +8,7 @@
 #include "Resource.h"
 #include "BlockingQueue.h"
 #include "GatherersGroup.h"
+#include "ProducersGroup.h"
 #include "Inventory.h"
 
 //This class receives the resources and the number of each type of worker
@@ -20,6 +21,10 @@ private:
                          std::map<std::string, int>& number_of_workers,
                          const std::vector<BlockingQueue*> queues);
   */
+  void _create_producers(Inventory& inventory,
+                            std::vector<ProducersGroup*>& producers_groups,
+                            const std::vector<int>& number_of_workers);
+  void _destroy_producers(std::vector<ProducersGroup*>& producers_groups);
   void _create_gatherers(Inventory& inventory,
                          std::vector<GatherersGroup*>& gatherers_groups,
                          const std::vector<int>& number_of_workers,

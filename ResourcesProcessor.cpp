@@ -8,6 +8,7 @@
 #include "BlockingQueue.h"
 #include "FilesConstants.h"
 #include "GatherersGroup.h"
+#include "ProducersGroup.h"
 #include "WorkerIndex.h"
 
 enum GathererQueueIndex{
@@ -152,17 +153,21 @@ void ResourcesProcessor::_create_gatherers(
 }
 */
 
-
+//VER SI PUEDO CAMBIAR ESTO POR UN EMPLACE BACK EN LA FUNCION PRINCIPAL PORQUE
+//NO SE ESTA GUARDANDO COSAS NO COPIABLES
 void ResourcesProcessor::_create_gatherers(Inventory& inventory,
                           std::vector<GatherersGroup*>& gatherers_groups,
                           const std::vector<int>& number_of_workers,
                           const std::vector<BlockingQueue*> queues){
   std::string current_gatherer;
+  //CAMBIAR POR emplace_back Y BORRAR LA FUNCION DE DELETE
   for (size_t i = 0; i < NUMBER_OF_GATHERER_TYPES; i++) {
     gatherers_groups.push_back(new GatherersGroup(inventory, *queues[i],
                                                   number_of_workers[i]));
   }
 }
+
+
 
 
 void ResourcesProcessor::_destroy_gatherers(std::vector<GatherersGroup*>& gatherers_groups){
@@ -171,7 +176,54 @@ void ResourcesProcessor::_destroy_gatherers(std::vector<GatherersGroup*>& gather
   }
 }
 
+
+
+
+//VER SI PUEDO CAMBIAR ESTO POR UN EMPLACE BACK EN LA FUNCION PRINCIPAL PORQUE
+//NO SE ESTA GUARDANDO COSAS NO COPIABLES
+void ResourcesProcessor::_create_producers(Inventory& inventory,
+                          std::vector<ProducersGroup*>& producers_groups,
+                          const std::vector<int>& number_of_workers){
+  //asdasdasd
+  //REFACTORIZAR TODA ESTA FUNCION
+
+
+  /*
+  ProducersGroup(Inventory& inventory,
+                 std::map<Resource, int>& resources_needed,
+                 int number_of_producers, int points_produced)
+  */
+  std::map<Resource, int> resources_cooker = {std::pair<Resource, int>(RESOURCE_WHEAT, 2),
+                                              std::pair<Resource, int>(RESOURCE_COAL, 1)};
+  std::map<Resource, int> resources_carpenter = {std::pair<Resource, int>(RESOURCE_WOOD, 3),
+                                                 std::pair<Resource, int>(RESOURCE_IRON, 1)};
+  std::map<Resource, int> resources_gunsmith = {std::pair<Resource, int>(RESOURCE_COAL, 2),
+                                                std::pair<Resource, int>(RESOURCE_IRON, 2)};
+  //CAMBIAR POR emplace_back Y BORRAR LA FUNCION DE DELETE
+  std::vector<std::map<Resource, int>> resources = {resources_cooker, resources_carpenter,
+                                                    resources_gunsmith};
+//asdasdasd
+  std::vector<int> points_produced = {5, 2, 3};
+  for (size_t i = NUMBER_OF_GATHERER_TYPES; i < NUMBER_OF_WORKER_TYPES; i++) {
+    producers_groups.push_back(new ProducersGroup(inventory, resources[i - NUMBER_OF_GATHERER_TYPES],
+                                                  number_of_workers[i],
+                                                  points_produced[i - NUMBER_OF_GATHERER_TYPES]));
+  }
+}
+
+void ResourcesProcessor::_destroy_producers(std::vector<ProducersGroup*>& producers_groups){
+//asdasd
+  for (size_t i = 0; i < producers_groups.size(); i++) {
+    delete(producers_groups[i]);
+  }
+}
+
+
 /////////////////////PUBLIC//////////////////////////////
+
+//BORRAR INCLUDE, ES PARA DEBUGGEAR
+#include <iostream>
+
 
 /*
 std::map<std::string, int> ResourcesProcessor::
@@ -183,6 +235,7 @@ std::map<std::string, int> ResourcesProcessor::
                           const std::vector<int>& number_of_workers){
 //asdasdsad
   Inventory inventory;
+  std::vector<ProducersGroup*> producers_groups;
   std::vector<GatherersGroup*> gatherers_groups;
   std::vector<BlockingQueue*> queues;
 
@@ -192,7 +245,7 @@ std::map<std::string, int> ResourcesProcessor::
   //VER SI SE CAMBIAN LAS OPERACIONES DE GATHERERS POR UNA DE UNA SOLA CLASE
   //QUE CONTENGA A TODOS LOS GATHERERS
   _create_gatherers(inventory, gatherers_groups, number_of_workers, queues);
-
+  _create_producers(inventory, producers_groups, number_of_workers);
 
   //ACA SE TIRAN LOS PRODUCERS
 
@@ -202,19 +255,28 @@ std::map<std::string, int> ResourcesProcessor::
   //VER SI HAY Q LLAMAR A UN CLOSE DE LAS QUEUES AFUERA DE STORE
   inventory.close_entrance();
 
+  //BORRAR ESTO ES PARA DEBUGGING
+  int total_number_of_points = 0;
 
   //VER SI SE PASA EL FOR A UNA FUNCION QUE HAGA JOIN
   for (size_t i = 0; i < gatherers_groups.size(); i++) {
     gatherers_groups[i]->join();
   }
+  for (size_t i = 0; i < producers_groups.size(); i++) {
+    //BORRAR LA ASIGNACION, ES PARA DEBUGGING
+    total_number_of_points += producers_groups[i]->join();
+  }
 
   //BORRAR ESTE METODO, ES SOLO PARA DEBUGGEAR
   inventory.PRINT_STORED_RESOURCES();
 
+  _destroy_producers(producers_groups);
   _destroy_gatherers(gatherers_groups);
   _destroy_blocking_queues(queues);
 
 
+  //BORRAR PRINT, ES PARA DEBUGGEAR
+  std::cout << "La cantidad de puntos es: " << total_number_of_points << "\n";
 
 
   //BORRAR: ESTA SOLO PARA QUE COMPILE
