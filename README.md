@@ -8,3 +8,5 @@ DE TRABAJADORES, SINO LOS TIRA EN EL CONSTRUCTOR
 -Pasar la lectura del archivo a CollectorsAndProducers y tirar la funcion
 de threads desde ahi, despues se cargan los materiales y despues se hace el
 join
+-Ver si hay que borrar Producers.cpp y Producers.h
+-Cambiar los join por release_gatherers y get_produced_points

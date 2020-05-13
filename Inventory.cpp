@@ -90,6 +90,7 @@ void Inventory::add_resource(Resource resource){
 void Inventory::close_entrance(){
   std::lock_guard<std::mutex> lk(m);
   is_entrance_closed = true;
+  cv.notify_all();
 }
 
 Inventory::Inventory(){
