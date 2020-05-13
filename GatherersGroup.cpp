@@ -62,7 +62,7 @@ GatherersGroup::GatherersGroup(Inventory& inventory, BlockingQueue& q,
 
 
     //BORRAR PRINT
-    std::cout << "Tiro thread\n";
+    std::cout << "Tiro thread de gatherer\n";
 
 
     threads.push_back(new std::thread(&GatherersGroup::_gather_resources, this,

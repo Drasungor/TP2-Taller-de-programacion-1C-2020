@@ -23,7 +23,11 @@ private:
   */
   void _create_producers(Inventory& inventory,
                             std::vector<ProducersGroup*>& producers_groups,
-                            const std::vector<int>& number_of_workers);
+                            const std::vector<int>& number_of_workers,
+                            //SACAR ESTE ULTIMO PARAMETRO, ES PARA VER SI EL ERROR
+                            //ES POR DESTRUIR EL VECTOR DE LOS MAPS QUE SE PASA
+                            //A LOS THREADS
+                            std::vector<std::map<Resource, int>>& resources_vec);
   void _destroy_producers(std::vector<ProducersGroup*>& producers_groups);
   void _create_gatherers(Inventory& inventory,
                          std::vector<GatherersGroup*>& gatherers_groups,

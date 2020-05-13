@@ -183,7 +183,11 @@ void ResourcesProcessor::_destroy_gatherers(std::vector<GatherersGroup*>& gather
 //NO SE ESTA GUARDANDO COSAS NO COPIABLES
 void ResourcesProcessor::_create_producers(Inventory& inventory,
                           std::vector<ProducersGroup*>& producers_groups,
-                          const std::vector<int>& number_of_workers){
+                          const std::vector<int>& number_of_workers,
+                          //SACAR ESTE ULTIMO PARAMETRO, ES PARA VER SI EL ERROR
+                          //ES POR DESTRUIR EL VECTOR DE LOS MAPS QUE SE PASA
+                          //A LOS THREADS
+                          std::vector<std::map<Resource, int>>& resources_vec){
   //asdasdasd
   //REFACTORIZAR TODA ESTA FUNCION
 
@@ -200,12 +204,18 @@ void ResourcesProcessor::_create_producers(Inventory& inventory,
   std::map<Resource, int> resources_gunsmith = {std::pair<Resource, int>(RESOURCE_COAL, 2),
                                                 std::pair<Resource, int>(RESOURCE_IRON, 2)};
   //CAMBIAR POR emplace_back Y BORRAR LA FUNCION DE DELETE
+  /*
   std::vector<std::map<Resource, int>> resources = {resources_cooker, resources_carpenter,
                                                     resources_gunsmith};
+  */
+  resources_vec.emplace_back(resources_cooker);
+  resources_vec.emplace_back(resources_carpenter);
+  resources_vec.emplace_back(resources_gunsmith);
+
 //asdasdasd
   std::vector<int> points_produced = {5, 2, 3};
   for (size_t i = NUMBER_OF_GATHERER_TYPES; i < NUMBER_OF_WORKER_TYPES; i++) {
-    producers_groups.push_back(new ProducersGroup(inventory, resources[i - NUMBER_OF_GATHERER_TYPES],
+    producers_groups.push_back(new ProducersGroup(inventory, resources_vec[i - NUMBER_OF_GATHERER_TYPES],
                                                   number_of_workers[i],
                                                   points_produced[i - NUMBER_OF_GATHERER_TYPES]));
   }
@@ -234,6 +244,9 @@ std::map<std::string, int> ResourcesProcessor::
         process_resources(std::ifstream& resources,
                           const std::vector<int>& number_of_workers){
 //asdasdsad
+
+  std::vector<std::map<Resource, int>> resources_vec;
+
   Inventory inventory;
   std::vector<ProducersGroup*> producers_groups;
   std::vector<GatherersGroup*> gatherers_groups;
@@ -245,7 +258,10 @@ std::map<std::string, int> ResourcesProcessor::
   //VER SI SE CAMBIAN LAS OPERACIONES DE GATHERERS POR UNA DE UNA SOLA CLASE
   //QUE CONTENGA A TODOS LOS GATHERERS
   _create_gatherers(inventory, gatherers_groups, number_of_workers, queues);
-  _create_producers(inventory, producers_groups, number_of_workers);
+  _create_producers(inventory, producers_groups, number_of_workers,
+                    //BORRAR ESTE PARAMETRO, ES PARA VER SI ES EL DESTRUCTOR
+                    //DEL VECTOR QUE CREABA ANTES EN LA FUNCION
+                    resources_vec);
 
   //ACA SE TIRAN LOS PRODUCERS
 

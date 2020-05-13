@@ -4,6 +4,14 @@
 #include <vector>
 #include <map>
 
+
+
+//BORRAR ESTE METODO E INCLUDE, ES PARA DEBUGGEAR
+#include <iostream>
+
+
+
+
 #define RESOURCES_INITIAL_QUANTITY 0
 
 //Returns true if the requested resources are available, if there is less than
@@ -21,6 +29,11 @@ bool Inventory::_are_resources_available(std::map<Resource, int>& requested_reso
 //Reduces the ammount of requested resources from the stored map
 //The requested resources map is not modified
 void Inventory::_consume_resources(std::map<Resource, int>& requested_resources){
+
+  //BORRAR PRINT
+  std::cout << "A PUNTO DE ENTRAR AL FOR DE _consume_resources\n";
+
+
   for (std::map<Resource, int>::iterator it = requested_resources.begin(); it != requested_resources.end(); ++it) {
     resources_quantities[it->first] -= requested_resources[it->first];
   }
@@ -30,8 +43,6 @@ void Inventory::_consume_resources(std::map<Resource, int>& requested_resources)
 
 
 
-//BORRAR ESTE METODO E INCLUDE, ES PARA DEBUGGEAR
-#include <iostream>
 void Inventory::PRINT_STORED_RESOURCES(){
   std::cout << "RECURSOS:\n";
   std::cout << "Trigo: " << resources_quantities[RESOURCE_WHEAT] << "\n";
