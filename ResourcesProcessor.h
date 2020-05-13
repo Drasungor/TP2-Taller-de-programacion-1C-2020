@@ -28,7 +28,7 @@ private:
   void _close_blocking_queues(std::vector<BlockingQueue*>& queues);
   void _create_blocking_queues(std::vector<BlockingQueue*>& queues);
   void _destroy_blocking_queues(std::vector<BlockingQueue*>& queues);
-  void _store_resources(std::fstream& resources,
+  void _store_resources(std::ifstream& resources,
                         std::vector<BlockingQueue*>& queues);
   Resource _convert_to_resource(char resource);
   void _load_resources(std::ifstream& materials,
@@ -54,7 +54,7 @@ public:
                           const std::map<std::string, int>& number_of_workers);
   */
   //Processes the resources stored in the file passed, the file must be valid
-  std::map<std::string, int> process_resources(std::fstream& resources,
+  std::map<std::string, int> process_resources(std::ifstream& resources,
                                     const std::vector<int>& number_of_workers);
 };
 

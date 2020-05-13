@@ -7,6 +7,7 @@
 #include "BlockingQueue.h"
 #include "FilesConstants.h"
 #include "WorkerIndex.h"
+#include "ResourcesProcessor.h"
 
 #define NUMBER_OF_ARGUMENTS 3
 #define RESOURCES_FILE_INDEX 1
@@ -88,10 +89,12 @@ int CollectorsAndProducers::execute(const char** arguments,
     return INVALID_FILE;
   }
 
+  ResourcesProcessor processor;
   //std::map<std::string, int> workers_ammounts;
   std::vector<int> workers_ammounts(NUMBER_OF_WORKER_TYPES);
   _load_workers_ammounts(workers, workers_ammounts);
 
+  processor.process_resources(materials, workers_ammounts);
   //ACA SE EJECUTAN LAS FUNCIONES DE ResourcesProcessor
 
   //CAMBIAR EL SUCCESS POR EL RETORNO DE LA FUNCION DE ResourcesProcessor

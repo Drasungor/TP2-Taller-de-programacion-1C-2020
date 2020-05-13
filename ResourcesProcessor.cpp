@@ -74,7 +74,7 @@ Resource ResourcesProcessor::_convert_to_resource(char resource){
 
 //Stores the resources in the respective queue and closes every queue one the
 //resources run out
-void ResourcesProcessor::_store_resources(std::fstream& resources,
+void ResourcesProcessor::_store_resources(std::ifstream& resources,
                                           std::vector<BlockingQueue*>& queues){
   std::string buffer;
   Resource resource;
@@ -164,7 +164,7 @@ std::map<std::string, int> ResourcesProcessor::
                           const std::map<std::string, int>& number_of_workers){
 */
 std::map<std::string, int> ResourcesProcessor::
-        process_resources(std::fstream& resources,
+        process_resources(std::ifstream& resources,
                           const std::vector<int>& number_of_workers){
 //asdasdsad
   Inventory inventory;
