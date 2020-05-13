@@ -28,6 +28,25 @@ void Inventory::_consume_resources(std::map<Resource, int>& requested_resources)
 
 /////////////////////PUBLIC//////////////////////////////
 
+
+
+//BORRAR ESTE METODO E INCLUDE, ES PARA DEBUGGEAR
+#include <iostream>
+void Inventory::PRINT_STORED_RESOURCES(){
+  std::cout << "RECURSOS:\n";
+  std::cout << "Trigo: " << resources_quantities[RESOURCE_WHEAT] << "\n";
+  std::cout << "Madera: " << resources_quantities[RESOURCE_WOOD] << "\n";
+  std::cout << "Carbon: " << resources_quantities[RESOURCE_COAL] << "\n";
+  std::cout << "Hierro: " << resources_quantities[RESOURCE_IRON] << "\n";
+  std::cout << "\n\n";
+}
+
+
+
+
+
+
+
 //CAMBIAR TODOS LOS MAPS POR UNORDERED_MAPS
 bool Inventory::consume_resources(std::map<Resource, int>& requested_resources){
   std::unique_lock<std::mutex> lk(m);
@@ -55,9 +74,16 @@ bool Inventory::consume_resources(std::map<Resource, int>& requested_resources){
 }
 
 
+//BORRAR INCLUDE
+#include <iostream>
+
 void Inventory::add_resource(Resource resource){
   std::lock_guard<std::mutex> lk(m);
   resources_quantities[resource]++;
+
+  //BORRAR PRINT
+  std::cout << "Hay " << resources_quantities[resource] << " " << char(resource) << "\n";
+
   cv.notify_all();
 }
 

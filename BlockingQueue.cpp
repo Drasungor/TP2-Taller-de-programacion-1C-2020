@@ -14,23 +14,45 @@ BlockingQueue::BlockingQueue(){
 BlockingQueue::~BlockingQueue(){
 }
 
+
+//BORRAR INCLUDE
+#include <iostream>
+
 Resource BlockingQueue::pop(){
   std::unique_lock<std::mutex> lk(m);
   Resource resource;
   while (q.empty()) {
     if (is_closed) {
+
+
+      //BORRAR PRINT
+      std::cout << "Tiro exception en la BlockingQueue\n";
+
+
       //CAMBIAR LA FUNCION POR GUARDAR PUNTEROS Y DEVOLVER NULL
       throw ClosedQueueException();
     }
     cv.wait(lk);
   }
   resource = q.front();
+
+
+
+  //BORRAR PRINT
+  std::cout << "Popeo en la BlockingQueue\n";
+
+
+
   q.pop();
   return resource;
 }
 
 void BlockingQueue::push(Resource resource){
   std::lock_guard<std::mutex> lk(m);
+
+  //BORRAR PRINT
+  std::cout << "Pusheo en la BlockingQueue un " << char(resource) << " \n";
+
   q.push(resource);
   cv.notify_all();
 }

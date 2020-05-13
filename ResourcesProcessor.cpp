@@ -72,25 +72,40 @@ Resource ResourcesProcessor::_convert_to_resource(char resource){
   }
 }
 
+
+//BORRAR INCLUDE
+#include <iostream>
+
 //Stores the resources in the respective queue and closes every queue one the
 //resources run out
 void ResourcesProcessor::_store_resources(std::ifstream& resources,
                                           std::vector<BlockingQueue*>& queues){
   std::string buffer;
   Resource resource;
-  std::getline(resources, buffer);
+
+  //std::getline(resources, buffer);
   while (!resources.eof()) {
-    //std::getline(resources, buffer);
+
+    std::getline(resources, buffer);
+
+    //BORRAR ESTE PRINT
+    std::cout << buffer << "\n" << std::flush;
+
     for (size_t i = 0; i < buffer.length(); i++) {
       resource = _convert_to_resource(buffer[i]);
       //CAMBIAR ESTO PARA QUE COINCIDA CON LOS INDICES DE LOS GATHERERS
       queues[_get_gatherer_queue_index(resource)]->push(resource);
     }
     buffer.clear();
-    std::getline(resources, buffer);
   }
   //VER SI HAY QUE BORRAR ESTE CLOSE DE ACA Y CERRARLAS DE AFUERA
   _close_blocking_queues(queues);
+
+
+  //BORRAR ESTE PRINT
+  std::cout << "\n\n";
+
+
 }
 
 
@@ -181,7 +196,8 @@ std::map<std::string, int> ResourcesProcessor::
 
   //ACA SE TIRAN LOS PRODUCERS
 
-
+  //VER SI HAY QUE PASAR ESTO AFUERA DE LA CLASE PORQUE EL ARCHIVO
+  //DE TRABAJADORES SE LLAMA AFUERA
   _store_resources(resources, queues);
   //VER SI HAY Q LLAMAR A UN CLOSE DE LAS QUEUES AFUERA DE STORE
   inventory.close_entrance();
@@ -192,8 +208,13 @@ std::map<std::string, int> ResourcesProcessor::
     gatherers_groups[i]->join();
   }
 
+  //BORRAR ESTE METODO, ES SOLO PARA DEBUGGEAR
+  inventory.PRINT_STORED_RESOURCES();
+
   _destroy_gatherers(gatherers_groups);
   _destroy_blocking_queues(queues);
+
+
 
 
   //BORRAR: ESTA SOLO PARA QUE COMPILE

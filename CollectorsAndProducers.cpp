@@ -1,17 +1,15 @@
 #include "CollectorsAndProducers.h"
 
-//#include <iostream>
 #include <fstream>
 #include <string>
-//#include <map>
 #include "BlockingQueue.h"
 #include "FilesConstants.h"
 #include "WorkerIndex.h"
 #include "ResourcesProcessor.h"
 
 #define NUMBER_OF_ARGUMENTS 3
-#define RESOURCES_FILE_INDEX 1
-#define WORKERS_FILE_INDEX 2
+#define RESOURCES_FILE_INDEX 2
+#define WORKERS_FILE_INDEX 1
 
 
 #define SUCCESS 0
@@ -35,66 +33,68 @@ int _get_workers_ammounts_index(std::string worker){
   }
 }
 
-/*
-//Loads the ammount of each worker
-void CollectorsAndProducers::_load_workers_ammounts(std::ifstream& workers,
-                                std::map<std::string, int>& workers_ammounts){
-  std::string worker_type;
-  std::string number_of_workers;
-  //VER SI GETLINE TIRA EOF DESPUES DE INTENTAR LEER
-  //LEER AL FINAL DEL WHILE O USAR PEEK
-  while (!workers.eof()) {
-    std::getline(workers, worker_type, WORKER_NUMBER_SEPARATOR);
-    std::getline(workers, number_of_workers);
-    //The file comes without error so no conversion exception must
-    //be catched for stoi
-    workers_ammounts.insert(std::pair<std::string, int>(worker_type,
-                            std::stoi(number_of_workers)));
-    worker_type.clear();
-    worker_type.clear();
-  }
-}
-*/
-
 void CollectorsAndProducers::_load_workers_ammounts(std::ifstream& workers,
                                 std::vector<int>& workers_ammounts){
   std::string worker_type;
   std::string number_of_workers;
-  //VER SI GETLINE TIRA EOF DESPUES DE INTENTAR LEER
-  //LEER AL FINAL DEL WHILE O USAR PEEK
+  /*
   std::getline(workers, worker_type, WORKER_NUMBER_SEPARATOR);
   std::getline(workers, number_of_workers);
+  */
   while (!workers.eof()) {
+    std::getline(workers, worker_type, WORKER_NUMBER_SEPARATOR);
+    std::getline(workers, number_of_workers);
     //The file comes without error so no conversion exception must
     //be catched for stoi
     workers_ammounts[_get_workers_ammounts_index(worker_type)] = std::stoi(number_of_workers);
     worker_type.clear();
     worker_type.clear();
+    /*
     std::getline(workers, worker_type, WORKER_NUMBER_SEPARATOR);
     std::getline(workers, number_of_workers);
+    */
   }
 }
 
 
 /////////////////PUBLIC////////////////////
 
+//BORRAR ESTE INCLUDE
+#include <iostream>
+
+
 int CollectorsAndProducers::execute(const char** arguments,
                                     int number_of_arguments){
+
   if (number_of_arguments != NUMBER_OF_ARGUMENTS) {
     return INVALID_ARGUMENTS;
   }
-  //PASAR A FUNCION A PARTE DONDE SE INICIALICEN LOS GATHERERS
-  //O PRODUCERS
+
+  //BORRAR PRINT
+  std::cout << "Antes de la validacion de archivos\n";
+
   std::ifstream materials(arguments[RESOURCES_FILE_INDEX]);
   std::ifstream workers(arguments[WORKERS_FILE_INDEX]);
   if ((!materials.is_open()) || (!workers.is_open())) {
     return INVALID_FILE;
   }
 
+  //BORRAR PRINT
+  std::cout << "Pase validacion de archivos\n";
+
   ResourcesProcessor processor;
-  //std::map<std::string, int> workers_ammounts;
   std::vector<int> workers_ammounts(NUMBER_OF_WORKER_TYPES);
   _load_workers_ammounts(workers, workers_ammounts);
+
+  //BORRAR PTINT
+  std::cout << "TRABAJADORES:\n";
+  std::cout << "Agricultores: "<< workers_ammounts[WORKER_INDEX_FARMER] << "\n";
+  std::cout << "Leniadores: "<< workers_ammounts[WORKER_INDEX_LUMBERJACK] << "\n";
+  std::cout << "Mineros: "<< workers_ammounts[WORKER_INDEX_MINER] << "\n";
+  std::cout << "Cocineros: "<< workers_ammounts[WORKER_INDEX_COOKER] << "\n";
+  std::cout << "Carpinteros: "<< workers_ammounts[WORKER_INDEX_CARPENTER] << "\n";
+  std::cout << "Armeros: "<< workers_ammounts[WORKER_INDEX_GUNSMITH] << "\n";
+  std::cout << "\n\n";
 
   processor.process_resources(materials, workers_ammounts);
   //ACA SE EJECUTAN LAS FUNCIONES DE ResourcesProcessor
