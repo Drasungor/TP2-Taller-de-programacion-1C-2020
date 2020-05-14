@@ -9,25 +9,24 @@
 
 #define PRODUCER_WORKING_TIME_MICRO 60000
 
-//BORRAR INLCUDE
+//BORRAR INCLUDE
 #include <iostream>
 
 void ProducersGroup::_produce_points(Inventory& inventory,
                std::map<Resource, int>& resources_needed, int points_produced,
                std::mutex& m){
-  //asdasdsa
-  //bool consume_resources(std::map<Resource, int>& requested_resources);
 
   //BORRAR PRINT
-  std::cout << "A PUNTO DE ENTRAR AL WHILE DEL THREAD DE PRODUCER\n";
-
+  std::cout << "VOY A INTENTAR CONSUMIR RECURSOS\n";
 
 
   while (inventory.consume_resources(resources_needed)) {
 
 
+
     //BORRAR PRINT
-    std::cout << "Consumo recursos\n";
+    std::cout << "PUDE CONSUMIR RECURSOS\n";
+
 
 
     usleep(PRODUCER_WORKING_TIME_MICRO);
@@ -56,10 +55,6 @@ ProducersGroup::ProducersGroup(Inventory& inventory,
   std::mutex m;
   total_points_produced = 0;
   for (int i = 0; i < number_of_producers; i++) {
-
-    //BORRAR PRINT
-    std::cout << "Tiro thread de producer" << i <<"\n";
-
     threads.push_back(new std::thread(&ProducersGroup::_produce_points, this,
                                std::ref(inventory), std::ref(resources_needed),
                                std::ref(points_produced), std::ref(m)));

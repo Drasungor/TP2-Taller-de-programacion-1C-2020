@@ -35,24 +35,12 @@ Resource BlockingQueue::pop(){
     cv.wait(lk);
   }
   resource = q.front();
-
-
-
-  //BORRAR PRINT
-  std::cout << "Popeo en la BlockingQueue\n";
-
-
-
   q.pop();
   return resource;
 }
 
 void BlockingQueue::push(Resource resource){
   std::lock_guard<std::mutex> lk(m);
-
-  //BORRAR PRINT
-  std::cout << "Pusheo en la BlockingQueue un " << char(resource) << " \n";
-
   q.push(resource);
   cv.notify_all();
 }

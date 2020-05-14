@@ -4,6 +4,9 @@
 #include <vector>
 #include <map>
 
+#define RESOURCES_INITIAL_QUANTITY 0
+
+
 
 
 //BORRAR ESTE METODO E INCLUDE, ES PARA DEBUGGEAR
@@ -11,15 +14,17 @@
 
 
 
-
-#define RESOURCES_INITIAL_QUANTITY 0
-
 //Returns true if the requested resources are available, if there is less than
 //the requested ammount of any of the resources returns false
 //The requested resources map is not modified
 bool Inventory::_are_resources_available(std::map<Resource, int>& requested_resources){
   for (std::map<Resource, int>::iterator it = requested_resources.begin(); it != requested_resources.end(); ++it) {
     if (requested_resources[it->first] > resources_quantities[it->first]) {
+
+      //BORRAR PRINT
+      std::cout << "RETORNO QUE NO HAY RECURSOS DISPONIBLES\n";
+
+
       return false;
     }
   }
@@ -29,14 +34,9 @@ bool Inventory::_are_resources_available(std::map<Resource, int>& requested_reso
 //Reduces the ammount of requested resources from the stored map
 //The requested resources map is not modified
 void Inventory::_consume_resources(std::map<Resource, int>& requested_resources){
-
-  //BORRAR PRINT
-  std::cout << "A PUNTO DE ENTRAR AL FOR DE _consume_resources\n";
-
   for (std::map<Resource, int>::iterator it = requested_resources.begin(); it != requested_resources.end(); ++it) {
     resources_quantities[it->first] -= requested_resources[it->first];
   }
-
 }
 
 /////////////////////PUBLIC//////////////////////////////
@@ -72,25 +72,8 @@ bool Inventory::consume_resources(std::map<Resource, int>& requested_resources){
   }
   */
 
-  //BORRAR PRINT
-  std::cout << "A PUNTO DE VER SI LOS RECURSOS ESTAN DISPONIBLES" << "\n";
-
   while (!_are_resources_available(requested_resources)) {
-
-
-
-    //BORRAR PRINT
-    std::cout << "YA CHEQUEE QUE LOS RECURSOS ESTAN DISPONIBLES" << "\n";
-    std::cout << "EL BOOL ES " << bool(is_entrance_closed) << "\n";
-
-
-
     if (is_entrance_closed) {
-
-      //BORRAR PRINT
-      std::cout << "CHEQUEE SI LA ENTRADA ESTA CERRADA\n";
-
-
       return false;
     }
     //The spurious wakeups won't modify the program execution because the
@@ -101,7 +84,7 @@ bool Inventory::consume_resources(std::map<Resource, int>& requested_resources){
 
 
   //BORRAR PRINT
-  std::cout << "A PUNTO DE LLAMAR A CONSUME RESOURCES PRIVADO" << "\n";
+  std::cout << "VOY A CONSUMIR RECURSOS\n";
 
 
   _consume_resources(requested_resources);

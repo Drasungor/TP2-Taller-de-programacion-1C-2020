@@ -69,19 +69,11 @@ int CollectorsAndProducers::execute(const char** arguments,
   if (number_of_arguments != NUMBER_OF_ARGUMENTS) {
     return INVALID_ARGUMENTS;
   }
-
-  //BORRAR PRINT
-  std::cout << "Antes de la validacion de archivos\n";
-
   std::ifstream materials(arguments[RESOURCES_FILE_INDEX]);
   std::ifstream workers(arguments[WORKERS_FILE_INDEX]);
   if ((!materials.is_open()) || (!workers.is_open())) {
     return INVALID_FILE;
   }
-
-  //BORRAR PRINT
-  std::cout << "Pase validacion de archivos\n";
-
   ResourcesProcessor processor;
   std::vector<int> workers_ammounts(NUMBER_OF_WORKER_TYPES);
   _load_workers_ammounts(workers, workers_ammounts);

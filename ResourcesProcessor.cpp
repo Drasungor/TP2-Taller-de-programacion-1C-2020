@@ -176,9 +176,6 @@ void ResourcesProcessor::_destroy_gatherers(std::vector<GatherersGroup*>& gather
   }
 }
 
-//BORRAR INCLUDE
-#include <unistd.h>
-
 
 //VER SI PUEDO CAMBIAR ESTO POR UN EMPLACE BACK EN LA FUNCION PRINCIPAL PORQUE
 //NO SE ESTA GUARDANDO COSAS NO COPIABLES
@@ -208,26 +205,10 @@ void ResourcesProcessor::_create_producers(Inventory& inventory,
 //asdasdasd
   std::vector<int> points_produced = {5, 2, 3};
   for (size_t i = NUMBER_OF_GATHERER_TYPES; i < NUMBER_OF_WORKER_TYPES; i++) {
-
-
-
-    //BORRAR PRINT
-    std::cout << "Producer numero: " << i << "\n";
-
-
-
     producers_groups.push_back(new ProducersGroup(inventory, resources_vec[i - NUMBER_OF_GATHERER_TYPES],
                                                   number_of_workers[i],
                                                   points_produced[i - NUMBER_OF_GATHERER_TYPES]));
   }
-
-
-  //asdasdas
-  //BORRAR PRINT Y USLEEP
-  //usleep(1000000);
-  std::cout << "\n\n\n\nTERMINE DE TIRAR LOS PRODUCERS\n\n\n";
-
-
 }
 
 void ResourcesProcessor::_destroy_producers(std::vector<ProducersGroup*>& producers_groups){
@@ -291,7 +272,6 @@ std::map<std::string, int> ResourcesProcessor::
   //DE TRABAJADORES SE LLAMA AFUERA
   _store_resources(resources, queues);
   //VER SI HAY Q LLAMAR A UN CLOSE DE LAS QUEUES AFUERA DE STORE
-  inventory.close_entrance();
 
   //BORRAR ESTO ES PARA DEBUGGING
   int total_number_of_points = 0;
@@ -300,6 +280,11 @@ std::map<std::string, int> ResourcesProcessor::
   for (size_t i = 0; i < gatherers_groups.size(); i++) {
     gatherers_groups[i]->join();
   }
+
+  
+  inventory.close_entrance();
+
+
   for (size_t i = 0; i < producers_groups.size(); i++) {
     //BORRAR LA ASIGNACION, ES PARA DEBUGGING
     total_number_of_points += producers_groups[i]->join();
