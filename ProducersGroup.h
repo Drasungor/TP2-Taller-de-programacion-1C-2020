@@ -11,11 +11,12 @@ class ProducersGroup {
 private:
   std::vector<std::thread*> threads;
   int total_points_produced;
-  //std::mutex m;
+  int points_per_product;
+  std::mutex m;
 private:
   void _produce_points(Inventory& inventory,
                  std::map<Resource, int>& resources_needed,
-                 int points_produced, std::mutex& m);
+                 int points_produced/*, std::mutex& m*/);
 public:
   ProducersGroup(Inventory& inventory,
                  std::map<Resource, int>& resources_needed,

@@ -201,10 +201,17 @@ void ResourcesProcessor::_create_producers(Inventory& inventory,
   resources_vec.emplace_back(resources_gunsmith);
   */
 
+  //BORRAR PRINT
+  std::cout << "asdasd Entre a _create_producers\n";
+
 
 //asdasdasd
   std::vector<int> points_produced = {5, 2, 3};
   for (size_t i = NUMBER_OF_GATHERER_TYPES; i < NUMBER_OF_WORKER_TYPES; i++) {
+
+    //BORRAR PRINT
+    std::cout << "LOS PUNTOS PRODUCIDOS SON " << points_produced[i - NUMBER_OF_GATHERER_TYPES] << "\n";
+
     producers_groups.push_back(new ProducersGroup(inventory, resources_vec[i - NUMBER_OF_GATHERER_TYPES],
                                                   number_of_workers[i],
                                                   points_produced[i - NUMBER_OF_GATHERER_TYPES]));
@@ -258,13 +265,13 @@ std::map<std::string, int> ResourcesProcessor::
   _create_blocking_queues(queues);
 
 
-  //VER SI SE CAMBIAN LAS OPERACIONES DE GATHERERS POR UNA DE UNA SOLA CLASE
-  //QUE CONTENGA A TODOS LOS GATHERERS
-  _create_gatherers(inventory, gatherers_groups, number_of_workers, queues);
   _create_producers(inventory, producers_groups, number_of_workers,
                     //BORRAR ESTE PARAMETRO, ES PARA VER SI ES EL DESTRUCTOR
                     //DEL VECTOR QUE CREABA ANTES EN LA FUNCION
                     resources_vec);
+  //VER SI SE CAMBIAN LAS OPERACIONES DE GATHERERS POR UNA DE UNA SOLA CLASE
+  //QUE CONTENGA A TODOS LOS GATHERERS
+  _create_gatherers(inventory, gatherers_groups, number_of_workers, queues);
 
   //ACA SE TIRAN LOS PRODUCERS
 
@@ -281,20 +288,21 @@ std::map<std::string, int> ResourcesProcessor::
     gatherers_groups[i]->join();
   }
 
-  
+
   inventory.close_entrance();
 
 
   for (size_t i = 0; i < producers_groups.size(); i++) {
     //BORRAR LA ASIGNACION, ES PARA DEBUGGING
-    total_number_of_points += producers_groups[i]->join();
+    //total_number_of_points += producers_groups[i]->join();
+    std::cout << "Los productores generaron " << producers_groups[i]->join() << " puntos\n";
   }
 
   //BORRAR ESTE METODO, ES SOLO PARA DEBUGGEAR
   inventory.PRINT_STORED_RESOURCES();
 
-  _destroy_producers(producers_groups);
   _destroy_gatherers(gatherers_groups);
+  _destroy_producers(producers_groups);
   _destroy_blocking_queues(queues);
 
 
