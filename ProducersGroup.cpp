@@ -41,7 +41,6 @@ void ProducersGroup::_produce_points(Inventory& inventory,
 
 //////////////////////PUBLIC/////////////////////
 
-
 //VER SI SE CAMBIA POR UN GET POINTS Y DEVUELVO LOS PUNTOS TOTALES GENERADOS ACA
 int ProducersGroup::join(){
   for (size_t i = 0; i < threads.size(); i++) {
@@ -59,7 +58,7 @@ ProducersGroup::ProducersGroup(Inventory& inventory,
   for (int i = 0; i < number_of_producers; i++) {
 
     //BORRAR PRINT
-    std::cout << "Tiro thread de producer\n";
+    std::cout << "Tiro thread de producer" << i <<"\n";
 
     threads.push_back(new std::thread(&ProducersGroup::_produce_points, this,
                                std::ref(inventory), std::ref(resources_needed),

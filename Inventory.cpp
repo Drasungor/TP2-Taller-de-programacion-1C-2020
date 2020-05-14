@@ -33,10 +33,10 @@ void Inventory::_consume_resources(std::map<Resource, int>& requested_resources)
   //BORRAR PRINT
   std::cout << "A PUNTO DE ENTRAR AL FOR DE _consume_resources\n";
 
-
   for (std::map<Resource, int>::iterator it = requested_resources.begin(); it != requested_resources.end(); ++it) {
     resources_quantities[it->first] -= requested_resources[it->first];
   }
+
 }
 
 /////////////////////PUBLIC//////////////////////////////
@@ -71,8 +71,26 @@ bool Inventory::consume_resources(std::map<Resource, int>& requested_resources){
     are_resources_available = _are_resources_available(requested_resources);
   }
   */
+
+  //BORRAR PRINT
+  std::cout << "A PUNTO DE VER SI LOS RECURSOS ESTAN DISPONIBLES" << "\n";
+
   while (!_are_resources_available(requested_resources)) {
+
+
+
+    //BORRAR PRINT
+    std::cout << "YA CHEQUEE QUE LOS RECURSOS ESTAN DISPONIBLES" << "\n";
+    std::cout << "EL BOOL ES " << bool(is_entrance_closed) << "\n";
+
+
+
     if (is_entrance_closed) {
+
+      //BORRAR PRINT
+      std::cout << "CHEQUEE SI LA ENTRADA ESTA CERRADA\n";
+
+
       return false;
     }
     //The spurious wakeups won't modify the program execution because the
@@ -80,6 +98,12 @@ bool Inventory::consume_resources(std::map<Resource, int>& requested_resources){
     //is added, and each resource adition calls cv.notifyall()
     cv.wait(lk);
   }
+
+
+  //BORRAR PRINT
+  std::cout << "A PUNTO DE LLAMAR A CONSUME RESOURCES PRIVADO" << "\n";
+
+
   _consume_resources(requested_resources);
   return true;
 }

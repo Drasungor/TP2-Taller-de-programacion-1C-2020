@@ -176,7 +176,8 @@ void ResourcesProcessor::_destroy_gatherers(std::vector<GatherersGroup*>& gather
   }
 }
 
-
+//BORRAR INCLUDE
+#include <unistd.h>
 
 
 //VER SI PUEDO CAMBIAR ESTO POR UN EMPLACE BACK EN LA FUNCION PRINCIPAL PORQUE
@@ -191,34 +192,42 @@ void ResourcesProcessor::_create_producers(Inventory& inventory,
   //asdasdasd
   //REFACTORIZAR TODA ESTA FUNCION
 
-
   /*
-  ProducersGroup(Inventory& inventory,
-                 std::map<Resource, int>& resources_needed,
-                 int number_of_producers, int points_produced)
-  */
   std::map<Resource, int> resources_cooker = {std::pair<Resource, int>(RESOURCE_WHEAT, 2),
                                               std::pair<Resource, int>(RESOURCE_COAL, 1)};
   std::map<Resource, int> resources_carpenter = {std::pair<Resource, int>(RESOURCE_WOOD, 3),
                                                  std::pair<Resource, int>(RESOURCE_IRON, 1)};
   std::map<Resource, int> resources_gunsmith = {std::pair<Resource, int>(RESOURCE_COAL, 2),
                                                 std::pair<Resource, int>(RESOURCE_IRON, 2)};
-  //CAMBIAR POR emplace_back Y BORRAR LA FUNCION DE DELETE
-  /*
-  std::vector<std::map<Resource, int>> resources = {resources_cooker, resources_carpenter,
-                                                    resources_gunsmith};
-  */
   resources_vec.emplace_back(resources_cooker);
   resources_vec.emplace_back(resources_carpenter);
   resources_vec.emplace_back(resources_gunsmith);
+  */
+
 
 //asdasdasd
   std::vector<int> points_produced = {5, 2, 3};
   for (size_t i = NUMBER_OF_GATHERER_TYPES; i < NUMBER_OF_WORKER_TYPES; i++) {
+
+
+
+    //BORRAR PRINT
+    std::cout << "Producer numero: " << i << "\n";
+
+
+
     producers_groups.push_back(new ProducersGroup(inventory, resources_vec[i - NUMBER_OF_GATHERER_TYPES],
                                                   number_of_workers[i],
                                                   points_produced[i - NUMBER_OF_GATHERER_TYPES]));
   }
+
+
+  //asdasdas
+  //BORRAR PRINT Y USLEEP
+  //usleep(1000000);
+  std::cout << "\n\n\n\nTERMINE DE TIRAR LOS PRODUCERS\n\n\n";
+
+
 }
 
 void ResourcesProcessor::_destroy_producers(std::vector<ProducersGroup*>& producers_groups){
@@ -251,6 +260,19 @@ std::map<std::string, int> ResourcesProcessor::
   std::vector<ProducersGroup*> producers_groups;
   std::vector<GatherersGroup*> gatherers_groups;
   std::vector<BlockingQueue*> queues;
+
+
+  std::map<Resource, int> resources_cooker = {std::pair<Resource, int>(RESOURCE_WHEAT, 2),
+                                              std::pair<Resource, int>(RESOURCE_COAL, 1)};
+  std::map<Resource, int> resources_carpenter = {std::pair<Resource, int>(RESOURCE_WOOD, 3),
+                                                 std::pair<Resource, int>(RESOURCE_IRON, 1)};
+  std::map<Resource, int> resources_gunsmith = {std::pair<Resource, int>(RESOURCE_COAL, 2),
+                                                std::pair<Resource, int>(RESOURCE_IRON, 2)};
+  resources_vec.emplace_back(resources_cooker);
+  resources_vec.emplace_back(resources_carpenter);
+  resources_vec.emplace_back(resources_gunsmith);
+
+
 
   _create_blocking_queues(queues);
 
