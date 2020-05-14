@@ -9,22 +9,12 @@
 
 
 
-//BORRAR ESTE METODO E INCLUDE, ES PARA DEBUGGEAR
-#include <iostream>
-
-
-
 //Returns true if the requested resources are available, if there is less than
 //the requested ammount of any of the resources returns false
 //The requested resources map is not modified
 bool Inventory::_are_resources_available(std::map<Resource, int>& requested_resources){
   for (std::map<Resource, int>::iterator it = requested_resources.begin(); it != requested_resources.end(); ++it) {
     if (requested_resources[it->first] > resources_quantities[it->first]) {
-
-      //BORRAR PRINT
-      std::cout << "RETORNO QUE NO HAY RECURSOS DISPONIBLES\n";
-
-
       return false;
     }
   }
@@ -44,15 +34,26 @@ void Inventory::_consume_resources(std::map<Resource, int>& requested_resources)
 
 
 void Inventory::PRINT_STORED_RESOURCES(){
+  /*
   std::cout << "RECURSOS:\n";
   std::cout << "Trigo: " << resources_quantities[RESOURCE_WHEAT] << "\n";
   std::cout << "Madera: " << resources_quantities[RESOURCE_WOOD] << "\n";
   std::cout << "Carbon: " << resources_quantities[RESOURCE_COAL] << "\n";
   std::cout << "Hierro: " << resources_quantities[RESOURCE_IRON] << "\n";
   std::cout << "\n\n";
+  */
 }
 
 
+
+
+void Inventory::copy_stored_resources(std::map<Resource, int>& buffer) const{
+  for (std::map<Resource, int>::const_iterator it =
+       resources_quantities.begin(); it != resources_quantities.end(); ++it) {
+    //asdasdas
+    buffer[it->first] = it->second;
+  }
+}
 
 
 
@@ -81,27 +82,14 @@ bool Inventory::consume_resources(std::map<Resource, int>& requested_resources){
     //is added, and each resource adition calls cv.notifyall()
     cv.wait(lk);
   }
-
-
-  //BORRAR PRINT
-  std::cout << "VOY A CONSUMIR RECURSOS\n";
-
-
   _consume_resources(requested_resources);
   return true;
 }
 
 
-//BORRAR INCLUDE
-#include <iostream>
-
 void Inventory::add_resource(Resource resource){
   std::lock_guard<std::mutex> lk(m);
   resources_quantities[resource]++;
-
-  //BORRAR PRINT
-  std::cout << "Hay " << resources_quantities[resource] << " " << char(resource) << "\n";
-
   cv.notify_all();
 }
 

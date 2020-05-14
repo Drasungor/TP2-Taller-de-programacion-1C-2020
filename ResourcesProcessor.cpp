@@ -74,9 +74,6 @@ Resource ResourcesProcessor::_convert_to_resource(char resource){
 }
 
 
-//BORRAR INCLUDE
-#include <iostream>
-
 //Stores the resources in the respective queue and closes every queue one the
 //resources run out
 void ResourcesProcessor::_store_resources(std::ifstream& resources,
@@ -88,10 +85,6 @@ void ResourcesProcessor::_store_resources(std::ifstream& resources,
   while (!resources.eof()) {
 
     std::getline(resources, buffer);
-
-    //BORRAR ESTE PRINT
-    std::cout << buffer << "\n" << std::flush;
-
     for (size_t i = 0; i < buffer.length(); i++) {
       resource = _convert_to_resource(buffer[i]);
       //CAMBIAR ESTO PARA QUE COINCIDA CON LOS INDICES DE LOS GATHERERS
@@ -101,12 +94,6 @@ void ResourcesProcessor::_store_resources(std::ifstream& resources,
   }
   //VER SI HAY QUE BORRAR ESTE CLOSE DE ACA Y CERRARLAS DE AFUERA
   _close_blocking_queues(queues);
-
-
-  //BORRAR ESTE PRINT
-  std::cout << "\n\n";
-
-
 }
 
 
@@ -201,17 +188,9 @@ void ResourcesProcessor::_create_producers(Inventory& inventory,
   resources_vec.emplace_back(resources_gunsmith);
   */
 
-  //BORRAR PRINT
-  std::cout << "asdasd Entre a _create_producers\n";
 
-
-//asdasdasd
   std::vector<int> points_produced = {5, 2, 3};
   for (size_t i = NUMBER_OF_GATHERER_TYPES; i < NUMBER_OF_WORKER_TYPES; i++) {
-
-    //BORRAR PRINT
-    std::cout << "LOS PUNTOS PRODUCIDOS SON " << points_produced[i - NUMBER_OF_GATHERER_TYPES] << "\n";
-
     producers_groups.push_back(new ProducersGroup(inventory, resources_vec[i - NUMBER_OF_GATHERER_TYPES],
                                                   number_of_workers[i],
                                                   points_produced[i - NUMBER_OF_GATHERER_TYPES]));
@@ -228,19 +207,15 @@ void ResourcesProcessor::_destroy_producers(std::vector<ProducersGroup*>& produc
 
 /////////////////////PUBLIC//////////////////////////////
 
-//BORRAR INCLUDE, ES PARA DEBUGGEAR
-#include <iostream>
-
-
 /*
 std::map<std::string, int> ResourcesProcessor::
         process_resources(std::fstream& resources,
                           const std::map<std::string, int>& number_of_workers){
 */
-std::map<std::string, int> ResourcesProcessor::
+int ResourcesProcessor::
         process_resources(std::ifstream& resources,
-                          const std::vector<int>& number_of_workers){
-//asdasdsad
+                          const std::vector<int>& number_of_workers,
+                          std::map<Resource, int>& unprocessed_resources){
 
   std::vector<std::map<Resource, int>> resources_vec;
 
@@ -294,26 +269,18 @@ std::map<std::string, int> ResourcesProcessor::
 
   for (size_t i = 0; i < producers_groups.size(); i++) {
     //BORRAR LA ASIGNACION, ES PARA DEBUGGING
-    //total_number_of_points += producers_groups[i]->join();
-    std::cout << "Los productores generaron " << producers_groups[i]->join() << " puntos\n";
+    total_number_of_points += producers_groups[i]->join();
   }
 
+
   //BORRAR ESTE METODO, ES SOLO PARA DEBUGGEAR
-  inventory.PRINT_STORED_RESOURCES();
+  //inventory.PRINT_STORED_RESOURCES();
 
   _destroy_gatherers(gatherers_groups);
   _destroy_producers(producers_groups);
   _destroy_blocking_queues(queues);
 
-
-  //BORRAR PRINT, ES PARA DEBUGGEAR
-  std::cout << "La cantidad de puntos es: " << total_number_of_points << "\n";
-
-
-  //BORRAR: ESTA SOLO PARA QUE COMPILE
-  std::map<std::string, int> compila;
-  //PONER RETURN
-  return compila;
+  return total_number_of_points;
 }
 
 

@@ -2,7 +2,6 @@
 
 #include <condition_variable>
 #include <mutex>
-//#include <thread>
 #include "Resource.h"
 #include "ClosedQueueException.h"
 
@@ -15,20 +14,11 @@ BlockingQueue::~BlockingQueue(){
 }
 
 
-//BORRAR INCLUDE
-#include <iostream>
-
 Resource BlockingQueue::pop(){
   std::unique_lock<std::mutex> lk(m);
   Resource resource;
   while (q.empty()) {
     if (is_closed) {
-
-
-      //BORRAR PRINT
-      std::cout << "Tiro exception en la BlockingQueue\n";
-
-
       //CAMBIAR LA FUNCION POR GUARDAR PUNTEROS Y DEVOLVER NULL
       throw ClosedQueueException();
     }

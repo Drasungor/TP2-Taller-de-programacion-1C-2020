@@ -63,8 +63,9 @@ public:
                           const std::map<std::string, int>& number_of_workers);
   */
   //Processes the resources stored in the file passed, the file must be valid
-  std::map<std::string, int> process_resources(std::ifstream& resources,
-                                    const std::vector<int>& number_of_workers);
+  int process_resources(std::ifstream& resources,
+                         const std::vector<int>& number_of_workers,
+                         std::map<Resource, int>& unprocessed_resources);
 };
 
 #endif

@@ -22,6 +22,7 @@ private:
   void _load_workers_ammounts(std::ifstream& workers,
                               std::map<std::string, int>& workers_ammounts);
   */
+  int _get_workers_ammounts_index(std::string& worker);
   void _load_workers_ammounts(std::ifstream& workers,
                               std::vector<int>& workers_ammounts);
 public:

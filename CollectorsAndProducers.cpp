@@ -6,6 +6,8 @@
 #include "FilesConstants.h"
 #include "WorkerIndex.h"
 #include "ResourcesProcessor.h"
+#include "Resource.h"
+
 
 #define NUMBER_OF_ARGUMENTS 3
 #define RESOURCES_FILE_INDEX 2
@@ -16,8 +18,17 @@
 #define INVALID_ARGUMENTS 1
 #define INVALID_FILE 1
 
+#define OUT_TEXT_UNPROCESSED_RESOURCES "Recursos restantes:\n"
+#define 
+#define OUT_TEXT_WHEAT "Trigo: "
+#define OUT_TEXT_WOOD "Madera: "
+#define OUT_TEXT_COAL "Carbon: "
+#define OUT_TEXT_IRON "Hierro: "
+#define OUT_TEXT_BENEFIT_POINTS "Puntos de beneficio acumulados: "
 
-int _get_workers_ammounts_index(std::string worker){
+
+
+int CollectorsAndProducers::_get_workers_ammounts_index(std::string& worker){
   if (worker == FARMER_TEXT) {
     return WORKER_INDEX_FARMER;
   } else if (worker == LUMBERJACK_TEXT) {
@@ -37,10 +48,6 @@ void CollectorsAndProducers::_load_workers_ammounts(std::ifstream& workers,
                                 std::vector<int>& workers_ammounts){
   std::string worker_type;
   std::string number_of_workers;
-  /*
-  std::getline(workers, worker_type, WORKER_NUMBER_SEPARATOR);
-  std::getline(workers, number_of_workers);
-  */
   while (!workers.eof()) {
     std::getline(workers, worker_type, WORKER_NUMBER_SEPARATOR);
     std::getline(workers, number_of_workers);
@@ -49,22 +56,20 @@ void CollectorsAndProducers::_load_workers_ammounts(std::ifstream& workers,
     workers_ammounts[_get_workers_ammounts_index(worker_type)] = std::stoi(number_of_workers);
     worker_type.clear();
     worker_type.clear();
-    /*
-    std::getline(workers, worker_type, WORKER_NUMBER_SEPARATOR);
-    std::getline(workers, number_of_workers);
-    */
   }
 }
 
 
+void CollectorsAndProducers::_print_result(std::map<Resource, int> unprocessed_resources, int produced_points){
+  std::map<Resource, string> strings_to_print = {};
+}
+
 /////////////////PUBLIC////////////////////
-
-//BORRAR ESTE INCLUDE
-#include <iostream>
-
 
 int CollectorsAndProducers::execute(const char** arguments,
                                     int number_of_arguments){
+//asdasd
+  int produced_points = 0;
 
   if (number_of_arguments != NUMBER_OF_ARGUMENTS) {
     return INVALID_ARGUMENTS;
@@ -75,21 +80,14 @@ int CollectorsAndProducers::execute(const char** arguments,
     return INVALID_FILE;
   }
   ResourcesProcessor processor;
+  std::map<Resource, int> unprocessed_resources;
   std::vector<int> workers_ammounts(NUMBER_OF_WORKER_TYPES);
   _load_workers_ammounts(workers, workers_ammounts);
-
-  //BORRAR PTINT
-  std::cout << "TRABAJADORES:\n";
-  std::cout << "Agricultores: "<< workers_ammounts[WORKER_INDEX_FARMER] << "\n";
-  std::cout << "Leniadores: "<< workers_ammounts[WORKER_INDEX_LUMBERJACK] << "\n";
-  std::cout << "Mineros: "<< workers_ammounts[WORKER_INDEX_MINER] << "\n";
-  std::cout << "Cocineros: "<< workers_ammounts[WORKER_INDEX_COOKER] << "\n";
-  std::cout << "Carpinteros: "<< workers_ammounts[WORKER_INDEX_CARPENTER] << "\n";
-  std::cout << "Armeros: "<< workers_ammounts[WORKER_INDEX_GUNSMITH] << "\n";
-  std::cout << "\n\n";
-
-  processor.process_resources(materials, workers_ammounts);
+  produced_points = processor.process_resources(materials, workers_ammounts,
+                              unprocessed_resources);
   //ACA SE EJECUTAN LAS FUNCIONES DE ResourcesProcessor
+
+
 
   //CAMBIAR EL SUCCESS POR EL RETORNO DE LA FUNCION DE ResourcesProcessor
   return SUCCESS;

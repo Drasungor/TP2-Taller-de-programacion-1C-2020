@@ -38,6 +38,10 @@ public:
   //resources
   void close_entrance();
 
+  //Returns a refference to the map that stores the ammount of each resource
+  //This function is not thread safe,
+  void copy_stored_resources(std::map<Resource, int>& buffer) const;
+
 };
 
 #endif

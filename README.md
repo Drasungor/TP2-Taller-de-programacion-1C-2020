@@ -10,3 +10,7 @@ de threads desde ahi, despues se cargan los materiales y despues se hace el
 join
 -Ver si hay que borrar Producers.cpp y Producers.h
 -Cambiar los join por release_gatherers y get_produced_points
+-CAMBIAR TODOS LOS MAPS POR UNORDERED MAPS
+-AGREGAR CONST A LAS FUNCIONES QUE NO MODIFIQUEN LOS OBJETOS QUE LLAMAN
+-CAMBIAR EL requested_resources[it->first] por un it->second PORQUE ESO ES
+O(1) Y LO PRIMERO ES O(log(n))
