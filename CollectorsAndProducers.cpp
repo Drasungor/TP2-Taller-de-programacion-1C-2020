@@ -1,7 +1,9 @@
 #include "CollectorsAndProducers.h"
 
+#include <iostream>
 #include <fstream>
 #include <string>
+#include <map>
 #include "BlockingQueue.h"
 #include "FilesConstants.h"
 #include "WorkerIndex.h"
@@ -13,13 +15,12 @@
 #define RESOURCES_FILE_INDEX 2
 #define WORKERS_FILE_INDEX 1
 
-
 #define SUCCESS 0
 #define INVALID_ARGUMENTS 1
 #define INVALID_FILE 1
 
 #define OUT_TEXT_UNPROCESSED_RESOURCES "Recursos restantes:\n"
-#define 
+#define OUT_TEXT_RESOURCE_PRETEXT "  - "
 #define OUT_TEXT_WHEAT "Trigo: "
 #define OUT_TEXT_WOOD "Madera: "
 #define OUT_TEXT_COAL "Carbon: "
@@ -60,8 +61,27 @@ void CollectorsAndProducers::_load_workers_ammounts(std::ifstream& workers,
 }
 
 
-void CollectorsAndProducers::_print_result(std::map<Resource, int> unprocessed_resources, int produced_points){
-  std::map<Resource, string> strings_to_print = {};
+void CollectorsAndProducers::_print_result(
+                        const std::map<Resource, int>& unprocessed_resources,
+                        int produced_points){
+/*
+  std::map<Resource, string> strings_to_print = {
+    std::pair<Resource, std::string>(RESOURCE_WHEAT, OUT_TEXT_WHEAT),
+    std::pair<Resource, std::string>(RESOURCE_WOOD, OUT_TEXT_WOOD),
+    std::pair<Resource, std::string>(RESOURCE_COAL, OUT_TEXT_COAL),
+    std::pair<Resource, std::string>(RESOURCE_IRON, OUT_TEXT_IRON)};
+*/
+std::map<Resource, std::string> strings_to_print = {
+  {RESOURCE_WHEAT, OUT_TEXT_WHEAT}, {RESOURCE_WOOD, OUT_TEXT_WOOD},
+  {RESOURCE_COAL, OUT_TEXT_COAL}, {RESOURCE_IRON, OUT_TEXT_IRON}};
+  std::cout << OUT_TEXT_UNPROCESSED_RESOURCES;
+  for (std::map<Resource, int>::const_iterator it =
+      unprocessed_resources.begin(); it != unprocessed_resources.end(); ++it) {
+    std::cout << OUT_TEXT_RESOURCE_PRETEXT << strings_to_print[it->first] <<
+              it->second << "\n";
+  }
+  std::cout << "\n";
+  std::cout << OUT_TEXT_BENEFIT_POINTS << produced_points << "\n";
 }
 
 /////////////////PUBLIC////////////////////
