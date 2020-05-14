@@ -1,5 +1,5 @@
 #ifndef _PRODUCERS_GROUP_H_
-#define  _PRODUCERS_GROUP_H_
+#define _PRODUCERS_GROUP_H_
 
 #include <thread>
 #include <vector>

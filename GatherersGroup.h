@@ -1,8 +1,8 @@
 #ifndef _GATHERERS_GROUP_H_
 #define _GATHERERS_GROUP_H_
 
-#include <vector>
 #include <thread>
+#include <vector>
 #include "BlockingQueue.h"
 #include "Inventory.h"
 

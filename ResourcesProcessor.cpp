@@ -11,12 +11,12 @@
 #include "ProducersGroup.h"
 #include "WorkerIndex.h"
 
+
 enum GathererQueueIndex{
   GATHERER_QUEUE_INDEX_FARMER = WORKER_INDEX_FARMER,
   GATHERER_QUEUE_INDEX_LUMBERJACK = WORKER_INDEX_LUMBERJACK,
   GATHERER_QUEUE_INDEX_MINER = WORKER_INDEX_MINER
 };
-
 /*
 //Loads the resources from the materials file into the
 //different gatherers' blocking queues

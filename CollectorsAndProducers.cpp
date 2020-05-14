@@ -64,13 +64,6 @@ void CollectorsAndProducers::_load_workers_ammounts(std::ifstream& workers,
 void CollectorsAndProducers::_print_result(
                         const std::map<Resource, int>& unprocessed_resources,
                         int produced_points){
-/*
-  std::map<Resource, string> strings_to_print = {
-    std::pair<Resource, std::string>(RESOURCE_WHEAT, OUT_TEXT_WHEAT),
-    std::pair<Resource, std::string>(RESOURCE_WOOD, OUT_TEXT_WOOD),
-    std::pair<Resource, std::string>(RESOURCE_COAL, OUT_TEXT_COAL),
-    std::pair<Resource, std::string>(RESOURCE_IRON, OUT_TEXT_IRON)};
-*/
 std::map<Resource, std::string> strings_to_print = {
   {RESOURCE_WHEAT, OUT_TEXT_WHEAT}, {RESOURCE_WOOD, OUT_TEXT_WOOD},
   {RESOURCE_COAL, OUT_TEXT_COAL}, {RESOURCE_IRON, OUT_TEXT_IRON}};
@@ -107,7 +100,7 @@ int CollectorsAndProducers::execute(const char** arguments,
                               unprocessed_resources);
   //ACA SE EJECUTAN LAS FUNCIONES DE ResourcesProcessor
 
-
+  _print_result(unprocessed_resources, produced_points);
 
   //CAMBIAR EL SUCCESS POR EL RETORNO DE LA FUNCION DE ResourcesProcessor
   return SUCCESS;
