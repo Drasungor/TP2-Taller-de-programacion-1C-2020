@@ -62,21 +62,32 @@ void CollectorsAndProducers::_load_workers_ammounts(std::ifstream& workers,
 
 
 void CollectorsAndProducers::_print_result(
-                        const std::map<Resource, int>& unprocessed_resources,
+                        std::map<Resource, int>& unprocessed_resources,
                         int produced_points){
-std::map<Resource, std::string> strings_to_print = {
+
+/*
+  std::map<Resource, std::string> strings_to_print = {
   {RESOURCE_WHEAT, OUT_TEXT_WHEAT}, {RESOURCE_WOOD, OUT_TEXT_WOOD},
   {RESOURCE_COAL, OUT_TEXT_COAL}, {RESOURCE_IRON, OUT_TEXT_IRON}};
-
+*/
+  std::vector<std::pair<Resource, std::string>> strings_to_print = {
+  {RESOURCE_WHEAT, OUT_TEXT_WHEAT}, {RESOURCE_WOOD, OUT_TEXT_WOOD},
+  {RESOURCE_COAL, OUT_TEXT_COAL}, {RESOURCE_IRON, OUT_TEXT_IRON}};
   std::cout << OUT_TEXT_UNPROCESSED_RESOURCES;
 
-  //std::cout << "CANTIDAD DE ELEMENTOS QUE SOBRAN: " << unprocessed_resources.size() << "\n";
-
+  /*
   for (std::map<Resource, int>::const_iterator it =
       unprocessed_resources.begin(); it != unprocessed_resources.end(); ++it) {
     std::cout << OUT_TEXT_RESOURCE_PRETEXT << strings_to_print[it->first] <<
                  it->second << "\n";
   }
+  */
+
+  for (size_t i = 0; i < strings_to_print.size(); i++) {
+    std::cout << OUT_TEXT_RESOURCE_PRETEXT << strings_to_print[i].second <<
+                 unprocessed_resources[strings_to_print[i].first] << "\n";
+  }
+
   std::cout << "\n";
   std::cout << OUT_TEXT_BENEFIT_POINTS << produced_points << "\n";
 }

@@ -22,7 +22,7 @@ private:
   void _load_workers_ammounts(std::ifstream& workers,
                               std::map<std::string, int>& workers_ammounts);
   */
-  void _print_result(const std::map<Resource, int>& unprocessed_resources,
+  void _print_result(std::map<Resource, int>& unprocessed_resources,
                      int produced_points);
   int _get_workers_ammounts_index(std::string& worker);
   void _load_workers_ammounts(std::ifstream& workers,
