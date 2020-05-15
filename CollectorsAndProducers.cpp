@@ -45,6 +45,30 @@ int CollectorsAndProducers::_get_workers_ammounts_index(std::string& worker){
   }
 }
 
+
+
+void ResourcesProcessor::_load_resources(std::ifstream& resources,
+                                          std::vector<BlockingQueue*>& queues){
+  std::string buffer;
+  Resource resource;
+
+  //std::getline(resources, buffer);
+  while (!resources.eof()) {
+
+    std::getline(resources, buffer);
+    for (size_t i = 0; i < buffer.length(); i++) {
+      resource = _convert_to_resource(buffer[i]);
+      //CAMBIAR ESTO PARA QUE COINCIDA CON LOS INDICES DE LOS GATHERERS
+      queues[_get_gatherer_queue_index(resource)]->push(resource);
+    }
+    buffer.clear();
+  }
+  //VER SI HAY QUE BORRAR ESTE CLOSE DE ACA Y CERRARLAS DE AFUERA
+  _close_blocking_queues(queues);
+}
+
+
+
 void CollectorsAndProducers::_load_workers_ammounts(std::ifstream& workers,
                                 std::vector<int>& workers_ammounts){
   std::string worker_type;

@@ -37,32 +37,39 @@ private:
   void _close_blocking_queues(std::vector<BlockingQueue*>& queues);
   void _create_blocking_queues(std::vector<BlockingQueue*>& queues);
   void _destroy_blocking_queues(std::vector<BlockingQueue*>& queues);
+  /*
   void _store_resources(std::ifstream& resources,
                         std::vector<BlockingQueue*>& queues);
+  void _store_resources(const std::string& resources,
+                        std::vector<BlockingQueue*>& queues);
+  */
   Resource _convert_to_resource(char resource);
   void _load_resources(std::ifstream& materials,
                       std::vector<BlockingQueue>& queues);
 //asdasd
 public:
   //The keys provided must be in the workers file and must be defined
+  //ResourcesProcessor();
   ResourcesProcessor();
 
 	~ResourcesProcessor();
 
-  /*
-  //Adds resources so that they can be processed
-  void add_resources(const string& resources);
 
-  //Notifies the ResourcesProcessor that it will no longer receive resources
-  void notify_resource_absence();
-  */
+  //Stores the received resources in their respective blocking queues
+  void store_resources(const std::string& resources);
+
+  //Indicates the processor that no more resources will be stored so that
+  //the blocking queues can be closed
+  void close_resource_entrance();
+
+
+  int obtain_process_results(std::map<Resource, int>& unprocessed_resources);
 
   /*
   //Processes the resources stored in the file passed, the file must be valid
   std::map<std::string, int> process_resources(std::fstream& resources,
                           const std::map<std::string, int>& number_of_workers);
   */
-  //Processes the resources stored in the file passed, the file must be valid
   int process_resources(std::ifstream& resources,
                          const std::vector<int>& number_of_workers,
                          std::map<Resource, int>& unprocessed_resources);

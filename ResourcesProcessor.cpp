@@ -74,6 +74,10 @@ Resource ResourcesProcessor::_convert_to_resource(char resource){
 }
 
 
+
+
+
+/*
 //Stores the resources in the respective queue and closes every queue one the
 //resources run out
 void ResourcesProcessor::_store_resources(std::ifstream& resources,
@@ -86,7 +90,7 @@ void ResourcesProcessor::_store_resources(std::ifstream& resources,
 
     std::getline(resources, buffer);
     for (size_t i = 0; i < buffer.length(); i++) {
-      resource = _convert_to_resource(buffer[i]);
+    resource = _convert_to_resource(buffer[i]);
       //CAMBIAR ESTO PARA QUE COINCIDA CON LOS INDICES DE LOS GATHERERS
       queues[_get_gatherer_queue_index(resource)]->push(resource);
     }
@@ -95,7 +99,17 @@ void ResourcesProcessor::_store_resources(std::ifstream& resources,
   //VER SI HAY QUE BORRAR ESTE CLOSE DE ACA Y CERRARLAS DE AFUERA
   _close_blocking_queues(queues);
 }
+*/
 
+/*
+void ResourcesProcessor::_store_resources(const std::string& resources,
+                                          std::vector<BlockingQueue*>& queues){
+  Resource resource;
+  for (size_t i = 0; i < resources.size(); i++) {
+    resource = _convert_to_resource(resources[i]);
+  }
+}
+*/
 
 //Ver si puedo cambiar estas funciones por una sola que itere por la lista de
 void ResourcesProcessor::_create_blocking_queues(std::vector<BlockingQueue*>& queues){
@@ -170,6 +184,20 @@ void ResourcesProcessor::_destroy_producers(std::vector<ProducersGroup*>& produc
 
 
 /////////////////////PUBLIC//////////////////////////////
+
+void ResourcesProcessor::store_resources(const std::string& resources){
+  Resource resource;
+  for (size_t i = 0; i < resources.size(); i++) {
+    resource = _convert_to_resource(resources[i]);
+    queues[_get_gatherer_queue_index(resource)]->push(resource);
+  }
+}
+
+void ResourcesProcessor::close_resource_entrance(){
+  for (size_t i = 0; i < queues.size(); i++) {
+    queues[i].close();
+  }
+}
 
 int ResourcesProcessor::
         process_resources(std::ifstream& resources,
