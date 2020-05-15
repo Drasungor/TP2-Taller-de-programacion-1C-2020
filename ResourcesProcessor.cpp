@@ -117,29 +117,6 @@ void ResourcesProcessor::_close_blocking_queues(std::vector<BlockingQueue*>& que
 }
 
 
-//CAMBIAR LA IMPLEMENTACION DE ESTA FUNCION, VER SI HAY Q SACAR LOS MAPS DEL TP
-/*
-void ResourcesProcessor::_create_gatherers(
-                          std::vector<GatherersGroup*>& gatherers_groups,
-                          std::map<std::string, int>& number_of_workers,
-                          const std::vector<BlockingQueue*> queues){
-  const std::vector<std::string> gatherers_keys = {FARMER_TEXT,
-                                                   LUMBERJACK_TEXT,
-                                                   MINER_TEXT};
-
-//asdasd
-  std::string current_gatherer;
-  int current_number_of_workers;
-  for (size_t i = 0; i < gatherers_keys.size(); i++) {
-    current_gatherer = gatherers_keys[i];
-    current_number_of_workers = number_of_workers[current_gatherer];
-    gatherers_groups.push_back(new GatherersGroup(
-                        *queues[_get_gatherer_queue_index(current_gatherer)],
-                        current_number_of_workers));
-  }
-}
-*/
-
 //VER SI PUEDO CAMBIAR ESTO POR UN EMPLACE BACK EN LA FUNCION PRINCIPAL PORQUE
 //NO SE ESTA GUARDANDO COSAS NO COPIABLES
 void ResourcesProcessor::_create_gatherers(Inventory& inventory,
@@ -176,19 +153,6 @@ void ResourcesProcessor::_create_producers(Inventory& inventory,
   //asdasdasd
   //REFACTORIZAR TODA ESTA FUNCION
 
-  /*
-  std::map<Resource, int> resources_cooker = {std::pair<Resource, int>(RESOURCE_WHEAT, 2),
-                                              std::pair<Resource, int>(RESOURCE_COAL, 1)};
-  std::map<Resource, int> resources_carpenter = {std::pair<Resource, int>(RESOURCE_WOOD, 3),
-                                                 std::pair<Resource, int>(RESOURCE_IRON, 1)};
-  std::map<Resource, int> resources_gunsmith = {std::pair<Resource, int>(RESOURCE_COAL, 2),
-                                                std::pair<Resource, int>(RESOURCE_IRON, 2)};
-  resources_vec.emplace_back(resources_cooker);
-  resources_vec.emplace_back(resources_carpenter);
-  resources_vec.emplace_back(resources_gunsmith);
-  */
-
-
   std::vector<int> points_produced = {5, 2, 3};
   for (size_t i = NUMBER_OF_GATHERER_TYPES; i < NUMBER_OF_WORKER_TYPES; i++) {
     producers_groups.push_back(new ProducersGroup(inventory, resources_vec[i - NUMBER_OF_GATHERER_TYPES],
@@ -207,11 +171,6 @@ void ResourcesProcessor::_destroy_producers(std::vector<ProducersGroup*>& produc
 
 /////////////////////PUBLIC//////////////////////////////
 
-/*
-std::map<std::string, int> ResourcesProcessor::
-        process_resources(std::fstream& resources,
-                          const std::map<std::string, int>& number_of_workers){
-*/
 int ResourcesProcessor::
         process_resources(std::ifstream& resources,
                           const std::vector<int>& number_of_workers,
@@ -248,7 +207,6 @@ int ResourcesProcessor::
   //QUE CONTENGA A TODOS LOS GATHERERS
   _create_gatherers(inventory, gatherers_groups, number_of_workers, queues);
 
-  //ACA SE TIRAN LOS PRODUCERS
 
   //VER SI HAY QUE PASAR ESTO AFUERA DE LA CLASE PORQUE EL ARCHIVO
   //DE TRABAJADORES SE LLAMA AFUERA
@@ -273,9 +231,6 @@ int ResourcesProcessor::
   }
 
   inventory.copy_stored_resources(unprocessed_resources);
-
-  //BORRAR ESTE METODO, ES SOLO PARA DEBUGGEAR
-  //inventory.PRINT_STORED_RESOURCES();
 
   _destroy_gatherers(gatherers_groups);
   _destroy_producers(producers_groups);

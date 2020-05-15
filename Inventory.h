@@ -20,12 +20,6 @@ public:
 
 	~Inventory();
 
-
-  //BORRAR ESTE METODO, ES PARA DEBUGGEAR
-  void PRINT_STORED_RESOURCES();
-
-
-
   //Returns true if the resources were consumed, otherwise returns false
   //The requested_resources map is not modified
   bool consume_resources(std::map<Resource, int>& requested_resources);

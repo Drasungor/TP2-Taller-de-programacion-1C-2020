@@ -32,21 +32,6 @@ void Inventory::_consume_resources(std::map<Resource, int>& requested_resources)
 /////////////////////PUBLIC//////////////////////////////
 
 
-
-void Inventory::PRINT_STORED_RESOURCES(){
-  /*
-  std::cout << "RECURSOS:\n";
-  std::cout << "Trigo: " << resources_quantities[RESOURCE_WHEAT] << "\n";
-  std::cout << "Madera: " << resources_quantities[RESOURCE_WOOD] << "\n";
-  std::cout << "Carbon: " << resources_quantities[RESOURCE_COAL] << "\n";
-  std::cout << "Hierro: " << resources_quantities[RESOURCE_IRON] << "\n";
-  std::cout << "\n\n";
-  */
-}
-
-
-
-
 void Inventory::copy_stored_resources(std::map<Resource, int>& buffer) const{
   for (std::map<Resource, int>::const_iterator it =
        resources_quantities.begin(); it != resources_quantities.end(); ++it) {
@@ -57,21 +42,9 @@ void Inventory::copy_stored_resources(std::map<Resource, int>& buffer) const{
 
 
 
-
-
 //CAMBIAR TODOS LOS MAPS POR UNORDERED_MAPS
 bool Inventory::consume_resources(std::map<Resource, int>& requested_resources){
   std::unique_lock<std::mutex> lk(m);
-  /*
-  bool are_resources_available = false;
-  while (!are_resources_available) {
-    //The spurious wakeups won't modify the program execution because the
-    //output of _are_resources_available can only change if a resource
-    //is added, and each resource adition calls cv.notifyall()
-    cv.wait(lk);
-    are_resources_available = _are_resources_available(requested_resources);
-  }
-  */
 
   while (!_are_resources_available(requested_resources)) {
     if (is_entrance_closed) {
