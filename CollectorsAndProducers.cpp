@@ -25,7 +25,7 @@
 #define OUT_TEXT_WOOD "Madera: "
 #define OUT_TEXT_COAL "Carbon: "
 #define OUT_TEXT_IRON "Hierro: "
-#define OUT_TEXT_BENEFIT_POINTS "Puntos de beneficio acumulados: "
+#define OUT_TEXT_BENEFIT_POINTS "Puntos de Beneficio acumulados: "
 
 
 
