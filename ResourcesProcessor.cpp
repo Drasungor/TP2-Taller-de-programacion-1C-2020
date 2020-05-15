@@ -272,6 +272,7 @@ int ResourcesProcessor::
     total_number_of_points += producers_groups[i]->join();
   }
 
+  inventory.copy_stored_resources(unprocessed_resources);
 
   //BORRAR ESTE METODO, ES SOLO PARA DEBUGGEAR
   //inventory.PRINT_STORED_RESOURCES();

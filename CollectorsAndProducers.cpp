@@ -67,11 +67,15 @@ void CollectorsAndProducers::_print_result(
 std::map<Resource, std::string> strings_to_print = {
   {RESOURCE_WHEAT, OUT_TEXT_WHEAT}, {RESOURCE_WOOD, OUT_TEXT_WOOD},
   {RESOURCE_COAL, OUT_TEXT_COAL}, {RESOURCE_IRON, OUT_TEXT_IRON}};
+
   std::cout << OUT_TEXT_UNPROCESSED_RESOURCES;
+
+  //std::cout << "CANTIDAD DE ELEMENTOS QUE SOBRAN: " << unprocessed_resources.size() << "\n";
+
   for (std::map<Resource, int>::const_iterator it =
       unprocessed_resources.begin(); it != unprocessed_resources.end(); ++it) {
     std::cout << OUT_TEXT_RESOURCE_PRETEXT << strings_to_print[it->first] <<
-              it->second << "\n";
+                 it->second << "\n";
   }
   std::cout << "\n";
   std::cout << OUT_TEXT_BENEFIT_POINTS << produced_points << "\n";
