@@ -9,6 +9,9 @@
 
 class CollectorsAndProducers {
 private:
+  std::vector<std::string> gatherers_text;
+  std::vector<std::string> producers_text;
+private:
 
   //TODO: AGREGAR TODAS LAS FUNCIONES PRIVADAS
   //int get_gatherer_index(Resource resource);
