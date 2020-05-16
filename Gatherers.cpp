@@ -21,8 +21,9 @@ Gatherer Gatherers::_get_gatherer(Resource resource){
 ////////////////////////////////////PUBLIC///////////////////
 
 void Gatherers::close_resource_entrance(){
-  for (size_t i = 0; i < queues.size(); i++) {
-    queues[i].close();
+  for (std::map<Gatherer, BlockingQueue*>::iterator it = queues.begin();
+       it != queues.end(); ++it) {
+    it->second->close();
   }
 }
 
@@ -32,8 +33,9 @@ void Gatherers::push_resource(Resource resource){
 }
 
 void Gatherers::wait(){
-  for (size_t i = 0; i < gatherers.size(); i++) {
-    gatherers[i]->join();
+  for (std::map<Gatherer, GatherersGroup*>::iterator it = gatherers.begin();
+       it != gatherers.end(); ++it) {
+    it->second->join();
   }
 }
 
@@ -42,14 +44,11 @@ Gatherers::Gatherers(const std::map<Gatherer, int>& gatherers_ammounts, Inventor
   std::vector<Gatherer> gatherers_indicators = {GATHERER_FARMER, GATHERER_LUMBERJACK,
                                      GATHERER_MINER};
   //asdasdasd
-  for (size_t i = 0; i < gatherers.size(); i++) {
+  for (size_t i = 0; i < gatherers_indicators.size(); i++) {
     queues[gatherers_indicators[i]] = new BlockingQueue();
   }
-  //gatherers
-  for (std::map<Gatherer, int>::constant_iterator it =
+  for (std::map<Gatherer, int>::const_iterator it =
        gatherers_ammounts.begin(); it != gatherers_ammounts.end(); ++it) {
-//asdasdasd
-  //asdasdasd
     //GatherersGroup(Inventory& inventory, BlockingQueue& q, int number_of_gatherers);
     gatherers[it->first] = new GatherersGroup(inventory, *queues[it->first], it->second);
   }

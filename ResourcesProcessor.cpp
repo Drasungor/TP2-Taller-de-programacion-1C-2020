@@ -4,19 +4,24 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include "Inventory.h"
+#include "Gatherers.h"
+#include "Producers.h"
 #include "Resource.h"
-#include "BlockingQueue.h"
+//#include "BlockingQueue.h"
 #include "FilesConstants.h"
-#include "GatherersGroup.h"
-#include "ProducersGroup.h"
-#include "WorkerIndex.h"
+//#include "GatherersGroup.h"
+//#include "ProducersGroup.h"
+//#include "WorkerIndex.h"
 
-
+/*
 enum GathererQueueIndex{
   GATHERER_QUEUE_INDEX_FARMER = WORKER_INDEX_FARMER,
   GATHERER_QUEUE_INDEX_LUMBERJACK = WORKER_INDEX_LUMBERJACK,
   GATHERER_QUEUE_INDEX_MINER = WORKER_INDEX_MINER
 };
+*/
+
 /*
 //Loads the resources from the materials file into the
 //different gatherers' blocking queues
@@ -186,8 +191,13 @@ void ResourcesProcessor::_destroy_producers(std::vector<ProducersGroup*>& produc
 
 /////////////////////PUBLIC//////////////////////////////
 
-int obtain_process_results(std::map<Resource, int>& unprocessed_resources){
-
+int ResourcesProcessor::obtain_process_results(std::map<Resource, int>& unprocessed_resources){
+  int benefit_points = 0;
+  gatherers.wait();
+  inventory.close_entrance();
+  benefit_points = producers.obtain_produced_benefit_points();
+  inventory.copy_stored_resources(unprocessed_resources);
+  return benefit_points;
 }
 
 
@@ -202,10 +212,10 @@ void ResourcesProcessor::store_resources(const std::string& resources){
 }
 
 void ResourcesProcessor::close_resource_entrance(){
-  gatherers.close_resource_entrance()
+  gatherers.close_resource_entrance();
 }
 
-
+/*
 int process_resources(std::ifstream& resources,
                        const std::map<Gatherer, int>& gatherers_ammounts,
                        const std::map<Producer, int>& producers_ammounts,
@@ -214,7 +224,7 @@ int process_resources(std::ifstream& resources,
   Inventory inventory;
   Producers producers();
 }
-
+*/
 /*
 int ResourcesProcessor::
         process_resources(std::ifstream& resources,
@@ -294,14 +304,15 @@ int ResourcesProcessor::
 */
 
 //VER SI HAY QUE BORRAR ESTE CONSTRUCTOR
-ResourcesProcessor::ResourcesProcessor(){
+//ResourcesProcessor::ResourcesProcessor(){
 
-}
+//}
 
 ResourcesProcessor::ResourcesProcessor(
                     const std::map<Gatherer, int>& gatherers_ammounts,
                     const std::map<Producer, int>& producers_ammounts):
-                    producers(producers_ammounts), gatherers(gatherers_ammounts){
+                    producers(producers_ammounts, inventory),
+                    gatherers(gatherers_ammounts, inventory){
   //sdasdasd
   /*
   Producers producers(producers);

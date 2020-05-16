@@ -6,6 +6,7 @@
 #include "FilesConstants.h"
 #include "Resource.h"
 
+
 class Producers {
 private:
   std::map<Producer, std::map<Resource, int>*> resources_needed;
@@ -22,7 +23,7 @@ public:
   //Starts the ammounts of Producers of each type of produced indicated in
   //producers_ammounts and stores the necessary information that the producers
   //need for their work
-  Producers(const std::map<Producer, int>& producers_ammounts);
+  Producers(const std::map<Producer, int>& producers_ammounts, Inventory& inventory);
 
 	~Producers();
 

@@ -3,59 +3,34 @@
 
 #include <map>
 #include <string>
-#include <fstream>
+//#include <fstream>
 #include <vector>
+#include "Gatherers.h"
+#include "Producers.h"
 #include "Resource.h"
-#include "BlockingQueue.h"
-#include "GatherersGroup.h"
-#include "ProducersGroup.h"
+#include "FilesConstants.h"
+//#include "BlockingQueue.h"
+//#include "GatherersGroup.h"
+//#include "ProducersGroup.h"
 #include "Inventory.h"
 
 //This class receives the resources and the number of each type of worker
 //and processes the resources to produce the benefit points
 class ResourcesProcessor {
+private:
+  Inventory inventory;
   Producers producers;
   Gatherers gatherers;
 private:
-  int _get_gatherer_queue_index(Resource resource);
-  /*
-  void _create_gatherers(std::vector<GatherersGroup*>& gatherers_groups,
-                         std::map<std::string, int>& number_of_workers,
-                         const std::vector<BlockingQueue*> queues);
-  */
-  void _create_producers(Inventory& inventory,
-                            std::vector<ProducersGroup*>& producers_groups,
-                            const std::vector<int>& number_of_workers,
-                            //SACAR ESTE ULTIMO PARAMETRO, ES PARA VER SI EL ERROR
-                            //ES POR DESTRUIR EL VECTOR DE LOS MAPS QUE SE PASA
-                            //A LOS THREADS
-                            std::vector<std::map<Resource, int>>& resources_vec);
-  void _destroy_producers(std::vector<ProducersGroup*>& producers_groups);
-  void _create_gatherers(Inventory& inventory,
-                         std::vector<GatherersGroup*>& gatherers_groups,
-                         const std::vector<int>& number_of_workers,
-                         const std::vector<BlockingQueue*> queues);
-  void _destroy_gatherers(std::vector<GatherersGroup*>& gatherers_groups);
-  void _close_blocking_queues(std::vector<BlockingQueue*>& queues);
-  void _create_blocking_queues(std::vector<BlockingQueue*>& queues);
-  void _destroy_blocking_queues(std::vector<BlockingQueue*>& queues);
-  /*
-  void _store_resources(std::ifstream& resources,
-                        std::vector<BlockingQueue*>& queues);
-  void _store_resources(const std::string& resources,
-                        std::vector<BlockingQueue*>& queues);
-  */
   Resource _convert_to_resource(char resource);
-  void _load_resources(std::ifstream& materials,
-                      std::vector<BlockingQueue>& queues);
-//asdasd
 public:
+
   //The keys provided must be in the workers file and must be defined
   //ResourcesProcessor();
   //ResourcesProcessor();
 
   ResourcesProcessor(const std::map<Gatherer, int>& gatherers_ammounts,
-                     const std::map<Producer, int>& producers_ammounts)
+                     const std::map<Producer, int>& producers_ammounts);
 
 
 	~ResourcesProcessor();

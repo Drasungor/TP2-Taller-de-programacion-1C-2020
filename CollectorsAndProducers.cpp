@@ -127,7 +127,7 @@ void CollectorsAndProducers::_add_worker_ammount(
   if (_is_gatherer(worker)) {
     gatherers_ammounts[_convert_to_gatherer(worker)] = workers_ammount;
   } else if (_is_producer(worker)) {
-    gatherers_ammounts[_convert_to_producer(worker)] = workers_ammount;
+    producers_ammounts[_convert_to_producer(worker)] = workers_ammount;
   }
 }
 
@@ -178,7 +178,7 @@ int CollectorsAndProducers::execute(const char** arguments,
   }
   std::ifstream resources(arguments[RESOURCES_FILE_INDEX]);
   std::ifstream workers(arguments[WORKERS_FILE_INDEX]);
-  if ((!materials.is_open()) || (!workers.is_open())) {
+  if ((!resources.is_open()) || (!workers.is_open())) {
     return INVALID_FILE;
   }
   std::map<Resource, int> unprocessed_resources;
@@ -188,11 +188,14 @@ int CollectorsAndProducers::execute(const char** arguments,
 
   _load_workers_ammounts(workers, gatherers_ammounts, producers_ammounts);
 
-  //_load_workers_ammounts(workers, workers_ammounts);
-  //_load_resources(resources, processor)
+  ResourcesProcessor processor(gatherers_ammounts, producers_ammounts);
 
-  ResourcesProcessor processor();
 
+  _load_resources(resources, processor);
+
+  //void ResourcesProcessor::store_resources(const std::string& resources)
+  processor.close_resource_entrance();
+  produced_points = processor.obtain_process_results(unprocessed_resources);
   /*
   produced_points = processor.process_resources(materials, workers_ammounts,
                               unprocessed_resources);

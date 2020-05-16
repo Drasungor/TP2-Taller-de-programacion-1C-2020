@@ -5,6 +5,7 @@
 #include "FilesConstants.h"
 #include "BlockingQueue.h"
 #include "Resource.h"
+#include "GatherersGroup.h"
 
 
 class Gatherers {
@@ -13,7 +14,10 @@ private:
 private:
   std::map<Gatherer, BlockingQueue*> queues;
   std::map<Gatherer, GatherersGroup*> gatherers;
+private:
+  Gatherer _get_gatherer(Resource resource);
 public:
+
 
   void close_resource_entrance();
 
@@ -24,7 +28,7 @@ public:
   //joining the execution threads
   void wait();
 
-  Gatherers(std::map<Gatherer, int>& gatherers_ammounts);
+  Gatherers(const std::map<Gatherer, int>& gatherers_ammounts, Inventory& inventory);
 
 	~Gatherers();
 };

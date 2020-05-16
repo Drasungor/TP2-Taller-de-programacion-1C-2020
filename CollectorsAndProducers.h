@@ -6,30 +6,28 @@
 #include <map>
 #include <fstream>
 #include "BlockingQueue.h"
+#include "ResourcesProcessor.h"
+#include "FilesConstants.h"
 
 class CollectorsAndProducers {
 private:
   std::vector<std::string> gatherers_text;
   std::vector<std::string> producers_text;
 private:
-
-  //TODO: AGREGAR TODAS LAS FUNCIONES PRIVADAS
-  //int get_gatherer_index(Resource resource);
-  //Resource convert_to_resource(char r);
-  /*
-  void load_resources(std::ifstream& materials,
-                      std::vector<BlockingQueue&> &queues);
-  void destroy_gatherers_queues(std::vector<BlockingQueue>& queues);
-  */
-  /*
+  void _load_resources(std::ifstream& resources, ResourcesProcessor& processor);
+  int _get_workers_ammounts_index(std::string& worker);
+  bool _is_gatherer(std::string& worker_text);
+  bool _is_producer(std::string& worker_text);
+  Gatherer _convert_to_gatherer(std::string& gatherer_text);
+  Producer _convert_to_producer(std::string& producer_text);
+  void _add_worker_ammount(std::map<Gatherer, int>& gatherers_ammounts,
+                           std::map<Producer, int>& producers_ammounts,
+                           std::string& worker, std::string& ammount);
   void _load_workers_ammounts(std::ifstream& workers,
-                              std::map<std::string, int>& workers_ammounts);
-  */
+                              std::map<Gatherer, int>& gatherers_ammounts,
+                              std::map<Producer, int>& producers_ammounts);
   void _print_result(std::map<Resource, int>& unprocessed_resources,
                      int produced_points);
-  int _get_workers_ammounts_index(std::string& worker);
-  void _load_workers_ammounts(std::ifstream& workers,
-                              std::vector<int>& workers_ammounts);
 public:
   CollectorsAndProducers();
 
