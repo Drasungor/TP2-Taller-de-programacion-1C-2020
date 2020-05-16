@@ -79,18 +79,56 @@ void CollectorsAndProducers::_load_workers_ammounts(std::ifstream& workers,
 */
 
 bool CollectorsAndProducers::_is_gatherer(std::string& worker_text){
-  return ;
+  for (size_t i = 0; i < gatherers_text.size(); i++) {
+    if (worker_text == gatherers_text[i]) {
+      return true;
+    }
+  }
+  return false;
 }
 
 bool CollectorsAndProducers::_is_producer(std::string& worker_text){
-  return ;
+  for (size_t i = 0; i < producers_text.size(); i++) {
+    if (worker_text == producers_text[i]) {
+      return true;
+    }
+  }
+  return false;
 }
+
+Gatherer CollectorsAndProducers::_convert_to_gatherer(std::string& gatherer_text){
+  if (gatherer_text == FARMER_TEXT) {
+    return GATHERER_FARMER;
+  } else if (gatherer_text == LUMBERJACK_TEXT) {
+    return GATHERER_LUMBERJACK;
+  } else {
+    return GATHERER_MINER;
+  }
+}
+
+Producer CollectorsAndProducers::_convert_to_producer(std::string& producer_text){
+  if (producer_text == COOKER_TEXT) {
+    return PRODUCER_COOKER;
+  } else if (producer_text == CARPENTER_TEXT) {
+    return PRODUCER_CARPENTER;
+  } else {
+    return PRODUCER_GUNSMITH;
+  }
+}
+
 
 void CollectorsAndProducers::_add_worker_ammount(
                                   std::map<Gatherer, int>& gatherers_ammounts,
-                                  std::map<Producer, int>& producers_ammounts){
-//asdasdsa
-
+                                  std::map<Producer, int>& producers_ammounts,
+                                  std::string& worker, std::string& ammount){
+  //The file comes without errors so no conversion exception must
+  //be catched for stoi
+  int workers_ammount = std::stoi(ammount);
+  if (_is_gatherer(worker)) {
+    gatherers_ammounts[_convert_to_gatherer(worker)] = workers_ammount;
+  } else if (_is_producer(worker)) {
+    gatherers_ammounts[_convert_to_producer(worker)] = workers_ammount;
+  }
 }
 
 void CollectorsAndProducers::_load_workers_ammounts(std::ifstream& workers,
@@ -102,9 +140,8 @@ void CollectorsAndProducers::_load_workers_ammounts(std::ifstream& workers,
   while (!workers.eof()) {
     std::getline(workers, worker_type, WORKER_NUMBER_SEPARATOR);
     std::getline(workers, number_of_workers);
-    //The file comes without errors so no conversion exception must
-    //be catched for stoi
-    workers_ammounts[_get_workers_ammounts_index(worker_type)] = std::stoi(number_of_workers);
+    _add_worker_ammount(gatherers_ammounts, producers_ammounts, worker_type,
+                        number_of_workers);
     worker_type.clear();
     number_of_workers.clear();
   }
@@ -144,17 +181,22 @@ int CollectorsAndProducers::execute(const char** arguments,
   if ((!materials.is_open()) || (!workers.is_open())) {
     return INVALID_FILE;
   }
-  ResourcesProcessor processor;
   std::map<Resource, int> unprocessed_resources;
   //std::vector<int> workers_ammounts(NUMBER_OF_WORKER_TYPES);
   std::map<Gatherer, int> gatherers_ammounts;
   std::map<Producer, int> producers_ammounts;
 
+  _load_workers_ammounts(workers, gatherers_ammounts, producers_ammounts);
+
   //_load_workers_ammounts(workers, workers_ammounts);
   //_load_resources(resources, processor)
 
+  ResourcesProcessor processor();
+
+  /*
   produced_points = processor.process_resources(materials, workers_ammounts,
                               unprocessed_resources);
+  */
   //ACA SE EJECUTAN LAS FUNCIONES DE ResourcesProcessor
 
   _print_result(unprocessed_resources, produced_points);

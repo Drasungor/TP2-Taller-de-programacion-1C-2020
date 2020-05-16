@@ -204,6 +204,8 @@ int ResourcesProcessor::
                           const std::vector<int>& number_of_workers,
                           std::map<Resource, int>& unprocessed_resources){
 
+//asdasdas
+  /*
   std::vector<std::map<Resource, int>> resources_vec;
 
   Inventory inventory;
@@ -263,13 +265,28 @@ int ResourcesProcessor::
   _destroy_gatherers(gatherers_groups);
   _destroy_producers(producers_groups);
   _destroy_blocking_queues(queues);
+  */
 
-  return total_number_of_points;
+  //return total_number_of_points;
+
+
+
+  return 435432;
+
 }
 
 
+//VER SI HAY QUE BORRAR ESTE CONSTRUCTOR
 ResourcesProcessor::ResourcesProcessor(){
 
+}
+
+ResourcesProcessor::ResourcesProcessor(std::map<Gatherer, int>& gatherers,
+                                       std::map<Producer, int>& producers){
+  //sdasdasd
+  Producers producers(producers);
+
+  Gatherers gatherers(gatherers);
 }
 
 ResourcesProcessor::~ResourcesProcessor(){
