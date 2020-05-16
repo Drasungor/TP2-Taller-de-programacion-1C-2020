@@ -14,6 +14,8 @@
 //This class receives the resources and the number of each type of worker
 //and processes the resources to produce the benefit points
 class ResourcesProcessor {
+  Producers producers;
+  Gatherers gatherers;
 private:
   int _get_gatherer_queue_index(Resource resource);
   /*
@@ -50,7 +52,11 @@ private:
 public:
   //The keys provided must be in the workers file and must be defined
   //ResourcesProcessor();
-  ResourcesProcessor();
+  //ResourcesProcessor();
+
+  ResourcesProcessor(const std::map<Gatherer, int>& gatherers_ammounts,
+                     const std::map<Producer, int>& producers_ammounts)
+
 
 	~ResourcesProcessor();
 
@@ -70,9 +76,17 @@ public:
   std::map<std::string, int> process_resources(std::fstream& resources,
                           const std::map<std::string, int>& number_of_workers);
   */
+  /*
+  int process_resources(std::ifstream& resources,
+                         const std::map<Gatherer, int>& gatherers_ammounts,
+                         const std::map<Producer, int>& producers_ammounts,
+                         std::map<Resource, int>& unprocessed_resources);
+  */
+  /*
   int process_resources(std::ifstream& resources,
                          const std::vector<int>& number_of_workers,
                          std::map<Resource, int>& unprocessed_resources);
+  */
 };
 
 #endif

@@ -35,7 +35,7 @@ void ResourcesProcessor::_load_resources(std::ifstream& materials,
   //CERRAR TODAS LAS COLAS BLOQUEANTES
 }
 */
-
+/*
 int ResourcesProcessor::_get_gatherer_queue_index(Resource resource){
   switch (resource) {
     case RESOURCE_WHEAT:
@@ -47,7 +47,7 @@ int ResourcesProcessor::_get_gatherer_queue_index(Resource resource){
       return GATHERER_QUEUE_INDEX_MINER;
   }
 }
-
+*/
 /*
 int ResourcesProcessor::_get_gatherer_queue_index(std::string gatherer_type){
   if (gatherer_type == FARMER_TEXT) {
@@ -111,6 +111,7 @@ void ResourcesProcessor::_store_resources(const std::string& resources,
 }
 */
 
+/*
 //Ver si puedo cambiar estas funciones por una sola que itere por la lista de
 void ResourcesProcessor::_create_blocking_queues(std::vector<BlockingQueue*>& queues){
   for (size_t i = 0; i < NUMBER_OF_GATHERER_TYPES; i++) {
@@ -181,31 +182,48 @@ void ResourcesProcessor::_destroy_producers(std::vector<ProducersGroup*>& produc
     delete(producers_groups[i]);
   }
 }
-
+*/
 
 /////////////////////PUBLIC//////////////////////////////
+
+int obtain_process_results(std::map<Resource, int>& unprocessed_resources){
+
+}
+
+
 
 void ResourcesProcessor::store_resources(const std::string& resources){
   Resource resource;
   for (size_t i = 0; i < resources.size(); i++) {
     resource = _convert_to_resource(resources[i]);
-    queues[_get_gatherer_queue_index(resource)]->push(resource);
+    //queues[_get_gatherer_queue_index(resource)]->push(resource);
+    gatherers.push_resource(resource);
   }
 }
 
 void ResourcesProcessor::close_resource_entrance(){
-  for (size_t i = 0; i < queues.size(); i++) {
-    queues[i].close();
-  }
+  gatherers.close_resource_entrance()
 }
 
+
+int process_resources(std::ifstream& resources,
+                       const std::map<Gatherer, int>& gatherers_ammounts,
+                       const std::map<Producer, int>& producers_ammounts,
+                       std::map<Resource, int>& unprocessed_resources){
+//asdasds
+  Inventory inventory;
+  Producers producers();
+}
+
+/*
 int ResourcesProcessor::
         process_resources(std::ifstream& resources,
                           const std::vector<int>& number_of_workers,
                           std::map<Resource, int>& unprocessed_resources){
 
-//asdasdas
-  /*
+  //asdasdsa
+  //Producers(const std::map<Producer, int>& producers_ammounts);
+
   std::vector<std::map<Resource, int>> resources_vec;
 
   Inventory inventory;
@@ -265,28 +283,31 @@ int ResourcesProcessor::
   _destroy_gatherers(gatherers_groups);
   _destroy_producers(producers_groups);
   _destroy_blocking_queues(queues);
-  */
 
   //return total_number_of_points;
 
 
 
-  return 435432;
+  //return 435432;
 
 }
-
+*/
 
 //VER SI HAY QUE BORRAR ESTE CONSTRUCTOR
 ResourcesProcessor::ResourcesProcessor(){
 
 }
 
-ResourcesProcessor::ResourcesProcessor(std::map<Gatherer, int>& gatherers,
-                                       std::map<Producer, int>& producers){
+ResourcesProcessor::ResourcesProcessor(
+                    const std::map<Gatherer, int>& gatherers_ammounts,
+                    const std::map<Producer, int>& producers_ammounts):
+                    producers(producers_ammounts), gatherers(gatherers_ammounts){
   //sdasdasd
+  /*
   Producers producers(producers);
 
   Gatherers gatherers(gatherers);
+  */
 }
 
 ResourcesProcessor::~ResourcesProcessor(){
