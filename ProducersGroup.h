@@ -18,13 +18,16 @@ private:
                  std::map<Resource, int>& resources_needed,
                  int points_produced/*, std::mutex& m*/);
 public:
+  //Initialized the necessary variables and starts the execution of the
+  //indicated number of threads in number_of_producers
   ProducersGroup(Inventory& inventory,
                  std::map<Resource, int>& resources_needed,
                  int number_of_producers, int points_produced);
 
-	~ProducersGroup();
+  ~ProducersGroup();
 
-  //void gather(BlockingQueue& q, int number_of_gatherers);
+  //Waits for the threads to finish their executions and returns the number
+  //of benefit points produced
   int join();
 };
 
