@@ -137,13 +137,24 @@ void CollectorsAndProducers::_load_workers_ammounts(std::ifstream& workers,
 
   std::string worker_type;
   std::string number_of_workers;
+
+  std::getline(workers, worker_type, WORKER_NUMBER_SEPARATOR);
+  std::getline(workers, number_of_workers);
+
   while (!workers.eof()) {
-    std::getline(workers, worker_type, WORKER_NUMBER_SEPARATOR);
-    std::getline(workers, number_of_workers);
+    //std::getline(workers, worker_type, WORKER_NUMBER_SEPARATOR);
+    //std::getline(workers, number_of_workers);
+
+    //BORRAR PRINT
+    //std::cout << "TRABAJADOR: " << worker_type << "\n";
+    //std::cout << "CANTIDAD DE TRABAJADORES: " << number_of_workers << "\n";
+
     _add_worker_ammount(gatherers_ammounts, producers_ammounts, worker_type,
                         number_of_workers);
     worker_type.clear();
     number_of_workers.clear();
+    std::getline(workers, worker_type, WORKER_NUMBER_SEPARATOR);
+    std::getline(workers, number_of_workers);
   }
 }
 
