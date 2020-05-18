@@ -119,6 +119,9 @@ void CollectorsAndProducers::_load_workers_ammounts(std::ifstream& workers,
   }
 }
 
+
+//Prints the expected output of the program, with the unprocessed resources
+//and the total number of benefit points produced
 void CollectorsAndProducers::_print_result(
                         std::map<Resource, int>& unprocessed_resources,
                         int produced_points){

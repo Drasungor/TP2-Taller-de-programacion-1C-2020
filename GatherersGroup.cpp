@@ -9,6 +9,8 @@
 
 #define GATHERER_WORKING_TIME_MICRO 50000
 
+//Pops the elements from the blocking queue and stores them in the  inventory
+//until the queue is closed
 void GatherersGroup::_gather_resources(BlockingQueue& q, Inventory& inventory){
   //VER SI SE CAMBIA POR EL RESOURCE_NULL
   bool keeps_iterating = true;

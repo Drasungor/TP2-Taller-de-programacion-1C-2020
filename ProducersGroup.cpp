@@ -9,10 +9,10 @@
 
 #define PRODUCER_WORKING_TIME_MICRO 60000
 
-
+//Asks the inventory for the resources needed and produces the corresponding
+//ammount of benefit points, adding them to the total of points produced
 void ProducersGroup::_produce_points(Inventory& inventory,
-               std::map<Resource, int>& resources_needed, int points_produced/*,
-               std::mutex& m*/){
+               std::map<Resource, int>& resources_needed, int points_produced){
 
   while (inventory.consume_resources(resources_needed)) {
     usleep(PRODUCER_WORKING_TIME_MICRO);
