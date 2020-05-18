@@ -6,6 +6,8 @@
 #include "ClosedQueueException.h"
 
 
+/////////////////////////////////PUBLIC///////////////////////////////////////
+
 BlockingQueue::BlockingQueue(){
   is_closed = false;
 }
@@ -36,8 +38,6 @@ void BlockingQueue::push(Resource resource){
 }
 
 void BlockingQueue::close(){
-  //VER SI NO HACE FALTA ESTE LOCK, ANALIZAR BIEN SI ES
-  //UNA CRITICAL SECTION
   std::lock_guard<std::mutex> lk(m);
   is_closed = true;
   cv.notify_all();

@@ -5,6 +5,8 @@
 #include <map>
 #include "Inventory.h"
 #include "FilesConstants.h"
+#include "ProducersGroup.h"
+#include "Resource.h"
 
 
 ////////////////////PUBLIC//////////////////////////////

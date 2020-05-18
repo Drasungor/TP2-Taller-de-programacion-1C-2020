@@ -4,9 +4,7 @@
 #include <fstream>
 #include <string>
 #include <map>
-#include "BlockingQueue.h"
 #include "FilesConstants.h"
-#include "WorkerIndex.h"
 #include "ResourcesProcessor.h"
 #include "Resource.h"
 
@@ -28,7 +26,7 @@
 #define OUT_TEXT_BENEFIT_POINTS "Puntos de Beneficio acumulados: "
 
 
-
+/*
 int CollectorsAndProducers::_get_workers_ammounts_index(std::string& worker){
   if (worker == FARMER_TEXT) {
     return WORKER_INDEX_FARMER;
@@ -44,7 +42,7 @@ int CollectorsAndProducers::_get_workers_ammounts_index(std::string& worker){
     return WORKER_INDEX_GUNSMITH;
   }
 }
-
+*/
 
 //VER SI SE PUEDE PASAR UNA CONST REFERENCIA AL PROCESSOR
 
@@ -61,23 +59,7 @@ void CollectorsAndProducers::_load_resources(std::ifstream& resources, Resources
 }
 
 
-/*
-void CollectorsAndProducers::_load_workers_ammounts(std::ifstream& workers,
-                                std::vector<int>& workers_ammounts){
-  std::string worker_type;
-  std::string number_of_workers;
-  while (!workers.eof()) {
-    std::getline(workers, worker_type, WORKER_NUMBER_SEPARATOR);
-    std::getline(workers, number_of_workers);
-    //The file comes without errors so no conversion exception must
-    //be catched for stoi
-    workers_ammounts[_get_workers_ammounts_index(worker_type)] = std::stoi(number_of_workers);
-    worker_type.clear();
-    number_of_workers.clear();
-  }
-}
-*/
-
+//Returns if the text is one that identifies a gatherer in the workers file
 bool CollectorsAndProducers::_is_gatherer(std::string& worker_text){
   for (size_t i = 0; i < gatherers_text.size(); i++) {
     if (worker_text == gatherers_text[i]) {
@@ -87,6 +69,7 @@ bool CollectorsAndProducers::_is_gatherer(std::string& worker_text){
   return false;
 }
 
+//Returns if the text is one that identifies a producer in the workers file
 bool CollectorsAndProducers::_is_producer(std::string& worker_text){
   for (size_t i = 0; i < producers_text.size(); i++) {
     if (worker_text == producers_text[i]) {
@@ -142,13 +125,6 @@ void CollectorsAndProducers::_load_workers_ammounts(std::ifstream& workers,
   std::getline(workers, number_of_workers);
 
   while (!workers.eof()) {
-    //std::getline(workers, worker_type, WORKER_NUMBER_SEPARATOR);
-    //std::getline(workers, number_of_workers);
-
-    //BORRAR PRINT
-    //std::cout << "TRABAJADOR: " << worker_type << "\n";
-    //std::cout << "CANTIDAD DE TRABAJADORES: " << number_of_workers << "\n";
-
     _add_worker_ammount(gatherers_ammounts, producers_ammounts, worker_type,
                         number_of_workers);
     worker_type.clear();
@@ -157,8 +133,6 @@ void CollectorsAndProducers::_load_workers_ammounts(std::ifstream& workers,
     std::getline(workers, number_of_workers);
   }
 }
-
-
 
 void CollectorsAndProducers::_print_result(
                         std::map<Resource, int>& unprocessed_resources,
@@ -181,7 +155,6 @@ void CollectorsAndProducers::_print_result(
 
 int CollectorsAndProducers::execute(const char** arguments,
                                     int number_of_arguments){
-//asdasd
   int produced_points = 0;
 
   if (number_of_arguments != NUMBER_OF_ARGUMENTS) {
@@ -193,29 +166,14 @@ int CollectorsAndProducers::execute(const char** arguments,
     return INVALID_FILE;
   }
   std::map<Resource, int> unprocessed_resources;
-  //std::vector<int> workers_ammounts(NUMBER_OF_WORKER_TYPES);
   std::map<Gatherer, int> gatherers_ammounts;
   std::map<Producer, int> producers_ammounts;
-
   _load_workers_ammounts(workers, gatherers_ammounts, producers_ammounts);
-
   ResourcesProcessor processor(gatherers_ammounts, producers_ammounts);
-
-
   _load_resources(resources, processor);
-
-  //void ResourcesProcessor::store_resources(const std::string& resources)
   processor.close_resource_entrance();
   produced_points = processor.obtain_process_results(unprocessed_resources);
-  /*
-  produced_points = processor.process_resources(materials, workers_ammounts,
-                              unprocessed_resources);
-  */
-  //ACA SE EJECUTAN LAS FUNCIONES DE ResourcesProcessor
-
   _print_result(unprocessed_resources, produced_points);
-
-  //CAMBIAR EL SUCCESS POR EL RETORNO DE LA FUNCION DE ResourcesProcessor
   return SUCCESS;
 }
 

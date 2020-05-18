@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <thread>
 #include "Inventory.h"
+#include "BlockingQueue.h"
 #include "ClosedQueueException.h"
 
 #define GATHERER_WORKING_TIME_MICRO 50000

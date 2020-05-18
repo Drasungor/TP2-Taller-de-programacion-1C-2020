@@ -1,8 +1,11 @@
 #include "Gatherers.h"
 
+#include <map>
 #include <vector>
 #include "Inventory.h"
 #include "Resource.h"
+#include "BlockingQueue.h"
+#include "GatherersGroup.h"
 
 
 //VER SI CAMBIO POR UN MAP CON CLAVE RESOURCE Y VALOR GATHERER

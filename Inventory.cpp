@@ -3,6 +3,10 @@
 //VER SI HAY QUE BORRARLO POR EL COSNTRUCTOR
 #include <vector>
 #include <map>
+#include <condition_variable>
+#include <mutex>
+#include <map>
+#include "Resource.h"
 
 #define RESOURCES_INITIAL_QUANTITY 0
 

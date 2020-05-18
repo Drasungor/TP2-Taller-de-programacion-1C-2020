@@ -3,14 +3,12 @@
 
 #include <map>
 #include "FilesConstants.h"
-#include "BlockingQueue.h"
 #include "Resource.h"
+#include "BlockingQueue.h"
 #include "GatherersGroup.h"
 
 
 class Gatherers {
-private:
-
 private:
   std::map<Gatherer, BlockingQueue*> queues;
   std::map<Gatherer, GatherersGroup*> gatherers;

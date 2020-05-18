@@ -14,18 +14,19 @@ private:
   //VER SI SE CAMBIA POR const Resource
   std::queue<Resource> q;
   std::condition_variable cv;
-private:
-  void is_empty();
-
 public:
   BlockingQueue();
 
 	~BlockingQueue();
 
+  //Returns and removes the "oldest" element from the queue
+  //If the queue is empty and closed it throws a ClosedQueueException
   Resource pop();
 
+  //Stores a copy of the resource in the queue
   void push(Resource resource);
 
+  //Indicates that the queue will not receive any other resource so that
   void close();
 
   BlockingQueue(const BlockingQueue&) = delete;

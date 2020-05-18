@@ -3,15 +3,10 @@
 
 #include <map>
 #include <string>
-//#include <fstream>
-#include <vector>
 #include "Gatherers.h"
 #include "Producers.h"
 #include "Resource.h"
 #include "FilesConstants.h"
-//#include "BlockingQueue.h"
-//#include "GatherersGroup.h"
-//#include "ProducersGroup.h"
 #include "Inventory.h"
 
 //This class receives the resources and the number of each type of worker
@@ -24,14 +19,8 @@ private:
 private:
   Resource _convert_to_resource(char resource);
 public:
-
-  //The keys provided must be in the workers file and must be defined
-  //ResourcesProcessor();
-  //ResourcesProcessor();
-
   ResourcesProcessor(const std::map<Gatherer, int>& gatherers_ammounts,
                      const std::map<Producer, int>& producers_ammounts);
-
 
 	~ResourcesProcessor();
 
@@ -45,23 +34,6 @@ public:
 
 
   int obtain_process_results(std::map<Resource, int>& unprocessed_resources);
-
-  /*
-  //Processes the resources stored in the file passed, the file must be valid
-  std::map<std::string, int> process_resources(std::fstream& resources,
-                          const std::map<std::string, int>& number_of_workers);
-  */
-  /*
-  int process_resources(std::ifstream& resources,
-                         const std::map<Gatherer, int>& gatherers_ammounts,
-                         const std::map<Producer, int>& producers_ammounts,
-                         std::map<Resource, int>& unprocessed_resources);
-  */
-  /*
-  int process_resources(std::ifstream& resources,
-                         const std::vector<int>& number_of_workers,
-                         std::map<Resource, int>& unprocessed_resources);
-  */
 };
 
 #endif
