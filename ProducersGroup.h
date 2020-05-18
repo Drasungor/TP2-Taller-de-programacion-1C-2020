@@ -7,6 +7,7 @@
 #include <mutex>
 #include "Inventory.h"
 
+//This class represents a group of a specific type of gatherer
 class ProducersGroup {
 private:
   std::vector<std::thread*> threads;

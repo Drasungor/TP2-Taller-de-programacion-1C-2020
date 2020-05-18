@@ -6,7 +6,7 @@
 #include "WorkersConstants.h"
 #include "Resource.h"
 
-
+//This class represents the totality of the gatherers
 class Producers {
 private:
   std::map<Producer, std::map<Resource, int>*> resources_needed;

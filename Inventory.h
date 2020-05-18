@@ -6,6 +6,8 @@
 #include <map>
 #include "Resource.h"
 
+//This class stores the gathered resources so that these can be accessed by
+//the producers to generate benefit points
 class Inventory {
 private:
   std::mutex m;

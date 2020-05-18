@@ -4,7 +4,6 @@
 #include <exception>
 
 class ClosedQueueException: public std::exception{
-  //VER SI REDEFINO WHAT PARA PONER UN MENSAJE DE EXCEPCION
 };
 
 

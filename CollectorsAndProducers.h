@@ -9,6 +9,7 @@
 #include "ResourcesProcessor.h"
 #include "FilesConstants.h"
 
+//This class starts the execution of the program
 class CollectorsAndProducers {
 private:
   std::vector<std::string> gatherers_text;

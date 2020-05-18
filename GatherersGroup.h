@@ -6,6 +6,7 @@
 #include "BlockingQueue.h"
 #include "Inventory.h"
 
+//This class represents a group of a specific type of gatherer
 class GatherersGroup {
 private:
   std::vector<std::thread*> threads;

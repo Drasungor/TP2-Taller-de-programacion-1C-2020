@@ -7,7 +7,7 @@
 #include "BlockingQueue.h"
 #include "GatherersGroup.h"
 
-
+//This class represents the totality of the gatherers
 class Gatherers {
 private:
   std::map<Gatherer, BlockingQueue*> queues;

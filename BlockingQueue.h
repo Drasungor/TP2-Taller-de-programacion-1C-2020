@@ -6,7 +6,8 @@
 #include <queue>
 #include "Resource.h"
 
-
+//This class is a thread safe queue that blocks the thread that tries to pop
+//an element from it until there is at least one element stored
 class BlockingQueue {
 private:
   bool is_closed;
