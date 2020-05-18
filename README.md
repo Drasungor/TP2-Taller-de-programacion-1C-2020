@@ -20,7 +20,24 @@ generar así puntos de beneficio. Para esto se crearon las clases "Gatherers",
 
 ### <ins>Clases</ins>
 
+#### Inventory
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+#### ProducersGroup
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+#### Producers
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+#### BlockingQueue
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+#### GatherersGroup
+&nbsp;&nbsp;&nbsp;&nbsp;
+
 #### Gatherers
+&nbsp;&nbsp;&nbsp;&nbsp;
+
 
 Este es un ejemplo de texto que da entrada a una lista genérica de elementos:
 
