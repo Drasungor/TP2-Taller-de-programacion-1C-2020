@@ -8,7 +8,7 @@
 #include "Resource.h"
 #include "WorkersConstants.h"
 
-Resource ResourcesProcessor::_convert_to_resource(char resource){
+Resource ResourcesProcessor::_convert_to_resource(char resource) const{
   switch (resource) {
     case RESOURCE_WOOD:
       return RESOURCE_WOOD;

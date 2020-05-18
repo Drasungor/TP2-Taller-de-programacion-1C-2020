@@ -11,7 +11,8 @@
 
 //Pops the elements from the blocking queue and stores them in the  inventory
 //until the queue is closed
-void GatherersGroup::_gather_resources(BlockingQueue& q, Inventory& inventory){
+void GatherersGroup::_gather_resources(BlockingQueue& q,
+                                       Inventory& inventory) const{
   bool keeps_iterating = true;
   Resource resource;
   while (keeps_iterating) {
@@ -30,7 +31,7 @@ void GatherersGroup::_gather_resources(BlockingQueue& q, Inventory& inventory){
 
 /////////////////////PUBLIC//////////////////////////////
 
-void GatherersGroup::join(){
+void GatherersGroup::join() const{
   for (size_t i = 0; i < threads.size(); i++) {
     threads[i]->join();
   }

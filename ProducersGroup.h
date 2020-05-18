@@ -18,7 +18,7 @@ private:
 private:
   void _produce_points(Inventory& inventory,
                  std::map<Resource, int>& resources_needed,
-                 int points_produced/*, std::mutex& m*/);
+                 int points_produced);
 
 public:
   //Initialized the necessary variables and starts the execution of the

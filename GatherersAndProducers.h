@@ -16,20 +16,21 @@ private:
   std::vector<std::string> producers_text;
 
 private:
-  void _load_resources(std::ifstream& resources, ResourcesProcessor& processor);
-  int _get_workers_ammounts_index(std::string& worker);
-  bool _is_gatherer(std::string& worker_text);
-  bool _is_producer(std::string& worker_text);
-  Gatherer _convert_to_gatherer(std::string& gatherer_text);
-  Producer _convert_to_producer(std::string& producer_text);
+  void _load_resources(std::ifstream& resources,
+                       ResourcesProcessor& processor) const;
+  int _get_workers_ammounts_index(std::string& worker) const;
+  bool _is_gatherer(std::string& worker_text) const;
+  bool _is_producer(std::string& worker_text) const;
+  Gatherer _convert_to_gatherer(std::string& gatherer_text) const;
+  Producer _convert_to_producer(std::string& producer_text) const;
   void _add_worker_ammount(std::map<Gatherer, int>& gatherers_ammounts,
                            std::map<Producer, int>& producers_ammounts,
-                           std::string& worker, std::string& ammount);
+                           std::string& worker, std::string& ammount) const;
   void _load_workers_ammounts(std::ifstream& workers,
-                              std::map<Gatherer, int>& gatherers_ammounts,
-                              std::map<Producer, int>& producers_ammounts);
+                            std::map<Gatherer, int>& gatherers_ammounts,
+                            std::map<Producer, int>& producers_ammounts) const;
   void _print_result(std::map<Resource, int>& unprocessed_resources,
-                     int produced_points);
+                     int produced_points) const;
 
 public:
   GatherersAndProducers();

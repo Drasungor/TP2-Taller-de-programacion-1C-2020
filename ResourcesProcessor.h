@@ -19,7 +19,7 @@ private:
   Gatherers gatherers;
 
 private:
-  Resource _convert_to_resource(char resource);
+  Resource _convert_to_resource(char resource) const;
 
 public:
   //Starts the execution of the corresponding gatherers and producers stored

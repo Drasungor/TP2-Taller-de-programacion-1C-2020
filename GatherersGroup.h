@@ -11,7 +11,7 @@ class GatherersGroup {
 private:
   std::vector<std::thread*> threads;
 private:
-  void _gather_resources(BlockingQueue& q, Inventory& inventory);
+  void _gather_resources(BlockingQueue& q, Inventory& inventory) const;
 public:
   //Starts number_of_gatherers threads for them to start gathering the
   //resources stored in the received blocking queue
@@ -22,7 +22,7 @@ public:
 
 	~GatherersGroup();
 
-  void join();
+  void join() const;
 };
 
 #endif

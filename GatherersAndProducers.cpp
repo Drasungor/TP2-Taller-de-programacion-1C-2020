@@ -31,7 +31,7 @@
 //Reads the resources stored in the resources file and sends them to the
 //resources processor. Once the file ends, it closes the processor's entrance
 void GatherersAndProducers::_load_resources(std::ifstream& resources,
-                                            ResourcesProcessor& processor){
+                                        ResourcesProcessor& processor) const{
   std::string buffer;
   while (!resources.eof()) {
     std::getline(resources, buffer);
@@ -42,7 +42,7 @@ void GatherersAndProducers::_load_resources(std::ifstream& resources,
 }
 
 //Returns if the text is one that identifies a gatherer in the workers file
-bool GatherersAndProducers::_is_gatherer(std::string& worker_text){
+bool GatherersAndProducers::_is_gatherer(std::string& worker_text) const{
   for (size_t i = 0; i < gatherers_text.size(); i++) {
     if (worker_text == gatherers_text[i]) {
       return true;
@@ -52,7 +52,7 @@ bool GatherersAndProducers::_is_gatherer(std::string& worker_text){
 }
 
 //Returns if the text is one that identifies a producer in the workers file
-bool GatherersAndProducers::_is_producer(std::string& worker_text){
+bool GatherersAndProducers::_is_producer(std::string& worker_text) const{
   for (size_t i = 0; i < producers_text.size(); i++) {
     if (worker_text == producers_text[i]) {
       return true;
@@ -63,7 +63,7 @@ bool GatherersAndProducers::_is_producer(std::string& worker_text){
 
 //Returns the Gatherer type constant that corresponds to the received string
 Gatherer GatherersAndProducers::_convert_to_gatherer(std::string&
-                                                     gatherer_text){
+                                                     gatherer_text) const{
   if (gatherer_text == FARMER_TEXT) {
     return GATHERER_FARMER;
   } else if (gatherer_text == LUMBERJACK_TEXT) {
@@ -75,7 +75,7 @@ Gatherer GatherersAndProducers::_convert_to_gatherer(std::string&
 
 //Returns the Producer type constant that corresponds to the received string
 Producer GatherersAndProducers::_convert_to_producer(std::string&
-                                                     producer_text){
+                                                     producer_text) const{
   if (producer_text == COOKER_TEXT) {
     return PRODUCER_COOKER;
   } else if (producer_text == CARPENTER_TEXT) {
@@ -88,9 +88,9 @@ Producer GatherersAndProducers::_convert_to_producer(std::string&
 //Determines the type of worker that was read and stores it in the
 //corresponding map after converting it to the corresponding type of worker
 void GatherersAndProducers::_add_worker_ammount(
-                                  std::map<Gatherer, int>& gatherers_ammounts,
-                                  std::map<Producer, int>& producers_ammounts,
-                                  std::string& worker, std::string& ammount){
+                              std::map<Gatherer, int>& gatherers_ammounts,
+                              std::map<Producer, int>& producers_ammounts,
+                              std::string& worker, std::string& ammount) const{
   //The file comes without errors so no conversion exception must
   //be catched for stoi
   int workers_ammount = std::stoi(ammount);
@@ -104,8 +104,8 @@ void GatherersAndProducers::_add_worker_ammount(
 //Reads the file that containes the ammount of each type of worker and stores
 //the value in the corresponding container
 void GatherersAndProducers::_load_workers_ammounts(std::ifstream& workers,
-                                std::map<Gatherer, int>& gatherers_ammounts,
-                                std::map<Producer, int>& producers_ammounts){
+                            std::map<Gatherer, int>& gatherers_ammounts,
+                            std::map<Producer, int>& producers_ammounts) const{
   std::string worker_type;
   std::string number_of_workers;
   std::getline(workers, worker_type, WORKER_NUMBER_SEPARATOR);
@@ -124,7 +124,7 @@ void GatherersAndProducers::_load_workers_ammounts(std::ifstream& workers,
 //and the total number of benefit points produced
 void GatherersAndProducers::_print_result(
                         std::map<Resource, int>& unprocessed_resources,
-                        int produced_points){
+                        int produced_points) const{
   std::vector<std::pair<Resource, std::string>> strings_to_print = {
   {RESOURCE_WHEAT, OUT_TEXT_WHEAT}, {RESOURCE_WOOD, OUT_TEXT_WOOD},
   {RESOURCE_COAL, OUT_TEXT_COAL}, {RESOURCE_IRON, OUT_TEXT_IRON}};
