@@ -31,7 +31,7 @@ public:
 
   //Waits for the threads to finish their executions and returns the number
   //of benefit points produced
-  int join();
+  int obtain_produced_points();
 };
 
 

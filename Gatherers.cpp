@@ -31,7 +31,6 @@ void Gatherers::close_resource_entrance(){
   }
 }
 
-
 void Gatherers::push_resource(Resource resource){
   queues[_get_gatherer(resource)]->push(resource);
 }
@@ -43,17 +42,14 @@ void Gatherers::wait(){
   }
 }
 
-
 Gatherers::Gatherers(const std::map<Gatherer, int>& gatherers_ammounts, Inventory& inventory){
   std::vector<Gatherer> gatherers_indicators = {GATHERER_FARMER, GATHERER_LUMBERJACK,
                                      GATHERER_MINER};
-  //asdasdasd
   for (size_t i = 0; i < gatherers_indicators.size(); i++) {
     queues[gatherers_indicators[i]] = new BlockingQueue();
   }
   for (std::map<Gatherer, int>::const_iterator it =
        gatherers_ammounts.begin(); it != gatherers_ammounts.end(); ++it) {
-    //GatherersGroup(Inventory& inventory, BlockingQueue& q, int number_of_gatherers);
     gatherers[it->first] = new GatherersGroup(inventory, *queues[it->first], it->second);
   }
 }

@@ -26,17 +26,17 @@ void Producers::_store_resources_needed(const std::vector<Producer>&
                              {RESOURCE_IRON, RESOURCE_NEEDED_GUNSMITH_IRON}};
 }
 
+
 ////////////////////PUBLIC//////////////////////////////
 
-int Producers::obtain_produced_benefit_points(){
+int Producers::obtain_produced_points(){
   int points = 0;
   for (std::map<Producer, ProducersGroup*>::iterator it = producers.begin();
        it != producers.end(); ++it) {
-    points += it->second->join();
+    points += it->second->obtain_produced_points();
   }
   return points;
 }
-
 
 Producers::Producers(const std::map<Producer, int>& producers_ammounts, Inventory& inventory){
   std::vector<Producer> producers_indicators = {PRODUCER_COOKER,

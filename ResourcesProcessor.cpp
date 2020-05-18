@@ -28,11 +28,10 @@ int ResourcesProcessor::obtain_process_results(std::map<Resource, int>& unproces
   int benefit_points = 0;
   gatherers.wait();
   inventory.close_entrance();
-  benefit_points = producers.obtain_produced_benefit_points();
+  benefit_points = producers.obtain_produced_points();
   inventory.copy_stored_resources(unprocessed_resources);
   return benefit_points;
 }
-
 
 void ResourcesProcessor::store_resources(const std::string& resources){
   Resource resource;
@@ -45,7 +44,6 @@ void ResourcesProcessor::store_resources(const std::string& resources){
 void ResourcesProcessor::close_resource_entrance(){
   gatherers.close_resource_entrance();
 }
-
 
 ResourcesProcessor::ResourcesProcessor(
                     const std::map<Gatherer, int>& gatherers_ammounts,

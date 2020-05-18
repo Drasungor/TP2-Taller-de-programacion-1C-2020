@@ -1,6 +1,5 @@
 #include "Inventory.h"
 
-//VER SI HAY QUE BORRARLO POR EL COSNTRUCTOR
 #include <vector>
 #include <map>
 #include <condition_variable>
@@ -31,20 +30,16 @@ void Inventory::_consume_resources(std::map<Resource, int>& requested_resources)
   }
 }
 
-/////////////////////PUBLIC//////////////////////////////
 
+/////////////////////PUBLIC//////////////////////////////
 
 void Inventory::copy_stored_resources(std::map<Resource, int>& buffer) const{
   for (std::map<Resource, int>::const_iterator it =
        resources_quantities.begin(); it != resources_quantities.end(); ++it) {
-    //asdasdas
     buffer[it->first] = it->second;
   }
 }
 
-
-
-//CAMBIAR TODOS LOS MAPS POR UNORDERED_MAPS
 bool Inventory::consume_resources(std::map<Resource, int>& requested_resources){
   std::unique_lock<std::mutex> lk(m);
 
@@ -61,7 +56,6 @@ bool Inventory::consume_resources(std::map<Resource, int>& requested_resources){
   return true;
 }
 
-
 void Inventory::add_resource(Resource resource){
   std::lock_guard<std::mutex> lk(m);
   resources_quantities[resource]++;
@@ -75,7 +69,6 @@ void Inventory::close_entrance(){
 }
 
 Inventory::Inventory(){
-  //VER SI SE CAMBIA ESTE VECTOR Y SE INICIALIZA CADA UNO EN UNA LINEA DISTINTA
   std::vector<Resource> resources = {RESOURCE_WHEAT, RESOURCE_WOOD, RESOURCE_COAL,
                                      RESOURCE_IRON};
   for (size_t i = 0; i < resources.size(); i++) {

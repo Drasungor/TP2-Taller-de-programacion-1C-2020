@@ -15,7 +15,6 @@ BlockingQueue::BlockingQueue(){
 BlockingQueue::~BlockingQueue(){
 }
 
-
 Resource BlockingQueue::pop(){
   std::unique_lock<std::mutex> lk(m);
   Resource resource;

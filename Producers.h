@@ -17,7 +17,7 @@ private:
 public:
   //Waits for the producers to finish their work and returns the total
   //number of benefit points produced
-  int obtain_produced_benefit_points();
+  int obtain_produced_points();
 
   //Starts the ammounts of Producers of each type of producer indicated in
   //producers_ammounts and stores the necessary information that the producers

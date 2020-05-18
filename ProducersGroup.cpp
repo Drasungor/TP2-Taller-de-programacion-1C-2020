@@ -25,14 +25,12 @@ void ProducersGroup::_produce_points(Inventory& inventory,
 
 //////////////////////PUBLIC/////////////////////
 
-//VER SI SE CAMBIA POR UN GET POINTS Y DEVUELVO LOS PUNTOS TOTALES GENERADOS ACA
-int ProducersGroup::join(){
+int ProducersGroup::obtain_produced_points(){
   for (size_t i = 0; i < threads.size(); i++) {
     threads[i]->join();
   }
   return total_points_produced;
 }
-
 
 ProducersGroup::ProducersGroup(Inventory& inventory,
                std::map<Resource, int>& resources_needed,

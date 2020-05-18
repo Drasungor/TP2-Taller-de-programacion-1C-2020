@@ -6,5 +6,4 @@
 class ClosedQueueException: public std::exception{
 };
 
-
 #endif

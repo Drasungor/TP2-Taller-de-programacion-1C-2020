@@ -18,6 +18,7 @@ private:
   bool _are_resources_available(std::map<Resource, int>& requested_resources);
   void _consume_resources(std::map<Resource, int>& requested_resources);
 public:
+
   Inventory();
 
 	~Inventory();
@@ -37,7 +38,6 @@ public:
   //Returns a refference to the map that stores the ammount of each resource
   //This function is not thread safe,
   void copy_stored_resources(std::map<Resource, int>& buffer) const;
-
 };
 
 #endif

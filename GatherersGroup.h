@@ -22,7 +22,6 @@ public:
 
 	~GatherersGroup();
 
-  //void gather(BlockingQueue& q, int number_of_gatherers);
   void join();
 };
 

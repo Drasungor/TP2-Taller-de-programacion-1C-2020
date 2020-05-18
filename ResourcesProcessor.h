@@ -9,6 +9,7 @@
 #include "WorkersConstants.h"
 #include "Inventory.h"
 
+
 //This class receives the resources and the number of each type of worker
 //and processes the resources to produce the benefit points
 class ResourcesProcessor {
@@ -25,7 +26,6 @@ public:
                      const std::map<Producer, int>& producers_ammounts);
 
 	~ResourcesProcessor();
-
 
   //Stores the received resources in their respective blocking queues
   void store_resources(const std::string& resources);

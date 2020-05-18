@@ -26,7 +26,6 @@
 #define OUT_TEXT_BENEFIT_POINTS "Puntos de Beneficio acumulados: "
 
 
-
 //Reads the resources stored in the resources file and sends them to the resources processor.
 //Once the file ends, it se
 void CollectorsAndProducers::_load_resources(std::ifstream& resources, ResourcesProcessor& processor){
@@ -38,7 +37,6 @@ void CollectorsAndProducers::_load_resources(std::ifstream& resources, Resources
   }
   processor.close_resource_entrance();
 }
-
 
 //Returns if the text is one that identifies a gatherer in the workers file
 bool CollectorsAndProducers::_is_gatherer(std::string& worker_text){
@@ -117,7 +115,6 @@ void CollectorsAndProducers::_load_workers_ammounts(std::ifstream& workers,
   }
 }
 
-
 //Prints the expected output of the program, with the unprocessed resources
 //and the total number of benefit points produced
 void CollectorsAndProducers::_print_result(
@@ -135,9 +132,8 @@ void CollectorsAndProducers::_print_result(
   std::cout << OUT_TEXT_BENEFIT_POINTS << produced_points << "\n";
 }
 
+
 /////////////////PUBLIC////////////////////
-
-
 
 //This function cannot be reduced to 15 lines or less because of the necessary
 //declaration of objects and program status checking that cannot be written
