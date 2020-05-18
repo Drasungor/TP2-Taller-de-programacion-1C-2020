@@ -28,7 +28,6 @@ void Producers::_store_resources_needed(const std::vector<Producer>&
 
 ////////////////////PUBLIC//////////////////////////////
 
-
 int Producers::obtain_produced_benefit_points(){
   int points = 0;
   for (std::map<Producer, ProducersGroup*>::iterator it = producers.begin();
@@ -43,7 +42,6 @@ Producers::Producers(const std::map<Producer, int>& producers_ammounts, Inventor
   std::vector<Producer> producers_indicators = {PRODUCER_COOKER,
                                                 PRODUCER_CARPENTER,
                                                 PRODUCER_GUNSMITH};
-  //PASAR LOS NUMEROS A CONSTANTES
   std::map<Producer, ProducerPoints> benefit_points =
                               {{PRODUCER_COOKER, PRODUCER_PONTS_COOKER},
                                {PRODUCER_CARPENTER, PRODUCER_PONTS_CARPENTER},
@@ -51,7 +49,6 @@ Producers::Producers(const std::map<Producer, int>& producers_ammounts, Inventor
   _store_resources_needed(producers_indicators);
   for (std::map<Producer, int>::const_iterator it =
        producers_ammounts.begin(); it != producers_ammounts.end(); ++it) {
-    //VER SI HAY QUE CAMBIAR benefit_points POR UN UNORDERED MAP
     producers[it->first] = new ProducersGroup(inventory,
                                   *resources_needed[it->first], it->second,
                                   benefit_points[it->first]);

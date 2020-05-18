@@ -11,8 +11,6 @@
 #define RESOURCES_INITIAL_QUANTITY 0
 
 
-
-
 //Returns true if the requested resources are available, if there is less than
 //the requested ammount of any of the resources returns false
 //The requested resources map is not modified
@@ -79,7 +77,7 @@ void Inventory::close_entrance(){
 Inventory::Inventory(){
   //VER SI SE CAMBIA ESTE VECTOR Y SE INICIALIZA CADA UNO EN UNA LINEA DISTINTA
   std::vector<Resource> resources = {RESOURCE_WHEAT, RESOURCE_WOOD, RESOURCE_COAL,
-                                RESOURCE_IRON};
+                                     RESOURCE_IRON};
   for (size_t i = 0; i < resources.size(); i++) {
       resources_quantities.insert(std::pair<Resource, int>(resources[i],
                                               RESOURCES_INITIAL_QUANTITY));

@@ -12,7 +12,6 @@
 //Pops the elements from the blocking queue and stores them in the  inventory
 //until the queue is closed
 void GatherersGroup::_gather_resources(BlockingQueue& q, Inventory& inventory){
-  //VER SI SE CAMBIA POR EL RESOURCE_NULL
   bool keeps_iterating = true;
   Resource resource;
   while (keeps_iterating) {
@@ -47,9 +46,6 @@ GatherersGroup::GatherersGroup(Inventory& inventory, BlockingQueue& q,
 
 GatherersGroup::~GatherersGroup(){
   for (size_t i = 0; i < threads.size(); i++) {
-    //VER SI EN VEZ DE ITERAR POR EL VECTOR CONVIENEIR VACIANDOLO Y LIBERAR
-    //CADA THREAD VACIADO, PERO SI SE HACE ESO HAY QUE OBTENER EL SIZE ANTES
-    //DE ITERAR
     delete(threads[i]);
   }
 }

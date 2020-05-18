@@ -27,8 +27,6 @@
 
 
 
-//VER SI SE PUEDE PASAR UNA CONST REFERENCIA AL PROCESSOR
-
 //Reads the resources stored in the resources file and sends them to the resources processor.
 //Once the file ends, it se
 void CollectorsAndProducers::_load_resources(std::ifstream& resources, ResourcesProcessor& processor){
@@ -129,22 +127,24 @@ void CollectorsAndProducers::_print_result(
   {RESOURCE_WHEAT, OUT_TEXT_WHEAT}, {RESOURCE_WOOD, OUT_TEXT_WOOD},
   {RESOURCE_COAL, OUT_TEXT_COAL}, {RESOURCE_IRON, OUT_TEXT_IRON}};
   std::cout << OUT_TEXT_UNPROCESSED_RESOURCES;
-
   for (size_t i = 0; i < strings_to_print.size(); i++) {
     std::cout << OUT_TEXT_RESOURCE_PRETEXT << strings_to_print[i].second <<
                  unprocessed_resources[strings_to_print[i].first] << "\n";
   }
-
   std::cout << "\n";
   std::cout << OUT_TEXT_BENEFIT_POINTS << produced_points << "\n";
 }
 
 /////////////////PUBLIC////////////////////
 
+
+
+//This function cannot be reduced to 15 lines or less because of the necessary
+//declaration of objects and program status checking that cannot be written
+//in less lines
 int CollectorsAndProducers::execute(const char** arguments,
                                     int number_of_arguments){
   int produced_points = 0;
-
   if (number_of_arguments != NUMBER_OF_ARGUMENTS) {
     return INVALID_ARGUMENTS;
   }

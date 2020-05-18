@@ -21,7 +21,6 @@ Resource BlockingQueue::pop(){
   Resource resource;
   while (q.empty()) {
     if (is_closed) {
-      //CAMBIAR LA FUNCION POR GUARDAR PUNTEROS Y DEVOLVER NULL
       throw ClosedQueueException();
     }
     cv.wait(lk);
