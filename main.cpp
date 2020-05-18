@@ -1,7 +1,6 @@
-#include "CollectorsAndProducers.h"
-
+#include "GatherersAndProducers.h"
 
 int main(int argc, char const *argv[]) {
-  CollectorsAndProducers program;
+  GatherersAndProducers program;
   return program.execute(argv, argc);
 }

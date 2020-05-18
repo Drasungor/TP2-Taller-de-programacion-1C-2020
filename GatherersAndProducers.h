@@ -1,5 +1,5 @@
-#ifndef _COLLECTORS_AND_PRODUCERS_H_
-#define _COLLECTORS_AND_PRODUCERS_H_
+#ifndef _GATHERERS_AND_PRODUCERS_H_
+#define _GATHERERS_AND_PRODUCERS_H_
 
 #include <string>
 #include <vector>
@@ -10,7 +10,7 @@
 #include "FilesConstants.h"
 
 //This class starts the execution of the program
-class CollectorsAndProducers {
+class GatherersAndProducers {
 private:
   std::vector<std::string> gatherers_text;
   std::vector<std::string> producers_text;
@@ -30,9 +30,9 @@ private:
   void _print_result(std::map<Resource, int>& unprocessed_resources,
                      int produced_points);
 public:
-  CollectorsAndProducers();
+  GatherersAndProducers();
 
-	~CollectorsAndProducers();
+	~GatherersAndProducers();
 
   //Runs the program, returns 0 if successful and 1 if there is an error
   int execute(const char** arguments, int number_of_arguments);

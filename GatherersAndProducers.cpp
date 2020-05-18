@@ -1,4 +1,4 @@
-#include "CollectorsAndProducers.h"
+#include "GatherersAndProducers.h"
 
 #include <iostream>
 #include <fstream>
@@ -28,7 +28,7 @@
 
 //Reads the resources stored in the resources file and sends them to the resources processor.
 //Once the file ends, it se
-void CollectorsAndProducers::_load_resources(std::ifstream& resources, ResourcesProcessor& processor){
+void GatherersAndProducers::_load_resources(std::ifstream& resources, ResourcesProcessor& processor){
   std::string buffer;
   while (!resources.eof()) {
     std::getline(resources, buffer);
@@ -39,7 +39,7 @@ void CollectorsAndProducers::_load_resources(std::ifstream& resources, Resources
 }
 
 //Returns if the text is one that identifies a gatherer in the workers file
-bool CollectorsAndProducers::_is_gatherer(std::string& worker_text){
+bool GatherersAndProducers::_is_gatherer(std::string& worker_text){
   for (size_t i = 0; i < gatherers_text.size(); i++) {
     if (worker_text == gatherers_text[i]) {
       return true;
@@ -49,7 +49,7 @@ bool CollectorsAndProducers::_is_gatherer(std::string& worker_text){
 }
 
 //Returns if the text is one that identifies a producer in the workers file
-bool CollectorsAndProducers::_is_producer(std::string& worker_text){
+bool GatherersAndProducers::_is_producer(std::string& worker_text){
   for (size_t i = 0; i < producers_text.size(); i++) {
     if (worker_text == producers_text[i]) {
       return true;
@@ -59,7 +59,7 @@ bool CollectorsAndProducers::_is_producer(std::string& worker_text){
 }
 
 //Returns the Gatherer type constant that corresponds to the received string
-Gatherer CollectorsAndProducers::_convert_to_gatherer(std::string& gatherer_text){
+Gatherer GatherersAndProducers::_convert_to_gatherer(std::string& gatherer_text){
   if (gatherer_text == FARMER_TEXT) {
     return GATHERER_FARMER;
   } else if (gatherer_text == LUMBERJACK_TEXT) {
@@ -70,7 +70,7 @@ Gatherer CollectorsAndProducers::_convert_to_gatherer(std::string& gatherer_text
 }
 
 //Returns the Producer type constant that corresponds to the received string
-Producer CollectorsAndProducers::_convert_to_producer(std::string& producer_text){
+Producer GatherersAndProducers::_convert_to_producer(std::string& producer_text){
   if (producer_text == COOKER_TEXT) {
     return PRODUCER_COOKER;
   } else if (producer_text == CARPENTER_TEXT) {
@@ -82,7 +82,7 @@ Producer CollectorsAndProducers::_convert_to_producer(std::string& producer_text
 
 //Determines the type of worker that was read and stores it in the
 //corresponding map after converting it to the corresponding type of worker
-void CollectorsAndProducers::_add_worker_ammount(
+void GatherersAndProducers::_add_worker_ammount(
                                   std::map<Gatherer, int>& gatherers_ammounts,
                                   std::map<Producer, int>& producers_ammounts,
                                   std::string& worker, std::string& ammount){
@@ -98,7 +98,7 @@ void CollectorsAndProducers::_add_worker_ammount(
 
 //Reads the file that containes the ammount of each type of worker and stores
 //the value in the corresponding container
-void CollectorsAndProducers::_load_workers_ammounts(std::ifstream& workers,
+void GatherersAndProducers::_load_workers_ammounts(std::ifstream& workers,
                                 std::map<Gatherer, int>& gatherers_ammounts,
                                 std::map<Producer, int>& producers_ammounts){
   std::string worker_type;
@@ -117,7 +117,7 @@ void CollectorsAndProducers::_load_workers_ammounts(std::ifstream& workers,
 
 //Prints the expected output of the program, with the unprocessed resources
 //and the total number of benefit points produced
-void CollectorsAndProducers::_print_result(
+void GatherersAndProducers::_print_result(
                         std::map<Resource, int>& unprocessed_resources,
                         int produced_points){
   std::vector<std::pair<Resource, std::string>> strings_to_print = {
@@ -138,7 +138,7 @@ void CollectorsAndProducers::_print_result(
 //This function cannot be reduced to 15 lines or less because of the necessary
 //declaration of objects and program status checking that cannot be written
 //in less lines
-int CollectorsAndProducers::execute(const char** arguments,
+int GatherersAndProducers::execute(const char** arguments,
                                     int number_of_arguments){
   int produced_points = 0;
   if (number_of_arguments != NUMBER_OF_ARGUMENTS) {
@@ -162,11 +162,11 @@ int CollectorsAndProducers::execute(const char** arguments,
 }
 
 
-CollectorsAndProducers::CollectorsAndProducers(){
+GatherersAndProducers::GatherersAndProducers(){
   gatherers_text = {FARMER_TEXT, LUMBERJACK_TEXT, MINER_TEXT};
   producers_text = {COOKER_TEXT, CARPENTER_TEXT, GUNSMITH_TEXT};
 }
 
 
-CollectorsAndProducers::~CollectorsAndProducers(){
+GatherersAndProducers::~GatherersAndProducers(){
 }
