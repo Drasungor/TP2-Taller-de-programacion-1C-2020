@@ -42,15 +42,18 @@ void Gatherers::wait(){
   }
 }
 
-Gatherers::Gatherers(const std::map<Gatherer, int>& gatherers_ammounts, Inventory& inventory){
-  std::vector<Gatherer> gatherers_indicators = {GATHERER_FARMER, GATHERER_LUMBERJACK,
-                                     GATHERER_MINER};
+Gatherers::Gatherers(const std::map<Gatherer, int>& gatherers_ammounts,
+                     Inventory& inventory){
+  std::vector<Gatherer> gatherers_indicators = {GATHERER_FARMER,
+                                                GATHERER_LUMBERJACK,
+                                                GATHERER_MINER};
   for (size_t i = 0; i < gatherers_indicators.size(); i++) {
     queues[gatherers_indicators[i]] = new BlockingQueue();
   }
   for (std::map<Gatherer, int>::const_iterator it =
        gatherers_ammounts.begin(); it != gatherers_ammounts.end(); ++it) {
-    gatherers[it->first] = new GatherersGroup(inventory, *queues[it->first], it->second);
+    gatherers[it->first] = new GatherersGroup(inventory, *queues[it->first],
+                                              it->second);
   }
 }
 

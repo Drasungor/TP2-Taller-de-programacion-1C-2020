@@ -11,20 +11,21 @@
 Resource ResourcesProcessor::_convert_to_resource(char resource){
   switch (resource) {
     case RESOURCE_WOOD:
-    return RESOURCE_WOOD;
+      return RESOURCE_WOOD;
     case RESOURCE_WHEAT:
-    return RESOURCE_WHEAT;
+      return RESOURCE_WHEAT;
     case RESOURCE_COAL:
-    return RESOURCE_COAL;
+      return RESOURCE_COAL;
     default:
-    return RESOURCE_IRON;
+      return RESOURCE_IRON;
   }
 }
 
 
 /////////////////////PUBLIC//////////////////////////////
 
-int ResourcesProcessor::obtain_process_results(std::map<Resource, int>& unprocessed_resources){
+int ResourcesProcessor::obtain_process_results(std::map<Resource, int>&
+                                               unprocessed_resources){
   int benefit_points = 0;
   gatherers.wait();
   inventory.close_entrance();

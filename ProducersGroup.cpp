@@ -13,7 +13,6 @@
 //ammount of benefit points, adding them to the total of points produced
 void ProducersGroup::_produce_points(Inventory& inventory,
                std::map<Resource, int>& resources_needed, int points_produced){
-
   while (inventory.consume_resources(resources_needed)) {
     usleep(PRODUCER_WORKING_TIME_MICRO);
     m.lock();

@@ -14,11 +14,12 @@ private:
   std::condition_variable cv;
   std::map<Resource, int> resources_quantities;
   bool is_entrance_closed;
+
 private:
   bool _are_resources_available(std::map<Resource, int>& requested_resources);
   void _consume_resources(std::map<Resource, int>& requested_resources);
-public:
 
+public:
   Inventory();
 
 	~Inventory();

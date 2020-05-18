@@ -14,10 +14,12 @@ private:
   int total_points_produced;
   int points_per_product;
   std::mutex m;
+
 private:
   void _produce_points(Inventory& inventory,
                  std::map<Resource, int>& resources_needed,
                  int points_produced/*, std::mutex& m*/);
+
 public:
   //Initialized the necessary variables and starts the execution of the
   //indicated number of threads in number_of_producers

@@ -2,6 +2,7 @@
 #define _PRODUCERS_H_
 
 #include <map>
+#include <vector>
 #include "ProducersGroup.h"
 #include "WorkersConstants.h"
 #include "Resource.h"
@@ -22,7 +23,8 @@ public:
   //Starts the ammounts of Producers of each type of producer indicated in
   //producers_ammounts and stores the necessary information that the producers
   //need for their work
-  Producers(const std::map<Producer, int>& producers_ammounts, Inventory& inventory);
+  Producers(const std::map<Producer, int>& producers_ammounts,
+            Inventory& inventory);
 
   Producers(const Producers&) = delete;
 

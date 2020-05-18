@@ -38,7 +38,8 @@ int Producers::obtain_produced_points(){
   return points;
 }
 
-Producers::Producers(const std::map<Producer, int>& producers_ammounts, Inventory& inventory){
+Producers::Producers(const std::map<Producer, int>& producers_ammounts,
+                     Inventory& inventory){
   std::vector<Producer> producers_indicators = {PRODUCER_COOKER,
                                                 PRODUCER_CARPENTER,
                                                 PRODUCER_GUNSMITH};

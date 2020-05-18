@@ -17,8 +17,10 @@ private:
   Inventory inventory;
   Producers producers;
   Gatherers gatherers;
+
 private:
   Resource _convert_to_resource(char resource);
+
 public:
   //Starts the execution of the corresponding gatherers and producers stored
   //in the maps received

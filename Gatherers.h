@@ -12,10 +12,11 @@ class Gatherers {
 private:
   std::map<Gatherer, BlockingQueue*> queues;
   std::map<Gatherer, GatherersGroup*> gatherers;
+
 private:
   Gatherer _get_gatherer(Resource resource);
-public:
 
+public:
   //Indicates that no other resource will be pushed into the blocking queues
   void close_resource_entrance();
 
@@ -28,7 +29,8 @@ public:
 
   //Stats the execution of the ammount of each type of gatherer indicated
   //indicated in gatherers_ammounts
-  Gatherers(const std::map<Gatherer, int>& gatherers_ammounts, Inventory& inventory);
+  Gatherers(const std::map<Gatherer, int>& gatherers_ammounts,
+            Inventory& inventory);
 
   Gatherers(const Gatherers&) = delete;
 

@@ -4,7 +4,7 @@
 #include <map>
 #include <condition_variable>
 #include <mutex>
-#include <map>
+#include <utility>
 #include "Resource.h"
 
 #define RESOURCES_INITIAL_QUANTITY 0
@@ -13,8 +13,10 @@
 //Returns true if the requested resources are available, if there is less than
 //the requested ammount of any of the resources returns false
 //The requested resources map is not modified
-bool Inventory::_are_resources_available(std::map<Resource, int>& requested_resources){
-  for (std::map<Resource, int>::iterator it = requested_resources.begin(); it != requested_resources.end(); ++it) {
+bool Inventory::_are_resources_available(std::map<Resource, int>&
+                                         requested_resources){
+  for (std::map<Resource, int>::iterator it = requested_resources.begin();
+       it != requested_resources.end(); ++it) {
     if (requested_resources[it->first] > resources_quantities[it->first]) {
       return false;
     }
@@ -24,8 +26,10 @@ bool Inventory::_are_resources_available(std::map<Resource, int>& requested_reso
 
 //Reduces the ammount of requested resources from the stored map
 //The requested resources map is not modified
-void Inventory::_consume_resources(std::map<Resource, int>& requested_resources){
-  for (std::map<Resource, int>::iterator it = requested_resources.begin(); it != requested_resources.end(); ++it) {
+void Inventory::_consume_resources(std::map<Resource, int>&
+                                   requested_resources){
+  for (std::map<Resource, int>::iterator it = requested_resources.begin();
+       it != requested_resources.end(); ++it) {
     resources_quantities[it->first] -= requested_resources[it->first];
   }
 }
@@ -40,7 +44,8 @@ void Inventory::copy_stored_resources(std::map<Resource, int>& buffer) const{
   }
 }
 
-bool Inventory::consume_resources(std::map<Resource, int>& requested_resources){
+bool Inventory::consume_resources(std::map<Resource, int>&
+                                  requested_resources){
   std::unique_lock<std::mutex> lk(m);
 
   while (!_are_resources_available(requested_resources)) {
@@ -69,8 +74,8 @@ void Inventory::close_entrance(){
 }
 
 Inventory::Inventory(){
-  std::vector<Resource> resources = {RESOURCE_WHEAT, RESOURCE_WOOD, RESOURCE_COAL,
-                                     RESOURCE_IRON};
+  std::vector<Resource> resources = {RESOURCE_WHEAT, RESOURCE_WOOD,
+                                     RESOURCE_COAL, RESOURCE_IRON};
   for (size_t i = 0; i < resources.size(); i++) {
       resources_quantities.insert(std::pair<Resource, int>(resources[i],
                                               RESOURCES_INITIAL_QUANTITY));

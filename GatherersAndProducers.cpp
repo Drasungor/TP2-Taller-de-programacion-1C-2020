@@ -4,6 +4,8 @@
 #include <fstream>
 #include <string>
 #include <map>
+#include <vector>
+#include <utility>
 #include "FilesConstants.h"
 #include "ResourcesProcessor.h"
 #include "Resource.h"
@@ -26,9 +28,10 @@
 #define OUT_TEXT_BENEFIT_POINTS "Puntos de Beneficio acumulados: "
 
 
-//Reads the resources stored in the resources file and sends them to the resources processor.
-//Once the file ends, it se
-void GatherersAndProducers::_load_resources(std::ifstream& resources, ResourcesProcessor& processor){
+//Reads the resources stored in the resources file and sends them to the
+//resources processor. Once the file ends, it closes the processor's entrance
+void GatherersAndProducers::_load_resources(std::ifstream& resources,
+                                            ResourcesProcessor& processor){
   std::string buffer;
   while (!resources.eof()) {
     std::getline(resources, buffer);
@@ -59,7 +62,8 @@ bool GatherersAndProducers::_is_producer(std::string& worker_text){
 }
 
 //Returns the Gatherer type constant that corresponds to the received string
-Gatherer GatherersAndProducers::_convert_to_gatherer(std::string& gatherer_text){
+Gatherer GatherersAndProducers::_convert_to_gatherer(std::string&
+                                                     gatherer_text){
   if (gatherer_text == FARMER_TEXT) {
     return GATHERER_FARMER;
   } else if (gatherer_text == LUMBERJACK_TEXT) {
@@ -70,7 +74,8 @@ Gatherer GatherersAndProducers::_convert_to_gatherer(std::string& gatherer_text)
 }
 
 //Returns the Producer type constant that corresponds to the received string
-Producer GatherersAndProducers::_convert_to_producer(std::string& producer_text){
+Producer GatherersAndProducers::_convert_to_producer(std::string&
+                                                     producer_text){
   if (producer_text == COOKER_TEXT) {
     return PRODUCER_COOKER;
   } else if (producer_text == CARPENTER_TEXT) {

@@ -14,6 +14,7 @@ class GatherersAndProducers {
 private:
   std::vector<std::string> gatherers_text;
   std::vector<std::string> producers_text;
+
 private:
   void _load_resources(std::ifstream& resources, ResourcesProcessor& processor);
   int _get_workers_ammounts_index(std::string& worker);
@@ -29,6 +30,7 @@ private:
                               std::map<Producer, int>& producers_ammounts);
   void _print_result(std::map<Resource, int>& unprocessed_resources,
                      int produced_points);
+
 public:
   GatherersAndProducers();
 

@@ -17,7 +17,7 @@ void GatherersGroup::_gather_resources(BlockingQueue& q, Inventory& inventory){
   while (keeps_iterating) {
     try {
       resource = q.pop();
-    } catch (ClosedQueueException e) {
+    } catch(ClosedQueueException e) {
       keeps_iterating = false;
     }
     if (keeps_iterating) {
