@@ -9,13 +9,14 @@ URL: https://github.com/Drasungor/TP2-Taller-de-programacion-1C-2020.git
 
 ## Trabajo práctico No 2: Recolectores y productores
 
-&nbsp;&nbsp;El presente trabajo tiene el objetivo de describir el funcionamiento de una sección
-del programa realizado para cumlpir con la consigna de desarrollar un ejecutable que
+&nbsp;&nbsp;&nbsp;&nbsp;El presente trabajo tiene el objetivo de describir el
+funcionamiento de una sección del programa realizado para cumlpir con la
+consigna de desarrollar un ejecutable que
 genera puntos de beneficio según los trabajadores y materiales disponibles.  
-&nbsp;&nbsp;La sección a desarrollar es aquella que se encarga de cargar los recursos en el
-inventario y luego descargarlos para consumirlos y generar así puntos de beneficio.
-Para esto se crearon las clases "Gatherers" "GatherersGroup" "Producers" "ProducersGroup"
-"Inventory" y "BlockingQueue".
+&nbsp;&nbsp;&nbsp;&nbsp;La sección a desarrollar es aquella que se encarga de
+cargar los recursos en el inventario y luego descargarlos para consumirlos y
+generar así puntos de beneficio. Para esto se crearon las clases "Gatherers",
+"GatherersGroup", "Producers", "ProducersGroup", "Inventory" y "BlockingQueue".
 
 ### <ins>Clases</ins>
 
