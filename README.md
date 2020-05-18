@@ -21,7 +21,11 @@ generar así puntos de beneficio. Para esto se crearon las clases "Gatherers",
 ### <ins>Clases</ins>
 
 #### Inventory
-&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;El inventario es una clase protegida contra condiciones
+de carrera. Se utiliza para guardar los recursos recolectados, actúa como
+un buffer que comunica Gatherers con Producers. Los GatherersGroup se encargan
+de cargar los recursos en el inventario, y los ProducersGroup se encargan de
+sacarlos del inventario para consumirlos y generar puntos de beneficio.
 
 #### ProducersGroup
 &nbsp;&nbsp;&nbsp;&nbsp;
