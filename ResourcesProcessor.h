@@ -19,6 +19,8 @@ private:
 private:
   Resource _convert_to_resource(char resource);
 public:
+  //Starts the execution of the corresponding gatherers and producers stored
+  //in the maps received
   ResourcesProcessor(const std::map<Gatherer, int>& gatherers_ammounts,
                      const std::map<Producer, int>& producers_ammounts);
 
@@ -32,7 +34,8 @@ public:
   //the blocking queues can be closed
   void close_resource_entrance();
 
-
+  //Copies the unprocessed resources left in the inventory and returns the
+  //total number of benefit points produced 
   int obtain_process_results(std::map<Resource, int>& unprocessed_resources);
 };
 

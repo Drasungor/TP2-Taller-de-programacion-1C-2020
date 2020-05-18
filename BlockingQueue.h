@@ -11,7 +11,6 @@ class BlockingQueue {
 private:
   bool is_closed;
   std::mutex m;
-  //VER SI SE CAMBIA POR const Resource
   std::queue<Resource> q;
   std::condition_variable cv;
 public:

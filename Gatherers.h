@@ -28,6 +28,8 @@ public:
 
   Gatherers(const std::map<Gatherer, int>& gatherers_ammounts, Inventory& inventory);
 
+  Gatherers(const Gatherers&) = delete;
+
 	~Gatherers();
 };
 
