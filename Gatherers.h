@@ -2,7 +2,7 @@
 #define _GATHERERS_H_
 
 #include <map>
-#include "FilesConstants.h"
+#include "WorkersConstants.h"
 #include "Resource.h"
 #include "BlockingQueue.h"
 #include "GatherersGroup.h"

@@ -3,7 +3,7 @@
 
 #include <map>
 #include "ProducersGroup.h"
-#include "FilesConstants.h"
+#include "WorkersConstants.h"
 #include "Resource.h"
 
 

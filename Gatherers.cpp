@@ -6,6 +6,7 @@
 #include "Resource.h"
 #include "BlockingQueue.h"
 #include "GatherersGroup.h"
+#include "WorkersConstants.h"
 
 
 //VER SI CAMBIO POR UN MAP CON CLAVE RESOURCE Y VALOR GATHERER

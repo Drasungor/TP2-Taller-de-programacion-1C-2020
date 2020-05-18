@@ -6,7 +6,7 @@
 #include "Gatherers.h"
 #include "Producers.h"
 #include "Resource.h"
-#include "FilesConstants.h"
+#include "WorkersConstants.h"
 #include "Inventory.h"
 
 //This class receives the resources and the number of each type of worker
@@ -35,7 +35,7 @@ public:
   void close_resource_entrance();
 
   //Copies the unprocessed resources left in the inventory and returns the
-  //total number of benefit points produced 
+  //total number of benefit points produced
   int obtain_process_results(std::map<Resource, int>& unprocessed_resources);
 };
 

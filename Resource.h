@@ -1,26 +1,11 @@
 #ifndef _RESOURCES_H_
 #define _RESOURCES_H_
 
-
-//VER SI SE PASA ESTO A FilesConstants.h
-
-
-
 enum Resource:char {
   RESOURCE_WHEAT = 'T',
   RESOURCE_WOOD = 'M',
   RESOURCE_IRON = 'H',
   RESOURCE_COAL = 'C'
 };
-
-/*
-enum StoredResource {
-  STORED_RESOURCE_WHEAT,
-  STORED_RESOURCE_WOOD,
-  STORED_RESOURCE_IRON,
-  STORED_RESOURCE_COAL,
-  STORED_RESOURCE_NONE
-}
-*/
 
 #endif

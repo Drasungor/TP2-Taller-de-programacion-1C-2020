@@ -6,8 +6,7 @@
 #include "Gatherers.h"
 #include "Producers.h"
 #include "Resource.h"
-#include "FilesConstants.h"
-
+#include "WorkersConstants.h"
 
 Resource ResourcesProcessor::_convert_to_resource(char resource){
   switch (resource) {
