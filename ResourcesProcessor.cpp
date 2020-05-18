@@ -8,6 +8,7 @@
 #include "Resource.h"
 #include "WorkersConstants.h"
 
+/*
 Resource ResourcesProcessor::_convert_to_resource(char resource) const{
   switch (resource) {
     case RESOURCE_WOOD:
@@ -20,7 +21,7 @@ Resource ResourcesProcessor::_convert_to_resource(char resource) const{
       return RESOURCE_IRON;
   }
 }
-
+*/
 
 /////////////////////PUBLIC//////////////////////////////
 
@@ -34,6 +35,7 @@ int ResourcesProcessor::obtain_process_results(std::map<Resource, int>&
   return benefit_points;
 }
 
+/*
 void ResourcesProcessor::store_resources(const std::string& resources){
   Resource resource;
   for (size_t i = 0; i < resources.size(); i++) {
@@ -41,6 +43,12 @@ void ResourcesProcessor::store_resources(const std::string& resources){
     gatherers.push_resource(resource);
   }
 }
+*/
+
+void ResourcesProcessor::store_resource(Resource resource){
+  gatherers.push_resource(resource);
+}
+
 
 void ResourcesProcessor::close_resource_entrance(){
   gatherers.close_resource_entrance();

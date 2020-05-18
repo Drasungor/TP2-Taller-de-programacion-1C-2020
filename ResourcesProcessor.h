@@ -19,7 +19,7 @@ private:
   Gatherers gatherers;
 
 private:
-  Resource _convert_to_resource(char resource) const;
+  //Resource _convert_to_resource(char resource) const;
 
 public:
   //Starts the execution of the corresponding gatherers and producers stored
@@ -30,7 +30,10 @@ public:
 	~ResourcesProcessor();
 
   //Stores the received resources in their respective blocking queues
-  void store_resources(const std::string& resources);
+  //void store_resources(const std::string& resources);
+
+  //Stores the received resource in the respective blocking queue
+  void store_resource(Resource resource);
 
   //Indicates the processor that no more resources will be stored so that
   //the blocking queues can be closed
