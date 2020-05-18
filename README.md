@@ -1,4 +1,9 @@
-# TP2-Taller-de-programacion-1C-2020
+# TP2-Taller-de-programación-1C-2020
+
+Nombre: Agustín Cambiano
+Padrón: 102291
+URL: https://github.com/Drasungor/TP2-Taller-de-programacion-1C-2020.git
+
 
 ## Título
 ### Subtítulo
