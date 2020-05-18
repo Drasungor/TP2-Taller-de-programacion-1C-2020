@@ -44,7 +44,11 @@ los puntos de beneficio, los puntos de beneficio que generará y la cantidad de
 productores que representa, es decir, la cantidad de threads que generará.
 
 #### Producers
-&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;Representa todos los productores existentes, almacena
+un ProducersGroup por cada tipo de productor existente, y a cada uno le
+proporciona la cantidad de productores que debe representar y qué tipo de
+productor debe representar (pasándole los recursos que debe consumir y los
+puntos de beneficio que producen).
 
 #### BlockingQueue
 &nbsp;&nbsp;&nbsp;&nbsp;
