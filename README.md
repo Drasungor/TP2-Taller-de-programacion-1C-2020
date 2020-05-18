@@ -24,11 +24,24 @@ generar así puntos de beneficio. Para esto se crearon las clases "Gatherers",
 &nbsp;&nbsp;&nbsp;&nbsp;El inventario es una clase protegida contra condiciones
 de carrera. Se utiliza para guardar los recursos recolectados, actúa como
 un buffer que comunica Gatherers con Producers. Almacena los recursos
-proporcionados por los GatherersGroup se encargan de cargar los recursos en el inventario, y los ProducersGroup se encargan de
-sacarlos del inventario para consumirlos y generar puntos de beneficio.
+proporcionados por los GatherersGroup, y descarga los recursos pedidos por
+ProducersGroup. La única operación bloqueante que tiene es la que consume los
+recursos pedidos, ya que espera a que estos se encuentren disponibles
+(notificando cuando se agrega un recurso o se cierra la entrada a todos los
+threads que se encuentren esperando para consumir recursos) para poder ser
+consumidos o a que se cierre la entrada del inventario.
 
 #### ProducersGroup
-&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;Esta clase representa un grupo de productores, es
+decir, una cantidad de productores de un tipo de productor específico. Se
+encarga de pedir al inventario los recursos que necesite y con estos generar
+la cantidad de puntos de beneficio apropiada hasta que se cierre la entrada
+del inventario y no se encuentre disponible la cantidad necesaria de los
+recursos a consumir para generar los puntos de beneficio. Para hacer esto
+genera una cantidad recibida de threads, realizan este trabajo simultáneamente
+y por separado. Al crearse recibe los recursos que va a consumir para generar
+los puntos de beneficio, los puntos de beneficio que generará y la cantidad de
+productores que representa, es decir, la cantidad de threads que generará.
 
 #### Producers
 &nbsp;&nbsp;&nbsp;&nbsp;

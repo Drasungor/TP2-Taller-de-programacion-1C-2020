@@ -27,6 +27,8 @@ public:
 
   //Returns true if the resources were consumed, otherwise returns false
   //The requested_resources map is not modified
+  //This method blocks the thread until the requested resources are available
+  //or the entrance is (or if it was) closed, in which case it returns false
   bool consume_resources(std::map<Resource, int>& requested_resources);
 
   //Increments the received resource stored ammount by 1
