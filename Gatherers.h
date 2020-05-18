@@ -16,7 +16,7 @@ private:
   Gatherer _get_gatherer(Resource resource);
 public:
 
-
+  //Indicates that no other resource will be pushed into the blocking queues
   void close_resource_entrance();
 
   //Pushes the resource in the corresponding BlockingQueue
@@ -26,6 +26,8 @@ public:
   //joining the execution threads
   void wait();
 
+  //Stats the execution of the ammount of each type of gatherer indicated
+  //indicated in gatherers_ammounts
   Gatherers(const std::map<Gatherer, int>& gatherers_ammounts, Inventory& inventory);
 
   Gatherers(const Gatherers&) = delete;

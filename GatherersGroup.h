@@ -14,7 +14,10 @@ private:
 public:
   //Starts number_of_gatherers threads for them to start gathering the
   //resources stored in the received blocking queue
-  GatherersGroup(Inventory& inventory, BlockingQueue& q, int number_of_gatherers);
+  GatherersGroup(Inventory& inventory, BlockingQueue& q,
+                 int number_of_gatherers);
+
+  GatherersGroup(const GatherersGroup&) = delete;
 
 	~GatherersGroup();
 

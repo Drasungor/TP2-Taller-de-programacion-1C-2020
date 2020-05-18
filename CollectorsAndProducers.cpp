@@ -26,23 +26,6 @@
 #define OUT_TEXT_BENEFIT_POINTS "Puntos de Beneficio acumulados: "
 
 
-/*
-int CollectorsAndProducers::_get_workers_ammounts_index(std::string& worker){
-  if (worker == FARMER_TEXT) {
-    return WORKER_INDEX_FARMER;
-  } else if (worker == LUMBERJACK_TEXT) {
-    return WORKER_INDEX_LUMBERJACK;
-  } else if (worker == MINER_TEXT) {
-    return WORKER_INDEX_MINER;
-  } else if (worker == COOKER_TEXT) {
-    return WORKER_INDEX_COOKER;
-  } else if (worker == CARPENTER_TEXT) {
-    return WORKER_INDEX_CARPENTER;
-  } else {
-    return WORKER_INDEX_GUNSMITH;
-  }
-}
-*/
 
 //VER SI SE PUEDE PASAR UNA CONST REFERENCIA AL PROCESSOR
 
@@ -79,6 +62,7 @@ bool CollectorsAndProducers::_is_producer(std::string& worker_text){
   return false;
 }
 
+//Returns the Gatherer type constant that corresponds to the received string
 Gatherer CollectorsAndProducers::_convert_to_gatherer(std::string& gatherer_text){
   if (gatherer_text == FARMER_TEXT) {
     return GATHERER_FARMER;
@@ -89,6 +73,7 @@ Gatherer CollectorsAndProducers::_convert_to_gatherer(std::string& gatherer_text
   }
 }
 
+//Returns the Producer type constant that corresponds to the received string
 Producer CollectorsAndProducers::_convert_to_producer(std::string& producer_text){
   if (producer_text == COOKER_TEXT) {
     return PRODUCER_COOKER;
@@ -99,7 +84,8 @@ Producer CollectorsAndProducers::_convert_to_producer(std::string& producer_text
   }
 }
 
-
+//Determines the type of worker that was read and stores it in the
+//corresponding map after converting it to the corresponding type of worker
 void CollectorsAndProducers::_add_worker_ammount(
                                   std::map<Gatherer, int>& gatherers_ammounts,
                                   std::map<Producer, int>& producers_ammounts,
@@ -114,16 +100,15 @@ void CollectorsAndProducers::_add_worker_ammount(
   }
 }
 
+//Reads the file that containes the ammount of each type of worker and stores
+//the value in the corresponding container
 void CollectorsAndProducers::_load_workers_ammounts(std::ifstream& workers,
                                 std::map<Gatherer, int>& gatherers_ammounts,
                                 std::map<Producer, int>& producers_ammounts){
-
   std::string worker_type;
   std::string number_of_workers;
-
   std::getline(workers, worker_type, WORKER_NUMBER_SEPARATOR);
   std::getline(workers, number_of_workers);
-
   while (!workers.eof()) {
     _add_worker_ammount(gatherers_ammounts, producers_ammounts, worker_type,
                         number_of_workers);

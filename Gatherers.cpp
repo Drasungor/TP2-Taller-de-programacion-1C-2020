@@ -9,7 +9,7 @@
 #include "WorkersConstants.h"
 
 
-//VER SI CAMBIO POR UN MAP CON CLAVE RESOURCE Y VALOR GATHERER
+//Returns the gatherer that will take care of the received resource
 Gatherer Gatherers::_get_gatherer(Resource resource){
   switch (resource) {
     case RESOURCE_WHEAT:

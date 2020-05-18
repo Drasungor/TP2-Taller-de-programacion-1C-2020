@@ -24,6 +24,8 @@ public:
                  std::map<Resource, int>& resources_needed,
                  int number_of_producers, int points_produced);
 
+  ProducersGroup(const ProducersGroup&) = delete;
+
   ~ProducersGroup();
 
   //Waits for the threads to finish their executions and returns the number
