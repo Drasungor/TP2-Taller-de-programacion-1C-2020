@@ -7,7 +7,7 @@ Padrón: 102291
 URL: https://github.com/Drasungor/TP2-Taller-de-programacion-1C-2020.git
 
 
-## <u>Trabajo práctico No 2: Recolectores y productores</u>
+## <ins>Trabajo práctico No 2: Recolectores y productores</ins>
 
   El presente trabajo tiene el objetivo de describir el funcionamiento de una sección
 del programa realizado para cumlpir con la consigna de desarrollar un ejecutable que
