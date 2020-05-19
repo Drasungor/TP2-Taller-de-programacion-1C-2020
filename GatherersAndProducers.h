@@ -18,7 +18,6 @@ private:
 private:
   void _load_resources(std::ifstream& resources,
                        ResourcesProcessor& processor) const;
-  //int _get_workers_ammounts_index(std::string& worker) const;
   bool _is_gatherer(std::string& worker_text) const;
   bool _is_producer(std::string& worker_text) const;
   Gatherer _convert_to_gatherer(std::string& gatherer_text) const;
