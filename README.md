@@ -75,6 +75,14 @@ un GatherersGroup por cada tipo de recolector existente y a cada uno le
 proporciona la cantidad de recoletores que representa y la cola de la que
 sacará los recursos.
 
+### <ins>Diagramas</ins>
+
+&nbsp;&nbsp;&nbsp;&nbsp;A continuación se presentan gráficos que representan
+distintas partes del trabajo. Estos son:
+
+1. Diagrama de clases
+2. Elemento 2
+3. Elemento 3
 
 
 ![Diagrama_de_clases](/imgs/Diagrama_de_clases.png)
