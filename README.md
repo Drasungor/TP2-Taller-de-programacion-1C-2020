@@ -90,6 +90,7 @@ distintas partes del trabajo. Estos son:
 
 ![Diagrama_de_secuencia_guardado_de_recurso](/imgs/Guardado_de_recurso.png)
 
+![Diagrama_de_secuencia_consumo_de_un_recurso](/imgs/Consumo_de_recurso.png)
 
 Este es un ejemplo de texto que da entrada a una lista genérica de elementos:
 
