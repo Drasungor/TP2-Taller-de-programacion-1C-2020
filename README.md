@@ -80,12 +80,16 @@ sacará los recursos.
 &nbsp;&nbsp;&nbsp;&nbsp;A continuación se presentan gráficos que representan
 distintas partes del trabajo. Estos son:
 
-1. Diagrama de clases
-2. Elemento 2
+1. Diagrama de clases.
+2. Diagrama de secuencia del guardado de un recurso en el inventario sacando el
+   recurso de una cola bloqueante no cerrada.
 3. Elemento 3
 
 
 ![Diagrama_de_clases](/imgs/Diagrama_de_clases.png)
+
+![Diagrama_de_secuencia_guardado_de_recurso](/imgs/Guardado_de_recurso.png)
+
 
 Este es un ejemplo de texto que da entrada a una lista genérica de elementos:
 
