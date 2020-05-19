@@ -83,8 +83,8 @@ distintas partes del trabajo. Estos son:
 1. Diagrama de clases.
 2. Diagrama de secuencia del guardado de un único recurso en el inventario
    sacando el recurso de una cola bloqueante no cerrada.
-3. Elemento 3
-
+3. Diagrama de secuencia de un consumo de recursos del inventario no cerrado
+   para generar puntos de beneficio
 
 ![Diagrama_de_clases](/imgs/Diagrama_de_clases.png)
 
@@ -92,16 +92,12 @@ distintas partes del trabajo. Estos son:
 
 ![Diagrama_de_secuencia_consumo_de_un_recurso](/imgs/Consumo_de_recurso.png)
 
-Este es un ejemplo de texto que da entrada a una lista genérica de elementos:
+### <ins>Aclaraciones</ins>
 
-- Elemento 1
-- Elemento 2
-- Elemento 3
-
-Este es un ejemplo de texto que da entrada a una lista numerada:
-
-1. Elemento 1
-2. Elemento 2
-3. Elemento 3
-
-Al texto en Markdown puedes añadirle formato como **negrita** o *cursiva* de una manera muy sencilla.
+&nbsp;&nbsp;&nbsp;&nbsp;En los diagramas UML se puso que el scope de los
+constructores de GatherersGroup y ProducersGroup se encuentra en ejecución
+durante toda la ejecución de la llamada a la función que ejecuta el thread.
+Esto es erróneo pero fue dejado debido a limitaciones del programa utilizado
+para realizar los diagramas de secuencia. Los constructores terminan de
+ejecutarse antes de que termine de ejecutarse la función que se le deja al
+thread.
