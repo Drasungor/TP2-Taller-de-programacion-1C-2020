@@ -76,6 +76,9 @@ proporciona la cantidad de recoletores que representa y la cola de la que
 sacará los recursos.
 
 
+
+![Diagrama de clases](img/Diagrama de clases.jpg)
+
 Este es un ejemplo de texto que da entrada a una lista genérica de elementos:
 
 - Elemento 1
