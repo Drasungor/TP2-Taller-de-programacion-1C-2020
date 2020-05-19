@@ -77,7 +77,7 @@ sacará los recursos.
 
 
 
-![Diagrama_de_clases](img/Diagrama de clases.jpg)
+![Diagrama_de_clases](img/Diagrama de clases.png)
 
 Este es un ejemplo de texto que da entrada a una lista genérica de elementos:
 
