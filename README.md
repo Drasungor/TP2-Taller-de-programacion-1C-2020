@@ -81,8 +81,8 @@ sacará los recursos.
 distintas partes del trabajo. Estos son:
 
 1. Diagrama de clases.
-2. Diagrama de secuencia del guardado de un recurso en el inventario sacando el
-   recurso de una cola bloqueante no cerrada.
+2. Diagrama de secuencia del guardado de un único recurso en el inventario
+   sacando el recurso de una cola bloqueante no cerrada.
 3. Elemento 3
 
 
